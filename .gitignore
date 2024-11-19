@@ -1,0 +1,42 @@
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ambiente virtual
+venv/
+*.venv
+
+# Arquivos de configuração do IDE
+.vscode/
+
+# Arquivos de dependências
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# Banco de dados
+*.sqlite3
+
+# Arquivos do Redis
+*.pid
+*.sock
+
+# Arquivos de cache do Django
+*.cache
+
+# Arquivos de compilação Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Arquivos do PyCharm (se aplicável)
+.idea/
+
+# Arquivos do Django
+*.db
+*.log
