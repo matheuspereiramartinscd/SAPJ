@@ -1,0 +1,225 @@
+/* Garantir que o body e html ocupem toda a altura da tela */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100vh;
+    /* Garante que ocupe a altura total da tela */
+    width: 100%;
+    padding: 0;
+    /* Remove o padding para garantir que a imagem ocupe o espaço total */
+}
+
+/* Imagem de fundo ocupa toda a tela */
+.backgroundImage {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* A imagem vai cobrir toda a área */
+    object-position: center;
+    z-index: -1;
+    /* Coloca a imagem abaixo de todo o conteúdo */
+}
+
+/* Faixa preta para o header */
+.pageTitleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    /* Definir altura da faixa preta */
+    background-color: #000;
+    /* Cor preta para o fundo */
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    z-index: 1;
+    /* Garante que a faixa fique acima da imagem de fundo */
+}
+
+/* Título da página dentro da faixa preta */
+.pageTitle {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* Container do formulário de login */
+.loginFormContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-self: center;
+    min-height: 500px;
+    /* Reduzido para deixar a caixa mais compacta */
+    width: 500px;
+    /* Reduzido para tornar a caixa mais estreita */
+    max-width: 100%;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 180px;
+    /* Garante que fique abaixo da faixa preta */
+    padding: 27px 67px 50px;
+    /* Menos padding para reduzir a altura */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fundo branco com transparência */
+    border-radius: 8px;
+    z-index: 2;
+}
+
+
+/* Logo do sistema */
+.logoImage {
+    aspect-ratio: 2.73;
+    object-fit: contain;
+    object-position: center;
+    width: 224px;
+    align-self: center;
+    max-width: 100%;
+}
+
+/* Estilo do título do formulário de login */
+.loginTitle {
+    position: relative;
+    color: #000;
+    font-size: 40px;
+    align-self: center;
+    margin-top: 27px;
+}
+
+/* Estilo do subtítulo do formulário */
+.loginSubtitle {
+    position: relative;
+    color: #000;
+    font-size: 20px;
+    align-self: start;
+    margin-top: 43px;
+}
+
+/* Campos de entrada */
+.inputField {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 49px;
+    margin-top: 11px;
+    width: 100%;
+    color: #000;
+    padding: 16px 13px;
+    left: -13px;
+}
+
+/* Link para recuperação de senha */
+.forgotPassword {
+    position: relative;
+    color: #65c4ec;
+    align-self: start;
+    margin-top: 17px;
+}
+
+/* Estilo do botão de login */
+.loginButton {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    aspect-ratio: 4.38;
+    margin-top: 28px;
+    width: 219px;
+    max-width: 100%;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 70px;
+    background-color: #007bff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Mensagem de erro */
+.errorText {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Estilos para o link de cadastro */
+.signupPrompt {
+    position: relative;
+    align-self: start;
+    display: flex;
+    gap: 3px;
+    margin: 38px 0 -27px;
+}
+
+.signupText {
+    color: #000;
+    flex-grow: 1;
+}
+
+.signupLink {
+    color: #65c4ec;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Estilo para esconder elementos acessíveis */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Media Queries para ajustes em telas menores */
+@media (max-width: 991px) {
+    .loginContainer {
+        max-width: 100%;
+        padding: 0 20px 100px;
+    }
+
+    .pageTitle {
+        max-width: 100%;
+    }
+
+    .loginFormContainer {
+        margin: 40px 0 10px;
+        padding: 0 20px 100px;
+    }
+
+    .loginSubtitle {
+        margin-top: 40px;
+    }
+
+    .inputField {
+        max-width: 100%;
+        padding-right: 20px;
+    }
+
+    .loginButton {
+        padding: 0 20px;
+    }
+
+    .signupPrompt {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .loginContainer {
+        display: none;
+    }
+}
