@@ -1,0 +1,147 @@
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    font-weight: 400;
+    margin: 0;
+    position: relative;
+    overflow: auto;
+    background: url('https://cdn.builder.io/api/v1/image/assets/TEMP/67b82100b4c07688bec99ead095ae11e7a271c2515e8b42988e9d1c04e132687?placeholderIfAbsent=true&apiKey=6dd5f1c07ca94a1fb6a78e1e56b45e51') no-repeat center center fixed;
+    background-size: cover;
+    z-index: 0;
+    /* Garante que a imagem fique no fundo */
+}
+
+/* Formulário */
+.formWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 700px;
+    /* Reduz a largura máxima do formulário */
+    flex-direction: column;
+    z-index: 1;
+    /* Garante que o formulário fique acima da imagem */
+    justify-content: center;
+    align-items: center;
+    /* Centraliza o formulário horizontalmente */
+    margin-top: 60px;
+    /* Adiciona margem superior para o formulário */
+}
+
+/* Contêiner do formulário */
+.formContainer {
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255);
+    /* Fundo leve e suave */
+    padding: 40px;
+    border-radius: 12px;
+    /* Bordas mais arredondadas */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+    /* Sombra suave */
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+/* Título do formulário */
+.formTitle {
+    font-size: 32px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Campos do formulário */
+.formField {
+    position: relative;
+    margin-bottom: 20px;
+    /* Espaço entre os campos */
+    width: 100%;
+}
+
+/* Estilo para os inputs */
+.formField input {
+    width: 100%;
+    padding: 10px 1px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    color: #333;
+    margin-top: 10px;
+    background-color: #f8f8f8;
+    /* Cor de fundo mais suave */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Efeito suave para foco */
+}
+
+/* Placeholder */
+.formField input::placeholder {
+    font-style: italic;
+    color: #aaa;
+}
+
+/* Foco nos inputs */
+.formField input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botão de submit */
+.submitButton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 250px;
+    /* Reduz o tamanho do botão */
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 14px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito de hover no botão */
+.submitButton:hover {
+    background-color: #0056b3;
+}
+
+/* Nota de campos obrigatórios */
+.requiredNote {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+/* Título da página */
+.pageTitleContainer {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    z-index: 1;
+}
+
+/* Estilo do título da página */
+.pageTitle {
+    font-size: 30px;
+    font-weight: 700;
+}
