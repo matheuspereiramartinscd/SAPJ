@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './HomePage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
 
 function HomePage() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Remover o token do localStorage e redirecionar para a página de login
         localStorage.removeItem('token');
         navigate('/login');
     };
@@ -38,7 +37,6 @@ function HomePage() {
                     <FaPhoneAlt className={styles.contactIcon} />
                 </div>
             </header>
-
 
             {/* Main Layout */}
             <div className={styles.mainLayout}>
@@ -77,43 +75,43 @@ function HomePage() {
                 {/* Main Content */}
                 <main className={styles.mainContent}>
                     <div className={styles.cardsContainer}>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.homeCard}`}>
                             <FaHome className={styles.cardIcon} />
                             <h3>Home</h3>
                             <p>Visão geral do sistema.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.casosCard}`}>
                             <FaRegFileAlt className={styles.cardIcon} />
                             <h3>Casos</h3>
                             <p>Gerenciar casos pendentes.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.tarefasCard}`}>
                             <FaTasks className={styles.cardIcon} />
                             <h3>Tarefas</h3>
                             <p>Acompanhe suas tarefas diárias.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.dashboardCard}`}>
                             <FaChartLine className={styles.cardIcon} />
                             <h3>Dashboard</h3>
                             <p>Relatórios e gráficos do sistema.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.usuarioCard}`}>
                             <FaUser className={styles.cardIcon} />
                             <h3>Usuário</h3>
                             <p>Gerenciar informações do usuário.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
-                            <FaHandshake className={styles.cardIcon} />
+                        <div className={`${styles.card} ${styles.automacaoCard}`}>
+                            <FaHandshake className={styles.cardIcon} style={{ fontSize: '1000px' }} />
                             <h3>Automação</h3>
                             <p>Configurações de automação de processos.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={styles.card}>
+                        <div className={`${styles.card} ${styles.pagamentosCard}`}>
                             <FaFileInvoiceDollar className={styles.cardIcon} />
                             <h3>Pagamentos</h3>
                             <p>Gerenciar pagamentos e transações.</p>
