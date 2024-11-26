@@ -15,6 +15,7 @@ import DocumentManagementPage from './pages/DocumentManagementPage';
 import Notifications from './pages/Notifications';
 import AutomationPage from './pages/AutomationPage';
 import DashboardPage from './pages/DashboardPage';
+import ProcessRegisterPage from './pages/ProcessRegisterPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -36,6 +37,7 @@ root.render(
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/automation" element={<AutomationPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/processregister" element={<ProcessRegisterPage />} />
     </Routes>
   </Router>
 );
