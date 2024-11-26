@@ -19,10 +19,17 @@
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    /* Fixando altura */
     background-color: #000;
     color: white;
     padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logoContainer {

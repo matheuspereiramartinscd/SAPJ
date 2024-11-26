@@ -1,0 +1,492 @@
+/* ProcessDetailsPage.module.css */
+body {
+    overflow-x: hidden;
+    /* Impede rolagem horizontal */
+}
+
+/* Main Container */
+.processDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow-x: hidden;
+    /* Evitar rolagem horizontal aqui também */
+}
+
+/* Layout Principal */
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 60px;
+    /* Espaço para a sidebar */
+    max-width: 100%;
+    /* Impede que o layout ultrapasse a largura da tela */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Garante que a logo ocupe o espaço necessário sem quebrar o layout */
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Limitar o tamanho para que os ícones não ultrapassem a largura */
+    max-width: calc(100% - 150px);
+    /* Impede que a área do header ultrapasse */
+    overflow: hidden;
+    /* Previne que ícones ou outros elementos "saiam" da tela */
+}
+
+.textArea {
+    width: 250px;
+    margin-right: -500px;
+}
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transition: width 0.3s;
+    z-index: 500;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+/* Main Content */
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+/* Container para os botões e filtros */
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Botões */
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.buttonContainer .addButton,
+.buttonContainer .reportButton,
+.buttonContainer .backButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonContainer .addButton:hover,
+.buttonContainer .reportButton:hover,
+.buttonContainer .backButton:hover {
+    background-color: #d35400;
+}
+
+/* Caixas de Arquivamento */
+.filters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Tabela */
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.table td {
+    color: #555;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .table {
+        font-size: 14px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px 10px;
+    }
+}
+
+/* Details Section */
+.detailsSection {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.detailsSection h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.detailsSection p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.detailsSection p strong {
+    color: #e67e22;
+}
+
+/* Status Section */
+.statusSection {
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 300px;
+    margin-bottom: 20px;
+}
+
+.statusSection h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.statusSection p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.statusSection p strong {
+    color: #e67e22;
+}
+
+/* Attachments Section */
+.attachmentsSection {
+    width: 100%;
+}
+
+.attachmentsSection h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.attachmentsSection ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.attachmentsSection li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.attachmentsSection li a {
+    color: #e67e22;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.attachmentsSection li a:hover {
+    text-decoration: underline;
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.actions button {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background-color: #d35400;
+}
+
+.uploadButton {
+    background-color: #2ecc71;
+}
+
+.uploadButton:hover {
+    background-color: #27ae60;
+}
+
+.editButton,
+.archiveButton,
+.deleteButton {
+    background-color: #e67e22;
+}
+
+.editButton:hover,
+.archiveButton:hover,
+.deleteButton:hover {
+    background-color: #d35400;
+}
+
+/* Reorganizing the layout for the details page */
+.detailsWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Section for process data */
+.processDataSection {
+    flex: 2;
+    /* O processo ocupa mais espaço */
+}
+
+/* Section for status */
+.statusDataSection {
+    flex: 1;
+    /* Status ocupa menos espaço */
+}
+
+/* Section for notes */
+.notesSection {
+    flex: 2;
+    /* As anotações ocupam o mesmo espaço que o processo */
+}
+
+/* Layout for back button and other action buttons */
+.actionsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.contentBox {
+    border: 1px solid #ccc;
+    /* Cor da borda */
+    padding: 30px;
+    /* Aumentei o espaçamento interno para 30px */
+    margin: 20px;
+    /* Espaçamento entre a caixa e o restante do conteúdo */
+    border-radius: 8px;
+    /* Bordas arredondadas (opcional) */
+    background-color: #fff;
+    /* Cor de fundo da caixa */
+}
+
+/* Botão para salvar anotações */
+/* Seção para Anotações */
+.notesSection {
+    flex: 2;
+    /* As anotações ocupam o mesmo espaço que o processo */
+}
+
+/* Layout para o campo de anotações e o botão de salvar */
+.notesWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.textArea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.saveButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.saveButton:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo para anotações salvas */
+.savedAnnotations {
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.savedAnnotations h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.savedAnnotations p {
+    font-size: 14px;
+    color: #555;
+}
