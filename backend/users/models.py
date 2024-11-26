@@ -30,24 +30,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     login = models.CharField(max_length=150, unique=True)  # Este é o 'username'
     cpf = models.CharField(max_length=14, unique=True, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
-    password = models.CharField(max_length=128)  # A senha será armazenada com hash
+    password = models.CharField(max_length=128)  # Armazena a senha diretamente
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)  # Necessário para admin
 
-    # Adicionando o gerenciador personalizado
     objects = UserManager()
 
-    USERNAME_FIELD = 'login'  # Define 'login' como o campo de autenticação
-    REQUIRED_FIELDS = ['full_name', 'cpf', 'birth_date']  # Campos obrigatórios para criação de usuário
+    USERNAME_FIELD = 'login'
+    REQUIRED_FIELDS = ['full_name', 'cpf', 'birth_date']
 
-    # Relacionamentos com grupos e permissões
     groups = models.ManyToManyField(
         Group,
-        related_name='custom_user_groups',  # Adiciona um nome relacionado único
+        related_name='custom_user_groups',
         blank=True
     )
     user_permissions = models.ManyToManyField(
         Permission,
-        related_name='custom_user_permissions',  # Adiciona um nome relacionado único
+        related_name='custom_user_permissions',
         blank=True
     )
+
+    def set_password(self, raw_password):
+        """
+        Sobrescreve o método para salvar a senha sem hashing.
+        """
+        self.password = raw_password  # Salva a senha como texto puro
+
