@@ -1,0 +1,329 @@
+/* Página principal */
+.personDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background-color: #f3f4f6;
+    /* Cor de fundo leve */
+}
+
+/* Main Layout */
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.headerButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    /* Espaçamento entre os botões */
+}
+
+.headerButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    transition: width 0.3s;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+
+/* Main Content */
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 20px;
+    /* Maior espaçamento */
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Caixa central */
+.contentBox {
+    width: 90%;
+    max-width: 1100px;
+
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Detalhes da pessoa */
+.detailsWrapper {
+    display: flex;
+    gap: 15px;
+    margin-right: 45px;
+
+    /* Espaçamento reduzido */
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.personDataSection {
+    flex: 1;
+    min-width: 300px;
+
+
+    padding: 20px;
+
+}
+
+.attachmentsAndNotes {
+    flex: 1;
+    min-width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Attachments Section */
+.attachmentsSection {
+    width: 100%;
+    margin-right: 100px;
+}
+
+.attachmentsSection h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.attachmentsSection ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.attachmentsSection li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.attachmentsSection li a {
+    color: #e67e22;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.attachmentsSection li a:hover {
+    text-decoration: underline;
+}
+
+/* Botões */
+button {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    /* Botões maiores */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    /* Espaçamento entre os botões */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+    /* Efeito visual ao passar o mouse */
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* Alinha os botões à esquerda */
+    gap: 10px;
+    /* Espaçamento menor entre os botões */
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .detailsWrapper {
+        flex-direction: column;
+    }
+
+    .userPhoto {
+        width: 100px;
+        height: 100px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 10px;
+        /* Ajuste para telas menores */
+    }
+}
+
+
+/* Botão de Anexos */
+.uploadButton {
+    background-color: #27ae60;
+    /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.uploadButton:hover {
+    background-color: #2ecc71;
+    /* Verde mais claro */
+}
+
+/* Caixa de Texto (Anotações) */
+.textArea {
+    width: 100%;
+    /* Ocupa toda a largura disponível */
+    height: 150px;
+    /* Aumentado para mais espaço */
+    resize: vertical;
+    /* Permite redimensionar verticalmente */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão Salvar Anotações */
+.saveButton {
+    background-color: #3498db;
+    /* Azul */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 10px;
+    /* Espaço entre a caixa de texto e o botão */
+}
+
+.saveButton:hover {
+    background-color: #2980b9;
+    /* Azul mais escuro */
+}

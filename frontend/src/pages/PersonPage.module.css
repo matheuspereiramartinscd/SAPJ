@@ -1,0 +1,247 @@
+/* PersonPage.module.css */
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/* Main Layout */
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    transition: width 0.3s;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+/* Main Content */
+.pageHeader {
+    margin-bottom: 50px;
+}
+
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Main Content */
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+/* Container para os botões e filtros */
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Botões */
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.buttonContainer .addButton,
+.buttonContainer .reportButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonContainer .addButton:hover,
+.buttonContainer .reportButton:hover {
+    background-color: #d35400;
+}
+
+/* Caixas de Arquivamento */
+.filters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.table td {
+    color: #555;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .table {
+        font-size: 14px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px 10px;
+    }
+}
