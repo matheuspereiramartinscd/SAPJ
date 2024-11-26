@@ -1,0 +1,256 @@
+/* Estilo Geral */
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Header e Sidebar */
+
+/* Reutiliza estilos globais */
+
+/* Main Content */
+.mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centraliza horizontalmente */
+    justify-content: center;
+    /* Centraliza verticalmente */
+    padding: 20px;
+    gap: 20px;
+    height: calc(100vh - 300px);
+    /* Ajusta a altura, descontando o header */
+    box-sizing: border-box;
+}
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+
+    align-self: flex-end;
+    /* Alinha o botão à direita */
+    margin-top: 20px;
+    /* Espaçamento em relação aos cards */
+
+}
+
+.addButton:hover {
+    background-color: #229954;
+}
+
+
+
+/* Task Columns */
+.taskColumns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.taskColumn {
+    display: flex;
+    flex-direction: column;
+    /* Organiza os elementos na vertical */
+    justify-content: space-between;
+    /* Espaça os cards e o botão */
+    flex: 1;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.taskColumnContent {
+    flex-grow: 1;
+    /* Ocupa o espaço disponível para empurrar o botão para baixo */
+}
+
+.taskColumn h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Task Cards */
+.taskCard {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.taskCard h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.taskCard p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.deleteButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    /* Ajustando para que ocupe toda a altura */
+    transition: width 0.3s;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+/* Main Content */
+/* ProcessPage.module.css */
+
+/* Main Layout */
+
+.pageHeader {
+    margin-bottom: 50px;
+}

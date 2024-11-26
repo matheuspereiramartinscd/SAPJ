@@ -8,6 +8,14 @@ import UserRegistrationForm from './pages/UserRegistrationForm';
 import ProcessDetailsPage from './pages/ProcessDetailsPage';    // Importando HomePage como padrão
 import PersonPage from './pages/PersonPage';
 import PersonDetailsPage from './pages/PersonDetailsPage';
+import SearchPage from './pages/SearchPage';
+import TaskManagementPage from './pages/TaskManagementPage';
+import PaymentsPage from './pages/PaymentsPage';
+import DocumentManagementPage from './pages/DocumentManagementPage';
+import Notifications from './pages/Notifications';
+import AutomationPage from './pages/AutomationPage';
+import DashboardPage from './pages/DashboardPage';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,9 +26,16 @@ root.render(
       <Route path="/home" element={<HomePage />} />
       <Route path="/registration" element={<UserRegistrationForm />} />
       <Route path="/processpage" element={<ProcessPage />} />
-      <Route path="/process" element={<ProcessDetailsPage />} />
+      <Route path="/processdetails" element={<ProcessDetailsPage />} />
       <Route path="/personpage" element={<PersonPage />} />
       <Route path="/persondetails" element={<PersonDetailsPage />} />
+      <Route path="/search" element={<SearchPage />} />
+      <Route path="/tasks" element={<TaskManagementPage />} />
+      <Route path="/payments" element={<PaymentsPage />} />
+      <Route path="/documents" element={<DocumentManagementPage />} />
+      <Route path="/notifications" element={<Notifications />} />
+      <Route path="/automation" element={<AutomationPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   </Router>
 );
