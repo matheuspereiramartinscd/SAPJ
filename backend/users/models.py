@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 
+
 class UserManager(BaseUserManager):
     def create_user(self, login, password=None, full_name=None, cpf=None, birth_date=None, **extra_fields):
         """
@@ -8,9 +9,9 @@ class UserManager(BaseUserManager):
         """
         if not login:
             raise ValueError('O login é obrigatório')
-        
+
         user = self.model(login=login, full_name=full_name, cpf=cpf, birth_date=birth_date, **extra_fields)
-        user.set_password(password)  # Criptografa a senha
+        user.set_password(password)  # Usa hashing para a senha
         user.save(using=self._db)
         return user
 
@@ -29,7 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     login = models.CharField(max_length=150, unique=True)  # Este é o 'username'
     cpf = models.CharField(max_length=14, unique=True, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
-    password = models.CharField(max_length=128)  # A senha criptografada será armazenada aqui
+    password = models.CharField(max_length=128)  # A senha será armazenada com hash
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)  # Necessário para admin
 
@@ -50,5 +51,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name='custom_user_permissions',  # Adiciona um nome relacionado único
         blank=True
     )
-
-    

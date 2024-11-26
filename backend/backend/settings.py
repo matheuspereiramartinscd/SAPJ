@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
 ]
+# settings.py
+AUTH_USER_MODEL = 'users.User'  # Altere para o nome correto do seu app e modelo
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

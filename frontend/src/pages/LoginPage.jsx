@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-    const [login, setLogin] = useState('');  // Use 'login' em vez de 'email'
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -12,19 +12,21 @@ function LoginPage() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // Envia o 'login' (que pode ser email ou nome de usuário) e 'password'
-            const response = await axios.post('http://localhost:8000/api/token/', {
-                username: login,  // 'login' pode ser email ou nome de usuário
+            // Envia o 'login' e 'password' como esperado pelo backend
+            const response = await axios.post('http://localhost:8000/api/login/', {
+                login,
                 password,
             });
 
-            // Armazena o token no localStorage
-            localStorage.setItem('token', response.data.access);
-
-            // Redireciona para a página /home
+            // Sucesso: redireciona para a página inicial
             navigate('/home');
         } catch (err) {
-            setError('Credenciais inválidas');
+            // Erro: exibe mensagem apropriada
+            if (err.response && err.response.status === 400) {
+                setError('Credenciais inválidas. Verifique o login e a senha.');
+            } else {
+                setError('Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.');
+            }
         }
     };
 
@@ -109,7 +111,7 @@ function LoginPage() {
                     <p className={styles.signupText}>
                         Não possui conta?
                         <a
-                            href=""
+                            href="#"
                             className={styles.signupLink}
                             onClick={handleSignUpRedirect}
                         >
