@@ -180,41 +180,40 @@
 
 /* Color Scheme and Images for each card */
 .homeCard {
-    background-color: #3498db;
+    background-color: #2c3e50;
+    /* Azul marinho */
 }
-
-
 
 .casosCard {
-    background-color: #e74c3c;
+    background-color: #8e44ad;
+    /* Roxo escuro */
 }
-
-
 
 .tarefasCard {
-    background-color: #2ecc71;
+    background-color: #27ae60;
+    /* Verde escuro */
 }
-
-
 
 .dashboardCard {
-    background-color: #f39c12;
+    background-color: #c0392b;
+    /* Bordô */
 }
-
 
 .usuarioCard {
-    background-color: #9b59b6;
+    background-color: #34495e;
+    /* Azul acinzentado */
 }
-
 
 .automacaoCard {
     background-color: #1abc9c;
+    /* Verde água escuro */
 }
-
 
 .pagamentosCard {
-    background-color: #f1c40f;
+    background-color: #7f8c8d;
+    /* Cinza clássico */
 }
+
 
 
 

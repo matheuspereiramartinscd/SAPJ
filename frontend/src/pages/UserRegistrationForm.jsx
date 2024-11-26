@@ -1,11 +1,29 @@
 import React from 'react';
 import styles from './UserRegistrationForm.module.css';
-
+import axios from 'axios';
 export const UserRegistrationForm = () => {
-    const handleSubmit = (e) => {
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Lógica para enviar os dados do formulário
+        const userData = {
+            full_name: document.getElementById('fullName').value,
+            login: document.getElementById('login').value,
+            cpf: document.getElementById('cpf').value,
+            birth_date: document.getElementById('birthDate').value,
+            password: document.getElementById('password').value,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/register/', userData);
+            alert('Usuário cadastrado com sucesso!');
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response.data);
+            alert('Erro ao cadastrar usuário!');
+        }
     };
+
 
     return (
         <main className={styles.container}>

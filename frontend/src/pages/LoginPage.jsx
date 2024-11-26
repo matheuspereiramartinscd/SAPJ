@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');  // Use 'login' em vez de 'email'
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -12,20 +12,24 @@ function LoginPage() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // Chamada à API para login
+            // Envia o 'login' (que pode ser email ou nome de usuário) e 'password'
             const response = await axios.post('http://localhost:8000/api/token/', {
-                username: email,
+                username: login,  // 'login' pode ser email ou nome de usuário
                 password,
             });
 
-            // Armazenando o token JWT no localStorage
+            // Armazena o token no localStorage
             localStorage.setItem('token', response.data.access);
 
-            // Redireciona para a Home após o login bem-sucedido
+            // Redireciona para a página /home
             navigate('/home');
         } catch (err) {
             setError('Credenciais inválidas');
         }
+    };
+
+    const handleSignUpRedirect = () => {
+        navigate('/registration');
     };
 
     return (
@@ -62,19 +66,19 @@ function LoginPage() {
                 <h2 className={styles.loginTitle}>Iniciar sessão</h2>
 
                 <p className={styles.loginSubtitle}>
-                    Faça login com o seu e-mail
+                    Faça login com o seu e-mail ou nome de usuário
                 </p>
 
                 <form onSubmit={handleLogin}>
                     <div className={styles.inputField}>
-                        <label htmlFor="email" className={styles['visually-hidden']}>Email</label>
+                        <label htmlFor="login" className={styles['visually-hidden']}>Login</label>
                         <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="matheuspereiramartins1993@gmail.com"
-                            aria-label="Email"
+                            type="text"
+                            id="login"
+                            value={login}
+                            onChange={(e) => setLogin(e.target.value)}
+                            placeholder="Email ou nome de usuário"
+                            aria-label="Login"
                         />
                     </div>
 
@@ -102,8 +106,16 @@ function LoginPage() {
                 </form>
 
                 <div className={styles.signupPrompt}>
-                    <p className={styles.signupText}>Não possui conta? <a href="#" className={styles.signupLink}>Cadastre-se!</a></p>
-
+                    <p className={styles.signupText}>
+                        Não possui conta?
+                        <a
+                            href=""
+                            className={styles.signupLink}
+                            onClick={handleSignUpRedirect}
+                        >
+                            Cadastre-se!
+                        </a>
+                    </p>
                 </div>
             </section>
         </main>
