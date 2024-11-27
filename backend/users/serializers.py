@@ -50,6 +50,8 @@ class ProcessoSerializer(serializers.ModelSerializer):
         return value
 
 class PessoaSerializer(serializers.ModelSerializer):
+    tipo = serializers.ChoiceField(choices=[('Fisica', 'Física'), ('Juridica', 'Jurídica')])  # Use os valores sem acento nas escolhas
+
     class Meta:
         model = Pessoa
-        fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado']
+        fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado', 'tipo']

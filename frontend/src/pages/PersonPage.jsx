@@ -48,14 +48,14 @@ function PersonPage() {
             filtered = people;
         } else if (isFisica) {
             // Mostrar apenas pessoas físicas
-            filtered = people.filter(person => person.tipo === 'Física');
+            filtered = people.filter(person => person.tipo === 'Fisica'); // Valor correto sem acento
         } else if (isJuridica) {
             // Mostrar apenas pessoas jurídicas
-            filtered = people.filter(person => person.tipo === 'Jurídica');
+            filtered = people.filter(person => person.tipo === 'Juridica'); // Valor correto sem acento
         }
 
         setFilteredPeople(filtered);
-    }, [isFisica, isJuridica, people]); // Atualiza os filtros sempre que mudar
+    }, [isFisica, isJuridica, people]);
 
     const handleLogout = () => {
         // Remover o token do localStorage e redirecionar para a página de login
@@ -67,11 +67,10 @@ function PersonPage() {
         setIsFisica(e.target.checked);
     };
 
-
-
     const handleSelectJuridica = (e) => {
         setIsJuridica(e.target.checked);
     };
+
 
     const handleEdit = (id) => {
         console.log(`Editar pessoa com ID: ${id}`);
@@ -79,7 +78,7 @@ function PersonPage() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/people/${id}/`, {
+            const response = await fetch(`http://localhost:8000/api/pessoas/${id}/`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -225,13 +224,13 @@ function PersonPage() {
                                         <td>
                                             <button
                                                 className={styles.logoutButton}
-                                                onClick={() => handleViewDetails(process.id)}
+                                                onClick={() => handleViewDetails(person.id)}
                                             >
                                                 Detalhes
                                             </button>
                                             <button
                                                 className={styles.logoutButton2}
-                                                onClick={() => handleDelete(process.id)}
+                                                onClick={() => handleDelete(person.id)}
                                             >
                                                 Excluir
                                             </button>

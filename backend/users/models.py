@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.password = raw_password  # Salva a senha sem hashing
 
     def __str__(self):
-        return self.login # Armazena a senha de forma segura
+        return self.login  # Armazena a senha de forma segura
 
 
 class Processo(models.Model):
@@ -89,7 +89,6 @@ class Processo(models.Model):
         return f"{self.codigo} - {self.numero}"
 
 
-
 class Pessoa(models.Model):
     codigo = models.CharField(max_length=10)
     nome = models.CharField(max_length=100)
@@ -99,7 +98,11 @@ class Pessoa(models.Model):
     email = models.EmailField(blank=True, null=True)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
-    tipo = models.CharField(max_length=20, choices=[('Fisica', 'Física'), ('Juridica', 'Jurídica')])  # Campo tipo
+    
+    tipo = models.CharField(
+        max_length=20,
+        choices=[('Fisica', 'Física'), ('Juridica', 'Jurídica')]  # Aqui agora aceita 'Física' e 'Jurídica' com acento
+    )
 
     def __str__(self):
         return self.nome

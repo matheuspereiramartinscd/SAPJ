@@ -13,7 +13,7 @@ function PersonRegisterPage() {
         email: '',
         cidade: '',
         estado: '',
-        tipo: 'Física', // Adicionando o tipo padrão
+        tipo: 'Fisica', // Tipo padrão
     });
 
     const navigate = useNavigate();
@@ -32,6 +32,7 @@ function PersonRegisterPage() {
         e.preventDefault();
 
         try {
+            // Enviando dados para a API
             const response = await fetch('http://127.0.0.1:8000/api/pessoas/registrar/', {
                 method: 'POST',
                 headers: {
@@ -51,9 +52,9 @@ function PersonRegisterPage() {
                     email: '',
                     cidade: '',
                     estado: '',
-                    tipo: 'Física', // Resetando o tipo para o padrão
+                    tipo: 'Fisica', // Resetando o tipo para o padrão
                 });
-                navigate('/personpage');
+                navigate('/personpage'); // Redireciona para a página de pessoas
             } else {
                 const errorData = await response.json();
                 alert('Erro: ' + JSON.stringify(errorData));
@@ -89,9 +90,8 @@ function PersonRegisterPage() {
                     <FaPhoneAlt className={styles.contactIcon} />
                 </div>
             </header>
-            {/* Main Layout */}
+
             <div className={styles.mainLayout}>
-                {/* Sidebar */}
                 <nav className={styles.sidebar}>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
                         <FaHome className={styles.icon} />
@@ -122,7 +122,7 @@ function PersonRegisterPage() {
                         <span>Pagamentos</span>
                     </div>
                 </nav>
-                {/* Formulário */}
+
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Registrar Pessoa</h1>
@@ -217,8 +217,8 @@ function PersonRegisterPage() {
                                     className={styles.tipoSelect}
                                     required
                                 >
-                                    <option value="Física">Física</option>
-                                    <option value="Jurídica">Jurídica</option>
+                                    <option value="Fisica">Fisica</option>
+                                    <option value="Juridica">Juridica</option>
                                 </select>
                             </label>
                             <button type="submit" className={styles.submitButton}>
