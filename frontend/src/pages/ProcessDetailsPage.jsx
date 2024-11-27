@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';  // Importação do axios
 import styles from './ProcessDetailsPage.module.css';
 import { FaEdit, FaArchive, FaTrashAlt, FaFileUpload, FaArrowLeft, FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function ProcessDetailsPage() {
     const navigate = useNavigate();
+    const { id } = useParams();  // Pega o ID do processo pela URL
+    const [processo, setProcesso] = useState(null);
     const [annotations, setAnnotations] = useState('');
     const [savedAnnotations, setSavedAnnotations] = useState('');
+
+    // Função que chama a API para carregar os detalhes do processo
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/processes/details/${id}/`)  // Substitua pela URL da sua API
+            .then(response => {
+                setProcesso(response.data);  // Armazena os dados do processo na variável de estado
+                setAnnotations(response.data.anotacoes || '');  // Caso haja anotações, já carrega
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os dados do processo:', error);
+            });
+    }, [id]);
 
     const handleChangeAnnotations = (e) => {
         setAnnotations(e.target.value);
     };
 
     const handleSaveAnnotations = () => {
-        // Simular envio de anotações
         setSavedAnnotations(annotations);
         console.log('Anotações enviadas:', annotations);
-    };
-
-    const handleEdit = () => {
-        console.log('Editando processo...');
-    };
-
-    const handleArchive = () => {
-        console.log('Arquivando processo...');
-    };
-
-    const handleDelete = () => {
-        console.log('Excluindo processo...');
     };
 
     const handleAttachFiles = () => {
@@ -35,8 +37,12 @@ function ProcessDetailsPage() {
     };
 
     const handleGoBack = () => {
-        navigate('/processpage');
+        navigate('/processpage');  // Navega de volta para a página de processos
     };
+
+    if (!processo) {
+        return <div>Carregando...</div>;  // Exibe "Carregando..." enquanto os dados não estão disponíveis
+    }
 
     return (
         <div className={styles.processDetailsContainer}>
@@ -111,31 +117,31 @@ function ProcessDetailsPage() {
                             <div className={styles.processDataSection}>
                                 <div className={styles.detailsSection}>
                                     <h2>Dados do Processo</h2>
-                                    <p><strong>ID:</strong> 001</p>
-                                    <p><strong>Cliente:</strong> João Silva</p>
-                                    <p><strong>Número Atual:</strong> 12345</p>
-                                    <p><strong>Número Original:</strong> 54321</p>
-                                    <p><strong>Procedimento:</strong> Ação de Cobrança</p>
-                                    <p><strong>Tribunal:</strong> Tribunal de Justiça</p>
-                                    <p><strong>Foro:</strong> Foro de São Paulo</p>
-                                    <p><strong>Comarca:</strong> São Paulo</p>
-                                    <p><strong>Vara:</strong> 3ª Vara Cível</p>
-                                    <p><strong>Pastas Ativas:</strong> 5</p>
-                                    <p><strong>Pastas Arquivadas:</strong> 2</p>
-                                    <p><strong>Honorários:</strong> R$ 2.000,00</p>
-                                    <p><strong>Porcentagem:</strong> 10%</p>
-                                    <p><strong>Valor da Causa:</strong> R$ 50.000,00</p>
+                                    <p><strong>ID:</strong> {processo.id}</p>
+                                    <p><strong>Cliente:</strong> {processo.cliente}</p>
+                                    <p><strong>Número Atual:</strong> {processo.numeroAtual}</p>
+                                    <p><strong>Número Original:</strong> {processo.numeroOriginal}</p>
+                                    <p><strong>Procedimento:</strong> {processo.procedimento}</p>
+                                    <p><strong>Tribunal:</strong> {processo.tribunal}</p>
+                                    <p><strong>Foro:</strong> {processo.foro}</p>
+                                    <p><strong>Comarca:</strong> {processo.comarca}</p>
+                                    <p><strong>Vara:</strong> {processo.vara}</p>
+                                    <p><strong>Pastas Ativas:</strong> {processo.pastasAtivas}</p>
+                                    <p><strong>Pastas Arquivadas:</strong> {processo.pastasArquivadas}</p>
+                                    <p><strong>Honorários:</strong> {processo.honorarios}</p>
+                                    <p><strong>Porcentagem:</strong> {processo.porcentagem}</p>
+                                    <p><strong>Valor da Causa:</strong> {processo.valorCausa}</p>
                                 </div>
                             </div>
 
                             <div className={styles.statusDataSection}>
                                 <div className={styles.statusSection}>
                                     <h2>Status</h2>
-                                    <p><strong>Status:</strong> Em andamento</p>
-                                    <p><strong>Desfecho:</strong> Pendente</p>
-                                    <p><strong>Resultado do Recurso:</strong> Aguardando julgamento</p>
-                                    <p><strong>Último Evento:</strong> Audiência agendada para 01/12/2024</p>
-                                    <p><strong>Últimos Andamentos:</strong> Documento enviado ao juiz</p>
+                                    <p><strong>Status:</strong> {processo.status}</p>
+                                    <p><strong>Desfecho:</strong> {processo.desfecho}</p>
+                                    <p><strong>Resultado do Recurso:</strong> {processo.resultadoRecurso}</p>
+                                    <p><strong>Último Evento:</strong> {processo.ultimoEvento}</p>
+                                    <p><strong>Últimos Andamentos:</strong> {processo.ultimosAndamentos}</p>
                                 </div>
                             </div>
 
@@ -172,9 +178,9 @@ function ProcessDetailsPage() {
                             <button onClick={handleGoBack} className={styles.backButton}>
                                 <FaArrowLeft /> Voltar
                             </button>
-                            <button onClick={handleEdit} className={styles.editButton}><FaEdit /> Editar</button>
-                            <button onClick={handleArchive} className={styles.archiveButton}><FaArchive /> Arquivar Processo</button>
-                            <button onClick={handleDelete} className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
+                            <button className={styles.editButton}><FaEdit /> Editar</button>
+                            <button className={styles.archiveButton}><FaArchive /> Arquivar Processo</button>
+                            <button className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
                         </div>
                     </div>
                 </main>

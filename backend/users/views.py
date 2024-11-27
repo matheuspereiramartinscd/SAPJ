@@ -2,12 +2,11 @@ from django.contrib.auth import login as django_login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer, LoginSerializer
-from .models import User
-from .models import Processo
+from .serializers import UserSerializer, LoginSerializer, ProcessoSerializer
+from .models import User, Processo
 from rest_framework.decorators import api_view
-from .serializers import ProcessoSerializer
 from django.http import JsonResponse
+from rest_framework.exceptions import NotFound
 
 class UserRegistrationView(APIView):
     def post(self, request):
@@ -35,6 +34,7 @@ class UserLoginView(APIView):
                 return Response({"detail": "Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             return Response({"detail": "Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def register_process(request):
@@ -64,9 +64,6 @@ def register_process(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import Processo
 
 @api_view(['GET'])
 def get_processes(request):
@@ -84,6 +81,7 @@ def get_processes(request):
     serializer = ProcessoSerializer(queryset, many=True)
     return Response(serializer.data)
 
+
 @api_view(['DELETE'])
 def delete_process(request, id):
     try:
@@ -91,7 +89,8 @@ def delete_process(request, id):
         processo.delete()  # Deleta o processo
         return JsonResponse({'message': 'Processo excluído com sucesso'}, status=204)  # Retorna sucesso
     except Processo.DoesNotExist:
-        raise Http404("Processo não encontrado")  # Se não encontrar o processo, retorna erro 404
+        return JsonResponse({'error': 'Processo não encontrado'}, status=404)  # Retorna erro se não encontrado
+
 
 @api_view(['PUT'])
 def edit_process(request, id):
@@ -105,3 +104,15 @@ def edit_process(request, id):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProcessDetails(APIView):
+    def get(self, request, pk, format=None):
+        try:
+            processo = Processo.objects.get(pk=pk)
+        except Processo.DoesNotExist:
+            return Response({"error": "Processo não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ProcessoSerializer(processo)
+        return Response(serializer.data)
+

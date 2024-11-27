@@ -115,6 +115,10 @@ function ProcessPage() {
         }
     };
 
+    const handleViewDetails = (id) => {
+        navigate(`/process/details/${id}`);
+    };
+
     return (
         <div className={styles.homeContainer}>
             {/* Header */}
@@ -236,17 +240,18 @@ function ProcessPage() {
                                         <td>{process.cliente}</td>
                                         <td>{process.status}</td>
                                         <td>
-                                            <button
-                                                className={styles.editButton}
-                                                onClick={() => handleEdit(process.id)}
-                                            >
-                                                Editar
-                                            </button>
+
                                             <button
                                                 className={styles.deleteButton}
                                                 onClick={() => handleDelete(process.id)}
                                             >
                                                 Excluir
+                                            </button>
+                                            <button
+                                                className={styles.viewButton}
+                                                onClick={() => handleViewDetails(process.id)}
+                                            >
+                                                Detalhes
                                             </button>
                                         </td>
                                     </tr>

@@ -31,6 +31,8 @@ root.render(
       <Route path="/processdetails" element={<ProcessDetailsPage />} />
       <Route path="/personpage" element={<PersonPage />} />
       <Route path="/persondetails" element={<PersonDetailsPage />} />
+      <Route path="/processdetails/:id" element={<ProcessDetailsPage />} />
+
       <Route path="/search" element={<SearchPage />} />
       <Route path="/tasks" element={<TaskManagementPage />} />
       <Route path="/payments" element={<PaymentsPage />} />
@@ -39,7 +41,7 @@ root.render(
       <Route path="/automation" element={<AutomationPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/processregister" element={<ProcessRegisterPage />} />
-      <Route path="/processupdate" element={<ProcessRegisterPage />} />
+      <Route path="/processes/details/:id" element={<ProcessDetailsPage />} />
     </Routes>
   </Router>
 );
