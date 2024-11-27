@@ -14,11 +14,12 @@ import { useNavigate } from 'react-router-dom';
 
 function ProcessPage() {
     const [processes, setProcesses] = useState([]); // Armazenar os processos
+    const [filteredProcesses, setFilteredProcesses] = useState([]); // Armazenar processos filtrados
     const [isArchived, setIsArchived] = useState(false);
     const [isOngoing, setIsOngoing] = useState(false);
     const navigate = useNavigate();
 
-    // Buscar os processos da API com base nos filtros
+    // Buscar os processos da API
     useEffect(() => {
         const fetchProcesses = async () => {
             const token = localStorage.getItem('token');
@@ -27,13 +28,8 @@ function ProcessPage() {
                 return;
             }
 
-            const filters = {
-                archived: isArchived,
-                ongoing: isOngoing,
-            };
-
             try {
-                const response = await fetch('http://localhost:8000/api/processes/list/', {  // Nova URL para lista de processos
+                const response = await fetch('http://localhost:8000/api/processes/list/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -44,6 +40,7 @@ function ProcessPage() {
                 if (response.ok) {
                     const data = await response.json();
                     setProcesses(data);
+                    setFilteredProcesses(data); // Inicializa a lista filtrada com todos os processos
                 } else {
                     alert('Erro ao buscar processos');
                 }
@@ -53,7 +50,27 @@ function ProcessPage() {
         };
 
         fetchProcesses();
-    }, [isArchived, isOngoing, navigate]);
+    }, [navigate]);
+
+    // Filtros para processos arquivados ou em andamento
+    useEffect(() => {
+        let filtered = processes;
+
+        if (isArchived && isOngoing) {
+            // Mostrar apenas processos que estão arquivados ou em andamento
+            filtered = processes.filter(
+                (process) => process.status === 'Arquivado' || process.status === 'Em andamento'
+            );
+        } else if (isArchived) {
+            // Mostrar apenas processos arquivados
+            filtered = processes.filter((process) => process.status === 'Arquivado');
+        } else if (isOngoing) {
+            // Mostrar apenas processos em andamento
+            filtered = processes.filter((process) => process.status === 'Em andamento');
+        }
+
+        setFilteredProcesses(filtered);
+    }, [isArchived, isOngoing, processes]); // Atualiza os filtros sempre que mudar
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -75,7 +92,7 @@ function ProcessPage() {
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`http://localhost:8000/api/processes/${id}/`, {
-                method: 'DELETE',  // Certifique-se de que o método é 'DELETE'
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -85,6 +102,9 @@ function ProcessPage() {
                 alert('Processo excluído com sucesso');
                 // Atualiza a lista de processos removendo o processo excluído diretamente do estado
                 setProcesses((prevProcesses) =>
+                    prevProcesses.filter((process) => process.id !== id)
+                );
+                setFilteredProcesses((prevProcesses) =>
                     prevProcesses.filter((process) => process.id !== id)
                 );
             } else {
@@ -205,8 +225,8 @@ function ProcessPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {processes.length > 0 ? (
-                                processes.map((process) => (
+                            {filteredProcesses.length > 0 ? (
+                                filteredProcesses.map((process) => (
                                     <tr key={process.id}>
                                         <td>{process.codigo}</td>
                                         <td>{process.numero}</td>
