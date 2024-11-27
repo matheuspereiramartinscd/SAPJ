@@ -13,6 +13,7 @@ function PersonRegisterPage() {
         email: '',
         cidade: '',
         estado: '',
+        tipo: 'Física', // Adicionando o tipo padrão
     });
 
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function PersonRegisterPage() {
     // Função para lidar com a mudança nos campos do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
+        setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
@@ -31,7 +32,7 @@ function PersonRegisterPage() {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/pessoas/registrar/', {  // Certifique-se de usar o caminho completo da API
+            const response = await fetch('http://127.0.0.1:8000/api/pessoas/registrar/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,6 +51,7 @@ function PersonRegisterPage() {
                     email: '',
                     cidade: '',
                     estado: '',
+                    tipo: 'Física', // Resetando o tipo para o padrão
                 });
                 navigate('/personpage');
             } else {
@@ -120,7 +122,7 @@ function PersonRegisterPage() {
                         <span>Pagamentos</span>
                     </div>
                 </nav>
-                {/* Formulario */}
+                {/* Formulário */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Registrar Pessoa</h1>
@@ -206,7 +208,19 @@ function PersonRegisterPage() {
                                     required
                                 />
                             </label>
-
+                            <label className={styles.tipoPessoa}>
+                                Tipo de Pessoa:
+                                <select
+                                    name="tipo"
+                                    value={formData.tipo}
+                                    onChange={handleChange}
+                                    className={styles.tipoSelect}
+                                    required
+                                >
+                                    <option value="Física">Física</option>
+                                    <option value="Jurídica">Jurídica</option>
+                                </select>
+                            </label>
                             <button type="submit" className={styles.submitButton}>
                                 Registrar
                             </button>
@@ -217,7 +231,6 @@ function PersonRegisterPage() {
                             >
                                 Voltar
                             </button>
-
                         </form>
                     </div>
                 </main>
