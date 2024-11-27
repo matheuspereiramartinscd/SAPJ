@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
             raise ValueError('O login é obrigatório')
 
         user = self.model(login=login, full_name=full_name, cpf=cpf, birth_date=birth_date, **extra_fields)
-        user.set_password(password)  # Usa hashing para a senha
+        user.password = password  # Não criptografa a senha
         user.save(using=self._db)
         return user
 
@@ -49,11 +49,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
+    # Remover ou alterar o método set_password para não criptografar a senha
     def set_password(self, raw_password):
         """
-        Sobrescreve o método para salvar a senha com hashing.
+        Método vazio ou sem criptografia.
         """
-        self.password = self.make_random_password(raw_password)  # Armazena a senha de forma segura
+        self.password = raw_password  # Salva a senha sem hashing
+
+    def __str__(self):
+        return self.login # Armazena a senha de forma segura
 
 
 class Processo(models.Model):
