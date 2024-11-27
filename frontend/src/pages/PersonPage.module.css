@@ -64,6 +64,37 @@
     gap: 15px;
 }
 
+
+/* Botões */
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+.buttonContainer .addButton:hover,
+.buttonContainer .reportButton:hover {
+    background-color: #d35400;
+}
+
+.editButton {
+    background-color: #3498db;
+}
+
+.editButton:hover {
+    background-color: #2980b9;
+}
+
+.deleteButton {
+    background-color: #e74c3c;
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
+}
+
+
 .editButton,
 .logoutButton {
     background-color: #e67e22;
@@ -182,6 +213,21 @@
 .buttonContainer .addButton:hover,
 .buttonContainer .reportButton:hover {
     background-color: #d35400;
+}
+
+.logoutButton2 {
+    background-color: #e62c22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.logoutButton2:hover {
+    background-color: #d31c00;
 }
 
 /* Caixas de Arquivamento */

@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.exceptions import NotFound
 from .serializers import PessoaSerializer
+from .models import Pessoa 
 
 class UserRegistrationView(APIView):
     def post(self, request):
@@ -151,3 +152,4 @@ def listar_pessoas(request):
     pessoas = Pessoa.objects.all()
     serializer = PessoaSerializer(pessoas, many=True)
     return Response(serializer.data)
+    
