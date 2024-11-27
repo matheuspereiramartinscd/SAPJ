@@ -22,17 +22,10 @@ function ProcessPage() {
     // Buscar os processos da API
     useEffect(() => {
         const fetchProcesses = async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                navigate('/login');
-                return;
-            }
-
             try {
                 const response = await fetch('http://localhost:8000/api/processes/list/', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
                 });
@@ -50,7 +43,7 @@ function ProcessPage() {
         };
 
         fetchProcesses();
-    }, [navigate]);
+    }, []);
 
     // Filtros para processos arquivados ou em andamento
     useEffect(() => {
