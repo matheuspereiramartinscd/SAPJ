@@ -67,6 +67,8 @@ function PersonPage() {
         setIsFisica(e.target.checked);
     };
 
+
+
     const handleSelectJuridica = (e) => {
         setIsJuridica(e.target.checked);
     };
@@ -171,7 +173,11 @@ function PersonPage() {
                     {/* Top Section */}
                     <div className={styles.topSection}>
                         <div className={styles.buttonContainer}>
-                            <button className={styles.addButton}>Cadastrar Pessoa</button>
+                            <button
+                                className={styles.addButton}
+                                onClick={() => navigate('/personregister')}>
+                                Cadastrar Pessoa
+                            </button>
                             <button className={styles.reportButton}>Gerar Relatório</button>
                         </div>
 

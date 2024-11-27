@@ -1,8 +1,8 @@
 .homeContainer {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     font-family: Arial, sans-serif;
+    height: 100%;
 }
 
 /* Main Layout */
@@ -12,6 +12,7 @@
 }
 
 /* Header */
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -20,6 +21,14 @@
     background-color: #000;
     color: white;
     padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logoContainer {
@@ -55,6 +64,14 @@
     align-items: center;
     gap: 15px;
 }
+
+
+/* Botões */
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+}
+
 
 .editButton,
 .logoutButton {
