@@ -56,3 +56,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         self.password = raw_password  # Salva a senha como texto puro
 
+
+class Processo(models.Model):
+    codigo = models.CharField(max_length=50)
+    numero = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=100)
+    acao = models.CharField(max_length=200)
+    comarca = models.CharField(max_length=100)
+    cliente = models.CharField(max_length=100)
+    status = models.CharField(max_length=50, choices=[('Em andamento', 'Em andamento'), ('Arquivado', 'Arquivado')])
+
+    def __str__(self):
+        return f"{self.codigo} - {self.numero}"

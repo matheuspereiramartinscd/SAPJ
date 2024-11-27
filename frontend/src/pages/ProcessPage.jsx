@@ -1,15 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ProcessPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import {
+    FaHome,
+    FaRegFileAlt,
+    FaTasks,
+    FaChartLine,
+    FaUser,
+    FaHandshake,
+    FaFileInvoiceDollar,
+    FaPhoneAlt,
+} from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function ProcessPage() {
+    const [processes, setProcesses] = useState([]); // Armazenar os processos
     const [isArchived, setIsArchived] = useState(false);
     const [isOngoing, setIsOngoing] = useState(false);
     const navigate = useNavigate();
 
+    // Buscar os processos da API com base nos filtros
+    useEffect(() => {
+        const fetchProcesses = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/login');
+                return;
+            }
+
+            const filters = {
+                archived: isArchived,
+                ongoing: isOngoing,
+            };
+
+            try {
+                const response = await fetch('http://localhost:8000/api/processes/list/', {  // Nova URL para lista de processos
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setProcesses(data);
+                } else {
+                    alert('Erro ao buscar processos');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar processos:', error);
+            }
+        };
+
+        fetchProcesses();
+    }, [isArchived, isOngoing, navigate]);
+
     const handleLogout = () => {
-        // Remover o token do localStorage e redirecionar para a página de login
         localStorage.removeItem('token');
         navigate('/login');
     };
@@ -20,6 +66,33 @@ function ProcessPage() {
 
     const handleSelectOngoing = (e) => {
         setIsOngoing(e.target.checked);
+    };
+
+    const handleEdit = (id) => {
+        console.log(`Editar processo com ID: ${id}`);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/processes/${id}/`, {
+                method: 'DELETE',  // Certifique-se de que o método é 'DELETE'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                alert('Processo excluído com sucesso');
+                // Atualiza a lista de processos removendo o processo excluído diretamente do estado
+                setProcesses((prevProcesses) =>
+                    prevProcesses.filter((process) => process.id !== id)
+                );
+            } else {
+                alert('Erro ao excluir processo');
+            }
+        } catch (error) {
+            console.error('Erro ao excluir processo:', error);
+        }
     };
 
     return (
@@ -40,7 +113,9 @@ function ProcessPage() {
 
                 <div className={styles.headerRight}>
                     <button className={styles.editButton}>Editar</button>
-                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
+                    <button onClick={handleLogout} className={styles.logoutButton}>
+                        Sair
+                    </button>
                     <div className={styles.userInfo}>
                         <FaUser className={styles.userIcon} />
                         <span>Usuário</span>
@@ -89,7 +164,6 @@ function ProcessPage() {
                         <h1>Gestão de Processos</h1>
                     </header>
 
-                    {/* Top Section: Botões à esquerda e filtros à direita */}
                     <div className={styles.topSection}>
                         <div className={styles.buttonContainer}>
                             <button className={styles.addButton}>Cadastrar Processo</button>
@@ -116,39 +190,52 @@ function ProcessPage() {
                         </div>
                     </div>
 
-                    {/* Tabela */}
+                    {/* Tabela de Processos */}
                     <table className={styles.table}>
                         <thead>
                             <tr>
                                 <th>Código</th>
                                 <th>Número</th>
-                                <th>Tipos</th>
+                                <th>Tipo</th>
                                 <th>Ação do Processo</th>
                                 <th>Comarca</th>
                                 <th>Cliente</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Exemplo de linha de dados */}
-                            <tr>
-                                <td>001</td>
-                                <td>12345</td>
-                                <td>Tipo 1</td>
-                                <td>Ação Exemplo</td>
-                                <td>Comarca X</td>
-                                <td>Cliente Y</td>
-                                <td>Em andamento</td>
-                            </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>67890</td>
-                                <td>Tipo 2</td>
-                                <td>Ação Exemplo 2</td>
-                                <td>Comarca Y</td>
-                                <td>Cliente Z</td>
-                                <td>Arquivado</td>
-                            </tr>
+                            {processes.length > 0 ? (
+                                processes.map((process) => (
+                                    <tr key={process.id}>
+                                        <td>{process.codigo}</td>
+                                        <td>{process.numero}</td>
+                                        <td>{process.tipo}</td>
+                                        <td>{process.acao}</td>
+                                        <td>{process.comarca}</td>
+                                        <td>{process.cliente}</td>
+                                        <td>{process.status}</td>
+                                        <td>
+                                            <button
+                                                className={styles.editButton}
+                                                onClick={() => handleEdit(process.id)}
+                                            >
+                                                Editar
+                                            </button>
+                                            <button
+                                                className={styles.deleteButton}
+                                                onClick={() => handleDelete(process.id)}
+                                            >
+                                                Excluir
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="8">Nenhum processo encontrado</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </main>

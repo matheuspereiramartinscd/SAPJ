@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from .models import Processo
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -19,9 +20,14 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-from rest_framework import serializers
+
 
 
 class LoginSerializer(serializers.Serializer):
     login = serializers.CharField()
     password = serializers.CharField(write_only=True)
+
+class ProcessoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Processo
+        fields = ['id', 'codigo', 'numero', 'tipo', 'acao', 'comarca', 'cliente', 'status']
