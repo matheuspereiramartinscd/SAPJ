@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 
-
 class UserManager(BaseUserManager):
     def create_user(self, login, password=None, full_name=None, cpf=None, birth_date=None, **extra_fields):
         """
@@ -52,19 +51,34 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def set_password(self, raw_password):
         """
-        Sobrescreve o método para salvar a senha sem hashing.
+        Sobrescreve o método para salvar a senha com hashing.
         """
-        self.password = raw_password  # Salva a senha como texto puro
+        self.password = self.make_random_password(raw_password)  # Armazena a senha de forma segura
 
 
 class Processo(models.Model):
-    codigo = models.CharField(max_length=50)
-    numero = models.CharField(max_length=50)
-    tipo = models.CharField(max_length=100)
-    acao = models.CharField(max_length=200)
-    comarca = models.CharField(max_length=100)
-    cliente = models.CharField(max_length=100)
-    status = models.CharField(max_length=50, choices=[('Em andamento', 'Em andamento'), ('Arquivado', 'Arquivado')])
+    codigo = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    numero = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    tipo = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    acao = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    comarca = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    cliente = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    
+    # Campos adicionais
+    tribunal = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    foro = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    vara = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    honorarios = models.TextField(blank=True, null=True)  # Agora aceita qualquer tipo de dado
+    porcentagem = models.TextField(blank=True, null=True)  # Agora aceita qualquer tipo de dado
+    valorCausa = models.TextField(blank=True, null=True)  # Agora aceita qualquer tipo de dado
+    status = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado, inclusive texto ou números
+    
+    # Campos de progresso do processo
+    desfecho = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado
+    resultadoRecurso = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado
+    ultimoEvento = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado
+    ultimosAndamentos = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado
+    anotacoes = models.TextField(blank=True, null=True)  # Aceita qualquer tipo de dado
 
     def __str__(self):
         return f"{self.codigo} - {self.numero}"

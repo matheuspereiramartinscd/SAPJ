@@ -11,7 +11,18 @@ function ProcessRegisterPage() {
         acao: '',
         comarca: '',
         cliente: '',
+        tribunal: '',
+        foro: '',
+        vara: '',
+        honorarios: '',
+        porcentagem: '',
+        valorCausa: '',
         status: 'Em andamento', // Default status
+        desfecho: '',
+        resultadoRecurso: '',
+        ultimoEvento: '',
+        ultimosAndamentos: '',
+        anotacoes: '',
     });
 
     const navigate = useNavigate();
@@ -27,6 +38,19 @@ function ProcessRegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Garantir que todos os campos sejam preenchidos, com valores padrão se necessário
+        const processedData = {
+            ...processData,
+            desfecho: processData.desfecho || '',  // Se não for preenchido, será uma string vazia
+            resultadoRecurso: processData.resultadoRecurso || '',  // Mesmo caso
+            ultimoEvento: processData.ultimoEvento || '',  // Mesmo caso
+            ultimosAndamentos: processData.ultimosAndamentos || '',  // Mesmo caso
+            anotacoes: processData.anotacoes || '',  // Mesmo caso
+        };
+
+        console.log('Dados enviados para a API:', processedData); // Verifique os dados antes de enviar
+
         try {
             // Enviar os dados do processo para a API de cadastro
             const response = await fetch('http://localhost:8000/api/processes/', {
@@ -34,7 +58,7 @@ function ProcessRegisterPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(processData),
+                body: JSON.stringify(processedData),
             });
 
             if (response.ok) {
@@ -176,6 +200,60 @@ function ProcessRegisterPage() {
                                     value={processData.cliente}
                                     onChange={handleChange}
                                     required
+                                />
+                            </label>
+                            <label>
+                                Tribunal:
+                                <input
+                                    type="text"
+                                    name="tribunal"
+                                    value={processData.tribunal}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Foro:
+                                <input
+                                    type="text"
+                                    name="foro"
+                                    value={processData.foro}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Vara:
+                                <input
+                                    type="text"
+                                    name="vara"
+                                    value={processData.vara}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Honorários:
+                                <input
+                                    type="text"
+                                    name="honorarios"
+                                    value={processData.honorarios}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Porcentagem:
+                                <input
+                                    type="text"
+                                    name="porcentagem"
+                                    value={processData.porcentagem}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Valor da Causa:
+                                <input
+                                    type="text"
+                                    name="valorCausa"
+                                    value={processData.valorCausa}
+                                    onChange={handleChange}
                                 />
                             </label>
                             <label>

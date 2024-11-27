@@ -47,7 +47,18 @@ def register_process(request):
             acao=data.get('acao'),
             comarca=data.get('comarca'),
             cliente=data.get('cliente'),
+            tribunal=data.get('tribunal', ''),
+            foro=data.get('foro', ''),
+            vara=data.get('vara', ''),
+            honorarios=data.get('honorarios', ''),
+            porcentagem=data.get('porcentagem', ''),
+            valorCausa=data.get('valorCausa', ''),
             status=data.get('status', 'Em andamento'),
+            desfecho=data.get('desfecho', ''),
+            resultadoRecurso=data.get('resultadoRecurso', ''),
+            ultimoEvento=data.get('ultimoEvento', ''),
+            ultimosAndamentos=data.get('ultimosAndamentos', ''),
+            anotacoes=data.get('anotacoes', '')
         )
         return Response({'message': 'Processo cadastrado com sucesso!'}, status=status.HTTP_201_CREATED)
     except Exception as e:
@@ -81,3 +92,16 @@ def delete_process(request, id):
         return JsonResponse({'message': 'Processo excluído com sucesso'}, status=204)  # Retorna sucesso
     except Processo.DoesNotExist:
         raise Http404("Processo não encontrado")  # Se não encontrar o processo, retorna erro 404
+
+@api_view(['PUT'])
+def edit_process(request, id):
+    try:
+        processo = Processo.objects.get(id=id)
+    except Processo.DoesNotExist:
+        return Response({'error': 'Processo não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ProcessoSerializer(processo, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

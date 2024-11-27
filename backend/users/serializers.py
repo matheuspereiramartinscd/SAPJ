@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import User
-from .models import Processo
+from .models import User, Processo
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,14 +19,31 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-
-
-
 class LoginSerializer(serializers.Serializer):
     login = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
+
 class ProcessoSerializer(serializers.ModelSerializer):
+    # Altere para CharField ou TextField para permitir texto livre
+    honorarios = serializers.CharField(required=False, allow_blank=True)  # Permite texto livre
+    porcentagem = serializers.CharField(required=False, allow_blank=True)  # Permite texto livre
+    
+    status = serializers.ChoiceField(choices=[('Em andamento', 'Em andamento'), ('Arquivado', 'Arquivado')], required=True)
+
     class Meta:
         model = Processo
-        fields = ['id', 'codigo', 'numero', 'tipo', 'acao', 'comarca', 'cliente', 'status']
+        fields = [
+            'id', 'codigo', 'numero', 'tipo', 'acao', 'comarca', 'cliente', 
+            'tribunal', 'foro', 'vara', 'honorarios', 'porcentagem', 'valorCausa',
+            'status', 'desfecho', 'resultadoRecurso', 'ultimoEvento', 
+            'ultimosAndamentos', 'anotacoes'
+        ]
+
+    def validate_honorarios(self, value):
+        """Não há validação, aceita qualquer texto agora."""
+        return value
+
+    def validate_porcentagem(self, value):
+        """Não há validação, aceita qualquer texto agora."""
+        return value

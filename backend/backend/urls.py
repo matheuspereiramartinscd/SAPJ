@@ -12,4 +12,7 @@ urlpatterns = [
     path('api/processes/', get_processes, name='list_processes'),  # Corrigido para 'get_processes'
     path('api/processes/register/', register_process, name='register_process'),
     path('api/processes/list/', get_processes, name='list_processes'),  # Nova rota par
+
+
+
 ]
