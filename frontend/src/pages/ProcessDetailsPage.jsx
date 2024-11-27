@@ -173,24 +173,36 @@ function ProcessDetailsPage() {
                                     <button onClick={handleAttachFiles} className={styles.uploadButton}>
                                         <FaFileUpload /> Anexar Arquivos
                                     </button>
-                                    <div className={styles.notesWrapper}>
+                                    <div style={{
+                                        border: '1px solid #ccc',
+                                        padding: '20px',
+                                        borderRadius: '8px',
+                                        backgroundColor: '#f9f9f9',
+                                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                                        marginTop: '20px',
+                                        width: '100%',  // Garantir que ocupa a largura disponível
+                                        boxSizing: 'border-box', // Inclui o padding dentro da largura
+                                        overflow: 'hidden', // Evita transbordamento
+                                        wordBreak: 'break-word', // Força quebra de linha em palavras longas
+                                        maxWidth: '100%'  // Garantir que o conteúdo não ultrapasse a largura
+                                    }}>
                                         <h2>Anotações</h2>
-                                        <textarea
-                                            value={annotations}
-                                            onChange={handleChangeAnnotations}
-                                            placeholder="Facilite sua rotina com o SAPJ: Adicione suas anotações"
-                                            className={styles.textArea}
-                                        />
-                                        <button onClick={handleSaveAnnotations} className={styles.saveButton}>
-                                            Salvar Anotações
-                                        </button>
-                                        {savedAnnotations && (
-                                            <div className={styles.savedAnnotations}>
-                                                <h3>Anotações Salvas:</h3>
-                                                <p>{savedAnnotations}</p>
-                                            </div>
-                                        )}
+                                        <div style={{
+                                            fontSize: '16px',
+                                            color: '#333',
+                                            marginTop: '10px',
+                                            whiteSpace: 'pre-wrap', // Quebra linhas automaticamente
+                                            wordWrap: 'break-word', // Quebra as palavras longas
+                                            wordBreak: 'break-word', // Outra forma de quebra de palavras
+                                            overflowWrap: 'break-word', // Garante que as palavras longas que não cabem sejam quebradas
+                                            width: '100%',  // Garante que ocupa 100% da largura disponível
+                                            boxSizing: 'border-box'  // Inclui o padding na largura
+                                        }}>
+                                            {annotations ? annotations : 'Nenhuma anotação disponível.'}
+                                        </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
