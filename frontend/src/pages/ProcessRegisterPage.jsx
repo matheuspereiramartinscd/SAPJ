@@ -27,7 +27,6 @@ function ProcessRegisterPage() {
 
     const navigate = useNavigate();
 
-    // Atualiza o estado do processo conforme o usuário digita
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProcessData({
@@ -39,20 +38,18 @@ function ProcessRegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Garantir que todos os campos sejam preenchidos, com valores padrão se necessário
         const processedData = {
             ...processData,
-            desfecho: processData.desfecho || '',  // Se não for preenchido, será uma string vazia
-            resultadoRecurso: processData.resultadoRecurso || '',  // Mesmo caso
-            ultimoEvento: processData.ultimoEvento || '',  // Mesmo caso
-            ultimosAndamentos: processData.ultimosAndamentos || '',  // Mesmo caso
-            anotacoes: processData.anotacoes || '',  // Mesmo caso
+            desfecho: processData.desfecho || '',
+            resultadoRecurso: processData.resultadoRecurso || '',
+            ultimoEvento: processData.ultimoEvento || '',
+            ultimosAndamentos: processData.ultimosAndamentos || '',
+            anotacoes: processData.anotacoes || '',
         };
 
-        console.log('Dados enviados para a API:', processedData); // Verifique os dados antes de enviar
+        console.log('Dados enviados para a API:', processedData);
 
         try {
-            // Enviar os dados do processo para a API de cadastro
             const response = await fetch('http://localhost:8000/api/processes/', {
                 method: 'POST',
                 headers: {
@@ -73,8 +70,7 @@ function ProcessRegisterPage() {
     };
 
     return (
-        <div className={styles.homeContainer}>
-            {/* Header */}
+        <div className={styles.pageContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -99,9 +95,7 @@ function ProcessRegisterPage() {
                 </div>
             </header>
 
-            {/* Main Layout */}
             <div className={styles.mainLayout}>
-                {/* Sidebar */}
                 <nav className={styles.sidebar}>
                     <div className={styles.sidebarIcon}>
                         <FaHome className={styles.icon} />
@@ -133,13 +127,11 @@ function ProcessRegisterPage() {
                     </div>
                 </nav>
 
-                {/* Main Content */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Cadastrar Processo</h1>
                     </header>
 
-                    {/* Formulário de cadastro */}
                     <div className={styles.formContainer}>
                         <form onSubmit={handleSubmit} className={styles.processForm}>
                             <label>
@@ -270,6 +262,15 @@ function ProcessRegisterPage() {
 
                             <button type="submit" className={styles.submitButton}>
                                 Cadastrar Processo
+                            </button>
+
+                            {/* Button to go back */}
+                            <button
+                                type="button"
+                                className={styles.submitButton}
+                                onClick={() => navigate('/processpage')}
+                            >
+                                Voltar
                             </button>
                         </form>
                     </div>

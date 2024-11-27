@@ -116,7 +116,7 @@ function ProcessPage() {
     };
 
     const handleViewDetails = (id) => {
-        navigate(`/process/details/${id}`);
+        navigate(`/processdetails/${id}`);
     };
 
     return (
@@ -190,7 +190,8 @@ function ProcessPage() {
 
                     <div className={styles.topSection}>
                         <div className={styles.buttonContainer}>
-                            <button className={styles.addButton}>Cadastrar Processo</button>
+                            <button onClick={() => navigate('/processregister')} className={styles.addButton}>Cadastrar Processo</button>
+
                             <button className={styles.reportButton}>Gerar Relatório</button>
                         </div>
 
@@ -240,19 +241,19 @@ function ProcessPage() {
                                         <td>{process.cliente}</td>
                                         <td>{process.status}</td>
                                         <td>
-
+                                            <button
+                                                className={styles.logoutButton}
+                                                onClick={() => handleViewDetails(process.id)}
+                                            >
+                                                Detalhes
+                                            </button>
                                             <button
                                                 className={styles.deleteButton}
                                                 onClick={() => handleDelete(process.id)}
                                             >
                                                 Excluir
                                             </button>
-                                            <button
-                                                className={styles.viewButton}
-                                                onClick={() => handleViewDetails(process.id)}
-                                            >
-                                                Detalhes
-                                            </button>
+
                                         </td>
                                     </tr>
                                 ))
