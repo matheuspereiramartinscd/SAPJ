@@ -1,0 +1,271 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/* Main layout */
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    margin-left: 60px;
+    /* Ajuste para afastar o conteúdo da sidebar */
+    justify-content: center;
+    /* Centraliza o conteúdo horizontalmente */
+    flex: 1;
+    /* Garante que o conteúdo principal ocupe o restante do espaço */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Garante que a logo ocupe o espaço necessário sem quebrar o layout */
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Limitar o tamanho para que os ícones não ultrapassem a largura */
+    max-width: calc(100% - 150px);
+    /* Impede que a área do header ultrapasse */
+    overflow: hidden;
+    /* Previne que ícones ou outros elementos "saiam" da tela */
+}
+
+.textArea {
+    width: 250px;
+    margin-right: -500px;
+}
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    /* Ajusta altura da sidebar */
+    position: fixed;
+    left: 0;
+    top: 60px;
+    transition: width 0.3s;
+    z-index: 500;
+    /* Garante que a sidebar esteja acima do conteúdo */
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebar:hover {
+    width: 200px;
+    /* Expande a sidebar ao passar o mouse */
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: all 0.3s;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+    /* Exibe o texto ao expandir */
+}
+
+/* Formulário de Registro */
+.personForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.personForm label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.personForm input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 95%;
+    margin-bottom: 15px;
+    /* Melhor espaçamento entre os campos */
+}
+
+/* Botões */
+.submitButton,
+.backButton {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submitButton:hover,
+.backButton:hover {
+    background-color: #d35400;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .personForm {
+        width: 90%;
+    }
+
+    .personForm input {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .submitButton {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* Ajuste na Sidebar */
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebarIcon {
+        padding: 25px 15px;
+    }
+
+    .header {
+        padding: 10px;
+    }
+
+    /* Ajusta o layout para telas menores */
+    .mainLayout {
+        margin-left: 50px;
+        /* Ajuste de margem para a sidebar */
+    }
+}
+
+@media (max-width: 768px) {
+    .personForm {
+        width: 95%;
+    }
+
+    .submitButton {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    /* Ajustes para a Sidebar */
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebarIcon {
+        padding: 25px 15px;
+    }
+
+    .header {
+        padding: 10px;
+    }
+
+    /* Ajusta layout da página para telas pequenas */
+    .mainLayout {
+        margin-left: 50px;
+        /* Ajuste de margem para a sidebar */
+    }
+}

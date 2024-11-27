@@ -4,6 +4,9 @@ from .views import register_process
 from . import views
 from .views import get_processes  # Corrigido para 'get_processes'
 from .views import ProcessDetails
+from .views import registrar_pessoa, listar_pessoas
+
+
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
@@ -14,4 +17,7 @@ urlpatterns = [
     path('api/processes/list/', get_processes, name='list_processes'),  # Nova rota para lista de processos
     path('processes/<int:id>/', views.edit_process, name='edit_process'),  # Rota para editar processo
     path('api/processes/details/<int:pk>/', ProcessDetails.as_view(), name='process_details'),  # Detalhes do processo
+      path('pessoas/registrar/', registrar_pessoa, name='registrar_pessoa'),
+    path('pessoas/', listar_pessoas, name='listar_pessoas'),
+
 ]

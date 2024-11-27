@@ -7,6 +7,7 @@ from .models import User, Processo
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.exceptions import NotFound
+from .serializers import PessoaSerializer
 
 class UserRegistrationView(APIView):
     def post(self, request):
@@ -132,3 +133,21 @@ class ProcessEditView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def registrar_pessoa(request):
+    """
+    Função para registrar uma pessoa.
+    """
+    serializer = PessoaSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Pessoa registrada com sucesso!", "data": serializer.data}, status=201)
+    return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def listar_pessoas(request):
+    pessoas = Pessoa.objects.all()
+    serializer = PessoaSerializer(pessoas, many=True)
+    return Response(serializer.data)

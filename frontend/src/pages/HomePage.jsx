@@ -101,7 +101,7 @@ function HomePage() {
                         </div>
                         <div className={`${styles.card} ${styles.usuarioCard}`}>
                             <FaUser className={styles.cardIcon} />
-                            <h3>Usuário</h3>
+                            <h3>Pessoas</h3>
                             <p>Gerenciar informações do usuário.</p>
                             <button className={styles.cardButton}>Entrar</button>
                         </div>

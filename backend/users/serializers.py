@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User, Processo
+from .models import Pessoa
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -47,3 +48,8 @@ class ProcessoSerializer(serializers.ModelSerializer):
     def validate_porcentagem(self, value):
         """Não há validação, aceita qualquer texto agora."""
         return value
+
+class PessoaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pessoa
+        fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado']

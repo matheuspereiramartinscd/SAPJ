@@ -17,7 +17,7 @@ import AutomationPage from './pages/AutomationPage';
 import DashboardPage from './pages/DashboardPage';
 import ProcessRegisterPage from './pages/ProcessRegisterPage';
 import EditProcessPage from './pages/EditProcessPage';
-
+import PersonRegisterPage from './pages/PersonRegisterPage'; // Importando a nova página de cadastro de pessoa
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -32,7 +32,6 @@ root.render(
       <Route path="/personpage" element={<PersonPage />} />
       <Route path="/persondetails" element={<PersonDetailsPage />} />
       <Route path="/processdetails/:id" element={<ProcessDetailsPage />} />
-
       <Route path="/search" element={<SearchPage />} />
       <Route path="/tasks" element={<TaskManagementPage />} />
       <Route path="/payments" element={<PaymentsPage />} />
@@ -44,6 +43,8 @@ root.render(
       <Route path="/processes/details/:id" element={<ProcessDetailsPage />} />
       <Route path="/process/edit/:id" element={<EditProcessPage />} />
 
+      {/* Nova rota para registro de pessoa */}
+      <Route path="/personregister" element={<PersonRegisterPage />} />
     </Routes>
   </Router>
 );

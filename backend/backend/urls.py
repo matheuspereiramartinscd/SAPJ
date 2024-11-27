@@ -4,6 +4,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.views import register_process, get_processes  # Corrigido para 'get_processes'
 from users.views import ProcessDetails
 from users.views import ProcessEditView
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),  # Inclui as URLs do app 'users'

@@ -1,71 +1,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
-import styles from './ProcessRegisterPage.module.css';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import styles from './PersonRegisterPage.module.css';
 
-function ProcessRegisterPage() {
-    const [processData, setProcessData] = useState({
+function PersonRegisterPage() {
+    const [formData, setFormData] = useState({
         codigo: '',
-        numero: '',
-        tipo: '',
-        acao: '',
-        comarca: '',
-        cliente: '',
-        tribunal: '',
-        foro: '',
-        vara: '',
-        honorarios: '',
-        porcentagem: '',
-        valorCausa: '',
-        status: 'Em andamento', // Default status
-        desfecho: '',
-        resultadoRecurso: '',
-        ultimoEvento: '',
-        ultimosAndamentos: '',
-        anotacoes: '',
+        nome: '',
+        cpf: '',
+        rg: '',
+        telefone: '',
+        email: '',
+        cidade: '',
+        estado: '',
     });
 
     const navigate = useNavigate();
 
+    // Função para lidar com a mudança nos campos do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProcessData({
-            ...processData,
+        setFormData(prevData => ({
+            ...prevData,
             [name]: value,
-        });
+        }));
     };
 
+    // Função para enviar o formulário
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const processedData = {
-            ...processData,
-            desfecho: processData.desfecho || '',
-            resultadoRecurso: processData.resultadoRecurso || '',
-            ultimoEvento: processData.ultimoEvento || '',
-            ultimosAndamentos: processData.ultimosAndamentos || '',
-            anotacoes: processData.anotacoes || '',
-        };
-
-        console.log('Dados enviados para a API:', processedData);
-
         try {
-            const response = await fetch('http://localhost:8000/api/processes/', {
+            const response = await fetch('http://127.0.0.1:8000/api/pessoas/registrar/', {  // Certifique-se de usar o caminho completo da API
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(processedData),
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
-                alert('Processo cadastrado com sucesso!');
-                navigate('/processpage'); // Redireciona para a página de processos
+                alert('Pessoa registrada com sucesso!');
+                setFormData({
+                    codigo: '',
+                    nome: '',
+                    cpf: '',
+                    rg: '',
+                    telefone: '',
+                    email: '',
+                    cidade: '',
+                    estado: '',
+                });
+                navigate('/personpage');
             } else {
-                throw new Error('Erro ao cadastrar o processo');
+                const errorData = await response.json();
+                alert('Erro: ' + JSON.stringify(errorData));
             }
         } catch (error) {
-            alert(error.message);
+            console.error('Erro ao registrar pessoa:', error);
+            alert('Erro ao registrar a pessoa');
         }
     };
 
@@ -126,152 +119,104 @@ function ProcessRegisterPage() {
                         <span>Pagamentos</span>
                     </div>
                 </nav>
-
+                {/* Formulario */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
-                        <h1>Cadastrar Processo</h1>
+                        <h1>Registrar Pessoa</h1>
                     </header>
 
                     <div className={styles.formContainer}>
-                        <form onSubmit={handleSubmit} className={styles.processForm}>
+                        <form onSubmit={handleSubmit} className={styles.personForm}>
                             <label>
                                 Código:
                                 <input
                                     type="text"
                                     name="codigo"
-                                    value={processData.codigo}
+                                    value={formData.codigo}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
                             <label>
-                                Número:
+                                Nome:
                                 <input
                                     type="text"
-                                    name="numero"
-                                    value={processData.numero}
+                                    name="nome"
+                                    value={formData.nome}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
                             <label>
-                                Tipo:
+                                CPF:
                                 <input
                                     type="text"
-                                    name="tipo"
-                                    value={processData.tipo}
+                                    name="cpf"
+                                    value={formData.cpf}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
                             <label>
-                                Ação do Processo:
+                                RG:
                                 <input
                                     type="text"
-                                    name="acao"
-                                    value={processData.acao}
+                                    name="rg"
+                                    value={formData.rg}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Telefone:
+                                <input
+                                    type="text"
+                                    name="telefone"
+                                    value={formData.telefone}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Email:
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
                             <label>
-                                Comarca:
+                                Cidade:
                                 <input
                                     type="text"
-                                    name="comarca"
-                                    value={processData.comarca}
+                                    name="cidade"
+                                    value={formData.cidade}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
                             <label>
-                                Cliente:
+                                Estado:
                                 <input
                                     type="text"
-                                    name="cliente"
-                                    value={processData.cliente}
+                                    name="estado"
+                                    value={formData.estado}
                                     onChange={handleChange}
                                     required
                                 />
-                            </label>
-                            <label>
-                                Tribunal:
-                                <input
-                                    type="text"
-                                    name="tribunal"
-                                    value={processData.tribunal}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Foro:
-                                <input
-                                    type="text"
-                                    name="foro"
-                                    value={processData.foro}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Vara:
-                                <input
-                                    type="text"
-                                    name="vara"
-                                    value={processData.vara}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Honorários:
-                                <input
-                                    type="text"
-                                    name="honorarios"
-                                    value={processData.honorarios}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Porcentagem:
-                                <input
-                                    type="text"
-                                    name="porcentagem"
-                                    value={processData.porcentagem}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Valor da Causa:
-                                <input
-                                    type="text"
-                                    name="valorCausa"
-                                    value={processData.valorCausa}
-                                    onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Status:
-                                <select
-                                    name="status"
-                                    value={processData.status}
-                                    onChange={handleChange}
-                                >
-                                    <option value="Em andamento">Em andamento</option>
-                                    <option value="Arquivado">Arquivado</option>
-                                </select>
                             </label>
 
                             <button type="submit" className={styles.submitButton}>
-                                Cadastrar Processo
+                                Registrar
                             </button>
-
-                            {/* Button to go back */}
                             <button
                                 type="button"
-                                className={styles.submitButton}
-                                onClick={() => navigate('/processpage')}
+                                className={styles.backButton}
+                                onClick={() => navigate('/personpage')}
                             >
                                 Voltar
                             </button>
+
                         </form>
                     </div>
                 </main>
@@ -280,4 +225,4 @@ function ProcessRegisterPage() {
     );
 }
 
-export default ProcessRegisterPage;
+export default PersonRegisterPage;
