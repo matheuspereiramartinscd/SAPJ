@@ -40,6 +40,12 @@ function ProcessDetailsPage() {
         navigate('/processpage');  // Navega de volta para a página de processos
     };
 
+    const handleEditProcess = () => {
+        // Navega para a página de edição do processo
+        navigate(`/process/edit/${id}/`);
+    };
+
+
     // Função para arquivar o processo
     const handleArchiveProcess = () => {
         const updatedProcess = { ...processo, status: 'Arquivado' };
@@ -194,8 +200,9 @@ function ProcessDetailsPage() {
                             <button onClick={handleGoBack} className={styles.backButton}>
                                 <FaArrowLeft /> Voltar
                             </button>
-                            <button className={styles.editButton}><FaEdit /> Editar</button>
-                            <button onClick={handleArchiveProcess} className={styles.archiveButton}><FaArchive /> Arquivar Processo</button>
+                            <button onClick={handleEditProcess} className={styles.editButton}><FaEdit /> Editar</button>
+
+
                             <button className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
                         </div>
                     </div>

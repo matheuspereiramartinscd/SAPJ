@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';  // Adicionado useParams
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';  // useParams para pegar o ID do processo
+
 import styles from './EditProcessPage.module.css';
+import {
+    FaHome,
+    FaRegFileAlt,
+    FaTasks,
+    FaChartLine,
+    FaUser,
+    FaHandshake,
+    FaFileInvoiceDollar,
+    FaPhoneAlt,
+} from 'react-icons/fa';
+
+
 
 function EditProcessPage() {
     const [processData, setProcessData] = useState({
@@ -25,7 +37,7 @@ function EditProcessPage() {
         anotacoes: '',
     });
 
-    const { id } = useParams();  // Obter o ID da URL
+    const { id } = useParams();  // Obter o ID do processo a partir da URL
     const navigate = useNavigate();
 
     // Carregar os dados do processo ao montar o componente
@@ -34,14 +46,14 @@ function EditProcessPage() {
             try {
                 const response = await fetch(`http://localhost:8000/api/processes/details/${id}/`);
                 const data = await response.json();
-                setProcessData(data);  // Preencher os dados no estado
+                setProcessData(data);  // Preencher os dados no estado com a resposta da API
             } catch (error) {
                 console.error('Erro ao carregar dados do processo:', error);
             }
         };
 
         if (id) {
-            fetchProcessData();  // Buscar dados se o id for válido
+            fetchProcessData();  // Buscar os dados do processo ao carregar o componente
         }
     }, [id]);
 
@@ -52,9 +64,11 @@ function EditProcessPage() {
             [name]: value,
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Garantir que campos opcionais não estejam vazios
         const processedData = {
             ...processData,
             desfecho: processData.desfecho || '',
@@ -64,10 +78,8 @@ function EditProcessPage() {
             anotacoes: processData.anotacoes || '',
         };
 
-        console.log('Dados enviados para a API:', processedData);
-
         try {
-            const response = await fetch(`http://localhost:8000/api/processes/${processData.id}/`, {  // Alterado para incluir o ID do processo
+            const response = await fetch(`http://localhost:8000/api/processes/edit/${id}/`, {  // URL com ID
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +89,7 @@ function EditProcessPage() {
 
             if (response.ok) {
                 alert('Processo atualizado com sucesso!');
-                navigate('/processpage'); // Redireciona para a página de processos
+                navigate('/processpage');  // Redireciona para a página de processos
             } else {
                 throw new Error('Erro ao atualizar o processo');
             }
@@ -113,10 +125,37 @@ function EditProcessPage() {
             </header>
 
             <div className={styles.mainLayout}>
+                {/* Sidebar */}
                 <nav className={styles.sidebar}>
-                    {/* Your Sidebar */}
+                    <div className={styles.sidebarIcon}>
+                        <FaHome className={styles.icon} />
+                        <span>Home</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaRegFileAlt className={styles.icon} />
+                        <span>Casos</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaTasks className={styles.icon} />
+                        <span>Tarefas</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaChartLine className={styles.icon} />
+                        <span>Dashboard</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaUser className={styles.icon} />
+                        <span>Usuário</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaHandshake className={styles.icon} />
+                        <span>Automação</span>
+                    </div>
+                    <div className={styles.sidebarIcon}>
+                        <FaFileInvoiceDollar className={styles.icon} />
+                        <span>Pagamentos</span>
+                    </div>
                 </nav>
-
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Editar Processo</h1>
@@ -134,7 +173,110 @@ function EditProcessPage() {
                                     required
                                 />
                             </label>
-                            {/* Other form fields here */}
+                            <label>
+                                Número:
+                                <input
+                                    type="text"
+                                    name="numero"
+                                    value={processData.numero}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Tipo:
+                                <input
+                                    type="text"
+                                    name="tipo"
+                                    value={processData.tipo}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Ação do Processo:
+                                <input
+                                    type="text"
+                                    name="acao"
+                                    value={processData.acao}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Comarca:
+                                <input
+                                    type="text"
+                                    name="comarca"
+                                    value={processData.comarca}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Cliente:
+                                <input
+                                    type="text"
+                                    name="cliente"
+                                    value={processData.cliente}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Tribunal:
+                                <input
+                                    type="text"
+                                    name="tribunal"
+                                    value={processData.tribunal}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Foro:
+                                <input
+                                    type="text"
+                                    name="foro"
+                                    value={processData.foro}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Vara:
+                                <input
+                                    type="text"
+                                    name="vara"
+                                    value={processData.vara}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Honorários:
+                                <input
+                                    type="text"
+                                    name="honorarios"
+                                    value={processData.honorarios}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Porcentagem:
+                                <input
+                                    type="text"
+                                    name="porcentagem"
+                                    value={processData.porcentagem}
+                                    onChange={handleChange}
+                                />
+                            </label>
+                            <label>
+                                Valor da Causa:
+                                <input
+                                    type="text"
+                                    name="valorCausa"
+                                    value={processData.valorCausa}
+                                    onChange={handleChange}
+                                />
+                            </label>
                             <label>
                                 Status:
                                 <select
@@ -147,11 +289,56 @@ function EditProcessPage() {
                                 </select>
                             </label>
 
+                            <label>
+                                Desfecho:
+                                <textarea
+                                    name="desfecho"
+                                    value={processData.desfecho}
+                                    onChange={handleChange}
+                                />
+                            </label>
+
+                            <label>
+                                Resultado Recurso:
+                                <textarea
+                                    name="resultadoRecurso"
+                                    value={processData.resultadoRecurso}
+                                    onChange={handleChange}
+                                />
+                            </label>
+
+                            <label>
+                                Último Evento:
+                                <textarea
+                                    name="ultimoEvento"
+                                    value={processData.ultimoEvento}
+                                    onChange={handleChange}
+                                />
+                            </label>
+
+                            <label>
+                                Últimos Andamentos:
+                                <textarea
+                                    name="ultimosAndamentos"
+                                    value={processData.ultimosAndamentos}
+                                    onChange={handleChange}
+                                />
+                            </label>
+
+                            <label>
+                                Anotações:
+                                <textarea
+                                    name="anotacoes"
+                                    value={processData.anotacoes}
+                                    onChange={handleChange}
+                                />
+                            </label>
+
                             <button type="submit" className={styles.submitButton}>
                                 Atualizar Processo
                             </button>
 
-                            {/* Button to go back */}
+                            {/* Botão para voltar */}
                             <button
                                 type="button"
                                 className={styles.submitButton}

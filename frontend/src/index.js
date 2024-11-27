@@ -42,6 +42,8 @@ root.render(
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/processregister" element={<ProcessRegisterPage />} />
       <Route path="/processes/details/:id" element={<ProcessDetailsPage />} />
+      <Route path="/process/edit/:id" element={<EditProcessPage />} />
+
     </Routes>
   </Router>
 );
