@@ -42,31 +42,31 @@ function HomePage() {
             <div className={styles.mainLayout}>
                 {/* Sidebar */}
                 <nav className={styles.sidebar}>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
                         <FaHome className={styles.icon} />
                         <span>Home</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/processpage')}>
                         <FaRegFileAlt className={styles.icon} />
                         <span>Casos</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/tasks')}>
                         <FaTasks className={styles.icon} />
                         <span>Tarefas</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/dashboard')}>
                         <FaChartLine className={styles.icon} />
                         <span>Dashboard</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
                         <span>Usuário</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
                         <span>Automação</span>
                     </div>
-                    <div className={styles.sidebarIcon}>
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
@@ -75,47 +75,40 @@ function HomePage() {
                 {/* Main Content */}
                 <main className={styles.mainContent}>
                     <div className={styles.cardsContainer}>
-                        <div className={`${styles.card} ${styles.homeCard}`}>
+                        <div className={`${styles.card} ${styles.homeCard}`} onClick={() => navigate('/home')}>
                             <FaHome className={styles.cardIcon} />
                             <h3>Home</h3>
                             <p>Visão geral do sistema.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.casosCard}`}>
+                        <div className={`${styles.card} ${styles.casosCard}`} onClick={() => navigate('/processpage')}>
                             <FaRegFileAlt className={styles.cardIcon} />
                             <h3>Casos</h3>
                             <p>Gerenciar casos pendentes.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.tarefasCard}`}>
+                        <div className={`${styles.card} ${styles.tarefasCard}`} onClick={() => navigate('/tasks')}>
                             <FaTasks className={styles.cardIcon} />
                             <h3>Tarefas</h3>
                             <p>Acompanhe suas tarefas diárias.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.dashboardCard}`}>
+                        <div className={`${styles.card} ${styles.dashboardCard}`} onClick={() => navigate('/dashboard')}>
                             <FaChartLine className={styles.cardIcon} />
                             <h3>Dashboard</h3>
                             <p>Relatórios e gráficos do sistema.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.usuarioCard}`}>
+                        <div className={`${styles.card} ${styles.usuarioCard}`} onClick={() => navigate('/personpage')}>
                             <FaUser className={styles.cardIcon} />
                             <h3>Pessoas</h3>
                             <p>Gerenciar informações do usuário.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.automacaoCard}`}>
-                            <FaHandshake className={styles.cardIcon} style={{ fontSize: '1000px' }} />
+                        <div className={`${styles.card} ${styles.automacaoCard}`} onClick={() => navigate('/automation')}>
+                            <FaHandshake className={styles.cardIcon} />
                             <h3>Automação</h3>
                             <p>Configurações de automação de processos.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
-                        <div className={`${styles.card} ${styles.pagamentosCard}`}>
+                        <div className={`${styles.card} ${styles.pagamentosCard}`} onClick={() => navigate('/payments')}>
                             <FaFileInvoiceDollar className={styles.cardIcon} />
                             <h3>Pagamentos</h3>
                             <p>Gerenciar pagamentos e transações.</p>
-                            <button className={styles.cardButton}>Entrar</button>
                         </div>
                     </div>
                 </main>
