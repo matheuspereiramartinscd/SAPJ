@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.views import register_process, get_processes  # Corrigido para 'get_processes'
 from users.views import ProcessDetails
-
+from users.views import ProcessEditView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),  # Inclui as URLs do app 'users'
@@ -13,6 +13,6 @@ urlpatterns = [
     path('api/processes/register/', register_process, name='register_process'),
     path('api/processes/list/', get_processes, name='list_processes'),  # Nova rota par
      path('api/processes/details/<int:pk>/', ProcessDetails.as_view(), name='process_details'),  # Detalhes do processo
-
-
+    
+ path('api/processes/edit/<int:id>/', ProcessEditView.as_view(), name='process-edit'),
 ]

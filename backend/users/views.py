@@ -91,15 +91,18 @@ def delete_process(request, id):
     except Processo.DoesNotExist:
         return JsonResponse({'error': 'Processo não encontrado'}, status=404)  # Retorna erro se não encontrado
 
-
 @api_view(['PUT'])
 def edit_process(request, id):
     try:
+        # Tenta encontrar o processo pelo ID
         processo = Processo.objects.get(id=id)
-    except Processo.DoesNotExist:
+    except Processo.DoesNotExist:  # Corrigido para Processo (e não Process)
         return Response({'error': 'Processo não encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = ProcessoSerializer(processo, data=request.data, partial=True)
+    # Serializa os dados do processo com os dados fornecidos na requisição
+    serializer = ProcessoSerializer(processo, data=request.data, partial=True)  # partial=True permite atualização parcial dos campos
+
+    # Se os dados forem válidos, salva e retorna a resposta
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -116,3 +119,16 @@ class ProcessDetails(APIView):
         serializer = ProcessoSerializer(processo)
         return Response(serializer.data)
 
+
+class ProcessEditView(APIView):
+    def put(self, request, id, format=None):
+        try:
+            processo = Processo.objects.get(id=id)  # Corrigido para Processo
+        except Processo.DoesNotExist:  # Corrigido para Processo
+            return Response({'error': 'Processo não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ProcessoSerializer(processo, data=request.data, partial=True)  # Corrigido para ProcessoSerializer
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

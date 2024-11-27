@@ -60,7 +60,7 @@ function ProcessRegisterPage() {
 
             if (response.ok) {
                 alert('Processo cadastrado com sucesso!');
-                navigate('/process'); // Redireciona para a página de processos
+                navigate('/processpage'); // Redireciona para a página de processos
             } else {
                 throw new Error('Erro ao cadastrar o processo');
             }

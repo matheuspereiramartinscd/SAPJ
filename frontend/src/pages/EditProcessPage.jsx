@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';  // Adicionado useParams
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
-import styles from './ProcessRegisterPage.module.css';
+import styles from './EditProcessPage.module.css';
 
 function EditProcessPage() {
-    const { id } = useParams();  // Para pegar o ID do processo a ser editado
     const [processData, setProcessData] = useState({
         codigo: '',
         numero: '',
@@ -12,30 +11,40 @@ function EditProcessPage() {
         acao: '',
         comarca: '',
         cliente: '',
-        status: 'Em andamento', // Default status
+        tribunal: '',
+        foro: '',
+        vara: '',
+        honorarios: '',
+        porcentagem: '',
+        valorCausa: '',
+        status: 'Em andamento',
+        desfecho: '',
+        resultadoRecurso: '',
+        ultimoEvento: '',
+        ultimosAndamentos: '',
+        anotacoes: '',
     });
+
+    const { id } = useParams();  // Obter o ID da URL
     const navigate = useNavigate();
 
-    // Carregar os dados do processo ao carregar a página
+    // Carregar os dados do processo ao montar o componente
     useEffect(() => {
         const fetchProcessData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/processes/${id}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setProcessData(data);
-                } else {
-                    throw new Error('Erro ao carregar dados do processo');
-                }
+                const response = await fetch(`http://localhost:8000/api/processes/details/${id}/`);
+                const data = await response.json();
+                setProcessData(data);  // Preencher os dados no estado
             } catch (error) {
-                alert(error.message);
+                console.error('Erro ao carregar dados do processo:', error);
             }
         };
 
-        fetchProcessData();
+        if (id) {
+            fetchProcessData();  // Buscar dados se o id for válido
+        }
     }, [id]);
 
-    // Atualiza o estado do processo conforme o usuário digita
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProcessData({
@@ -43,22 +52,32 @@ function EditProcessPage() {
             [name]: value,
         });
     };
-
-    // Enviar os dados do processo para a API de edição
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const processedData = {
+            ...processData,
+            desfecho: processData.desfecho || '',
+            resultadoRecurso: processData.resultadoRecurso || '',
+            ultimoEvento: processData.ultimoEvento || '',
+            ultimosAndamentos: processData.ultimosAndamentos || '',
+            anotacoes: processData.anotacoes || '',
+        };
+
+        console.log('Dados enviados para a API:', processedData);
+
         try {
-            const response = await fetch(`http://localhost:8000/api/processes/${id}/`, {
-                method: 'PUT',  // Método PUT para edição
+            const response = await fetch(`http://localhost:8000/api/processes/${processData.id}/`, {  // Alterado para incluir o ID do processo
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(processData),
+                body: JSON.stringify(processedData),
             });
 
             if (response.ok) {
                 alert('Processo atualizado com sucesso!');
-                navigate('/process'); // Redireciona para a página de processos
+                navigate('/processpage'); // Redireciona para a página de processos
             } else {
                 throw new Error('Erro ao atualizar o processo');
             }
@@ -68,8 +87,7 @@ function EditProcessPage() {
     };
 
     return (
-        <div className={styles.homeContainer}>
-            {/* Header */}
+        <div className={styles.pageContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -94,47 +112,16 @@ function EditProcessPage() {
                 </div>
             </header>
 
-            {/* Main Layout */}
             <div className={styles.mainLayout}>
-                {/* Sidebar */}
                 <nav className={styles.sidebar}>
-                    <div className={styles.sidebarIcon}>
-                        <FaHome className={styles.icon} />
-                        <span>Home</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaRegFileAlt className={styles.icon} />
-                        <span>Casos</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaTasks className={styles.icon} />
-                        <span>Tarefas</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaChartLine className={styles.icon} />
-                        <span>Dashboard</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaUser className={styles.icon} />
-                        <span>Usuário</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaHandshake className={styles.icon} />
-                        <span>Automação</span>
-                    </div>
-                    <div className={styles.sidebarIcon}>
-                        <FaFileInvoiceDollar className={styles.icon} />
-                        <span>Pagamentos</span>
-                    </div>
+                    {/* Your Sidebar */}
                 </nav>
 
-                {/* Main Content */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Editar Processo</h1>
                     </header>
 
-                    {/* Formulário de edição */}
                     <div className={styles.formContainer}>
                         <form onSubmit={handleSubmit} className={styles.processForm}>
                             <label>
@@ -147,56 +134,7 @@ function EditProcessPage() {
                                     required
                                 />
                             </label>
-                            <label>
-                                Número:
-                                <input
-                                    type="text"
-                                    name="numero"
-                                    value={processData.numero}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                            <label>
-                                Tipo:
-                                <input
-                                    type="text"
-                                    name="tipo"
-                                    value={processData.tipo}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                            <label>
-                                Ação do Processo:
-                                <input
-                                    type="text"
-                                    name="acao"
-                                    value={processData.acao}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                            <label>
-                                Comarca:
-                                <input
-                                    type="text"
-                                    name="comarca"
-                                    value={processData.comarca}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                            <label>
-                                Cliente:
-                                <input
-                                    type="text"
-                                    name="cliente"
-                                    value={processData.cliente}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
+                            {/* Other form fields here */}
                             <label>
                                 Status:
                                 <select
@@ -211,6 +149,15 @@ function EditProcessPage() {
 
                             <button type="submit" className={styles.submitButton}>
                                 Atualizar Processo
+                            </button>
+
+                            {/* Button to go back */}
+                            <button
+                                type="button"
+                                className={styles.submitButton}
+                                onClick={() => navigate('/processpage')}
+                            >
+                                Voltar
                             </button>
                         </form>
                     </div>

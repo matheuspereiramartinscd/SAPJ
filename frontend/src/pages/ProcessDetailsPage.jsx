@@ -40,6 +40,22 @@ function ProcessDetailsPage() {
         navigate('/processpage');  // Navega de volta para a página de processos
     };
 
+    // Função para arquivar o processo
+    const handleArchiveProcess = () => {
+        const updatedProcess = { ...processo, status: 'Arquivado' };
+
+        // Envia a requisição para a API para atualizar o status do processo
+        axios.put(`http://localhost:8000/api/processes/details/${id}/`, updatedProcess)
+            .then(response => {
+                setProcesso(response.data);  // Atualiza o processo com o status "Arquivado"
+                alert('Processo arquivado com sucesso!');
+            })
+            .catch(error => {
+                console.error('Erro ao arquivar o processo:', error);
+                alert('Erro ao arquivar o processo.');
+            });
+    };
+
     if (!processo) {
         return <div>Carregando...</div>;  // Exibe "Carregando..." enquanto os dados não estão disponíveis
     }
@@ -179,7 +195,7 @@ function ProcessDetailsPage() {
                                 <FaArrowLeft /> Voltar
                             </button>
                             <button className={styles.editButton}><FaEdit /> Editar</button>
-                            <button className={styles.archiveButton}><FaArchive /> Arquivar Processo</button>
+                            <button onClick={handleArchiveProcess} className={styles.archiveButton}><FaArchive /> Arquivar Processo</button>
                             <button className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
                         </div>
                     </div>
