@@ -6,23 +6,49 @@ import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 
 function TaskManagementPage() {
     const [tasks, setTasks] = useState([]);
+    const [peopleDetails, setPeopleDetails] = useState([]); // Para armazenar os detalhes das pessoas
+    const [processDetails, setProcessDetails] = useState([]); // Para armazenar os detalhes dos processos
     const navigate = useNavigate();
 
     // Fetch tasks from the backend API
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/tasks/');
-                const data = await response.json();
-                console.log('Tasks:', data); // Check if tasks are fetched properly
-                setTasks(data);
+                const response = await fetch('http://127.0.0.1:8000/api/tasks/');
+                const tasksData = await response.json();
+                setTasks(tasksData);
+                fetchProcessAndPeopleDetails(tasksData); // Fetch process and people details after tasks are fetched
             } catch (error) {
-                console.error('Error fetching tasks:', error);
+                console.error('Erro ao buscar tarefas:', error);
             }
         };
 
         fetchTasks();
     }, []);
+
+    // Fetch process and people details based on task data
+    const fetchProcessAndPeopleDetails = async (tasks) => {
+        try {
+            // Fetch process details
+            const processIds = [...new Set(tasks.map((task) => task.processo))]; // Evitar duplicação dos IDs dos processos
+            const processRequests = processIds.map((id) =>
+                fetch(`http://localhost:8000/api/processes/details/${id}`).then((res) => res.json())
+            );
+            const processes = await Promise.all(processRequests);
+            setProcessDetails(processes);
+
+            // Fetch people details
+            const peopleIds = tasks.flatMap((task) => task.pessoas); // Flatten the array of people IDs
+            const uniquePeopleIds = [...new Set(peopleIds)]; // Garantir que não hajam duplicatas
+            const peopleRequests = uniquePeopleIds.map((id) =>
+                fetch(`http://localhost:8000/api/pessoas/${id}`).then((res) => res.json())
+            );
+            const people = await Promise.all(peopleRequests);
+            setPeopleDetails(people);
+        } catch (error) {
+            console.error('Erro ao buscar detalhes do processo ou pessoas:', error);
+        }
+    };
 
     // Handle logout
     const handleLogout = () => {
@@ -41,7 +67,7 @@ function TaskManagementPage() {
             });
 
             if (response.ok) {
-                setTasks(tasks.filter((task) => task.id !== id)); // Update local state to reflect deletion
+                setTasks(tasks.filter((task) => task.id !== id)); // Atualiza o estado local para refletir a exclusão
                 alert('Tarefa excluída com sucesso!');
             } else {
                 const errorData = await response.json();
@@ -56,6 +82,22 @@ function TaskManagementPage() {
     // Navigate to the task creation page
     const handleAddTask = () => {
         navigate('/taskregister');
+    };
+
+    // Find the process details by process ID
+    const getProcessDetails = (processId) => {
+        const process = processDetails.find((process) => process.id === processId);
+        return process ? `${process.codigo} - ${process.numero} - ${process.tipo}` : 'Dados do processo não disponíveis';
+    };
+
+    // Get people's names by IDs
+    const getPeopleNames = (peopleIds) => {
+        const peopleNames = peopleIds.map((id) => {
+            const person = peopleDetails.find((person) => person.id === id);
+            return person ? person.nome : null;
+        }).filter(name => name !== null);
+
+        return peopleNames.length > 0 ? peopleNames.join(', ') : 'Nenhuma pessoa associada';
     };
 
     return (
@@ -142,11 +184,11 @@ function TaskManagementPage() {
                                         .filter((task) => task.status === status)
                                         .map((task) => (
                                             <div key={task.id} className={styles.taskCard}>
-                                                <h3>{task.titulo}</h3> {/* Use task.titulo instead of task.name */}
-                                                <p><strong>Processo:</strong> {task.processo}</p>
-                                                <p><strong>Pessoas:</strong> {task.pessoas.join(', ')}</p>
+                                                <h3>{task.titulo}</h3>
+                                                <p><strong>Processo:</strong> {getProcessDetails(task.processo)}</p>
+                                                <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
                                                 <p>
-                                                    <strong>Criado em:</strong> {task.data_criacao || 'N/A'} |{' '}
+                                                    <strong>Criado em:</strong> {task.criado_em || 'N/A'} |{' '}
                                                     <strong>Conclusão:</strong> {task.data_conclusao}
                                                 </p>
                                                 <button
@@ -161,7 +203,6 @@ function TaskManagementPage() {
                             </div>
                         ))}
                     </div>
-
 
                     {/* Único botão para criar tarefa */}
                     <div className={styles.createTaskButtonContainer}>
