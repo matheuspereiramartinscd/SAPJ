@@ -20,6 +20,11 @@
     /* Garante que o conteúdo principal ocupe o restante do espaço */
 }
 
+.pageHeader {
+    text-align: right;
+    margin-right: -25px;
+}
+
 /* Header */
 .header {
     display: flex;
@@ -140,6 +145,8 @@
 .sidebar:hover .sidebarIcon span {
     display: inline;
 }
+
+
 
 /* Main Content */
 .processForm {

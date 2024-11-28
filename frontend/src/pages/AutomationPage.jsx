@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './AutomationPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function AutomationPage() {
@@ -70,7 +70,7 @@ function AutomationPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -80,7 +80,13 @@ function AutomationPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
+
 
                 {/* Main Content */}
                 <div class={styles.automacao}>

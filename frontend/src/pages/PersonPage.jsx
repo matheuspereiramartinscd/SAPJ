@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PersonPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function PersonPage() {
@@ -162,7 +162,7 @@ function PersonPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -172,8 +172,12 @@ function PersonPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
-
                 {/* Main Content */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>

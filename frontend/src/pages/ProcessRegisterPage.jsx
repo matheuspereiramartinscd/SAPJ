@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaCogs, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import styles from './ProcessRegisterPage.module.css';
 
 function ProcessRegisterPage() {
@@ -116,7 +116,7 @@ function ProcessRegisterPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -126,7 +126,14 @@ function ProcessRegisterPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
+
+
 
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>

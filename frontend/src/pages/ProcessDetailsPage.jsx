@@ -3,6 +3,8 @@ import axios from 'axios';  // Importação do axios
 import styles from './ProcessDetailsPage.module.css';
 import { FaEdit, FaArchive, FaTrashAlt, FaFileUpload, FaArrowLeft, FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+
 
 function ProcessDetailsPage() {
     const navigate = useNavigate();
@@ -94,43 +96,49 @@ function ProcessDetailsPage() {
             </header>
 
             <div className={styles.mainLayout}>
-                {/* Sidebar */}
-                <nav className={styles.sidebar}>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
-                        <FaHome className={styles.icon} />
-                        <span>Home</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/processpage')}>
-                        <FaRegFileAlt className={styles.icon} />
-                        <span>Casos</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/tasks')}>
-                        <FaTasks className={styles.icon} />
-                        <span>Tarefas</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/dashboard')}>
-                        <FaChartLine className={styles.icon} />
-                        <span>Dashboard</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
-                        <FaUser className={styles.icon} />
-                        <span>Usuário</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
-                        <FaHandshake className={styles.icon} />
-                        <span>Automação</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
-                        <FaFileInvoiceDollar className={styles.icon} />
-                        <span>Pagamentos</span>
-                    </div>
-                </nav>
+
 
                 {/* Main Content */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Detalhes do Processo</h1>
                     </header>
+                    {/* Sidebar */}
+                    <nav className={styles.sidebar}>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
+                            <FaHome className={styles.icon} />
+                            <span>Home</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/processpage')}>
+                            <FaRegFileAlt className={styles.icon} />
+                            <span>Casos</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/tasks')}>
+                            <FaTasks className={styles.icon} />
+                            <span>Tarefas</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/dashboard')}>
+                            <FaChartLine className={styles.icon} />
+                            <span>Dashboard</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
+                            <FaUser className={styles.icon} />
+                            <span>Pessoas</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
+                            <FaHandshake className={styles.icon} />
+                            <span>Automação</span>
+                        </div>
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
+                            <FaFileInvoiceDollar className={styles.icon} />
+                            <span>Pagamentos</span>
+                        </div>
+                        {/* Novo ícone de Documentos na sidebar */}
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                            <FaFileAltIcon className={styles.icon} />
+                            <span>Documentos</span>
+                        </div>
+                    </nav>
 
                     {/* Caixa em volta do conteúdo principal */}
                     <div className={styles.contentBox}>

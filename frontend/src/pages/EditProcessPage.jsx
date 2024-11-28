@@ -2,16 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';  // useParams para pegar o ID do processo
 
 import styles from './EditProcessPage.module.css';
-import {
-    FaHome,
-    FaRegFileAlt,
-    FaTasks,
-    FaChartLine,
-    FaUser,
-    FaHandshake,
-    FaFileInvoiceDollar,
-    FaPhoneAlt,
-} from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+
 
 
 
@@ -145,7 +137,7 @@ function EditProcessPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -155,7 +147,13 @@ function EditProcessPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
+
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Editar Processo</h1>
@@ -288,10 +286,10 @@ function EditProcessPage() {
                                     <option value="Arquivado">Arquivado</option>
                                 </select>
                             </label>
-
                             <label>
                                 Desfecho:
-                                <textarea
+                                <input
+                                    type="text"
                                     name="desfecho"
                                     value={processData.desfecho}
                                     onChange={handleChange}
@@ -300,7 +298,8 @@ function EditProcessPage() {
 
                             <label>
                                 Resultado Recurso:
-                                <textarea
+                                <input
+                                    type="text"
                                     name="resultadoRecurso"
                                     value={processData.resultadoRecurso}
                                     onChange={handleChange}
@@ -309,7 +308,8 @@ function EditProcessPage() {
 
                             <label>
                                 Último Evento:
-                                <textarea
+                                <input
+                                    type="text"
                                     name="ultimoEvento"
                                     value={processData.ultimoEvento}
                                     onChange={handleChange}
@@ -318,7 +318,8 @@ function EditProcessPage() {
 
                             <label>
                                 Últimos Andamentos:
-                                <textarea
+                                <input
+                                    type="text"
                                     name="ultimosAndamentos"
                                     value={processData.ultimosAndamentos}
                                     onChange={handleChange}
@@ -327,12 +328,16 @@ function EditProcessPage() {
 
                             <label>
                                 Anotações:
-                                <textarea
+                                <input
+                                    type="text"
                                     name="anotacoes"
                                     value={processData.anotacoes}
                                     onChange={handleChange}
                                 />
                             </label>
+
+
+
 
                             <button type="submit" className={styles.submitButton}>
                                 Atualizar Processo

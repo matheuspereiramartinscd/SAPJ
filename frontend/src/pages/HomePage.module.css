@@ -3,15 +3,16 @@
     flex-direction: column;
     font-family: Arial, sans-serif;
     height: 100%;
+
 }
 
 /* Main Layout */
 .mainLayout {
     display: flex;
     flex-grow: 1;
+
 }
 
-/* Header */
 /* Header */
 .header {
     display: flex;
@@ -145,6 +146,7 @@
     padding: 20px;
     gap: 20px;
     flex-grow: 1;
+    margin-bottom: 20px;
     overflow: auto;
 }
 
@@ -231,8 +233,11 @@
     /* Cinza clássico */
 }
 
-
-
+/* Novo Card - Documentos */
+.documentosCard {
+    background-color: #f39c12;
+    /* Amarelo dourado */
+}
 
 .cardButton {
     background-color: #020201;

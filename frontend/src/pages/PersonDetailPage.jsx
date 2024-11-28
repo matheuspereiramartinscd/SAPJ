@@ -4,17 +4,10 @@ import styles from './PersonDetailPage.module.css';
 import {
     FaEdit,
     FaArrowLeft,
-    FaTrashAlt,
-    FaHome,
-    FaRegFileAlt,
-    FaTasks,
-    FaChartLine,
-    FaUser,
-    FaHandshake,
-    FaFileInvoiceDollar,
-    FaPhoneAlt,
-    FaCamera
+
 } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+
 import { useNavigate, useParams } from 'react-router-dom';
 
 function PersonDetailPage() {
@@ -60,6 +53,10 @@ function PersonDetailPage() {
         navigate('/personpage'); // Volta para a lista de pessoas
     };
 
+    const handleEditProcess = () => {
+        // Navega para a página de edição do processo
+        navigate(`/pessoas/edit/${id}/`);
+    };
     if (!person) {
         return <div>Carregando...</div>; // Exibe "Carregando..." enquanto os dados não estão disponíveis
     }
@@ -121,6 +118,11 @@ function PersonDetailPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
 
                 {/* Main Content */}
@@ -168,8 +170,12 @@ function PersonDetailPage() {
                             <button onClick={handleGoBack} className={styles.backButton}>
                                 <FaArrowLeft /> Voltar
                             </button>
-                            <button className={styles.editButton}><FaEdit /> Editar</button>
-                            <button className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
+
+                            <button onClick={handleEditProcess} className={styles.editButton}><FaEdit /> Editar</button>
+
+
+
+
                         </div>
                     </div>
                 </main>

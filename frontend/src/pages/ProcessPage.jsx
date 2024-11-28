@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ProcessPage.module.css';
-import {
-    FaHome,
-    FaRegFileAlt,
-    FaTasks,
-    FaChartLine,
-    FaUser,
-    FaHandshake,
-    FaFileInvoiceDollar,
-    FaPhoneAlt,
-} from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+
 import { useNavigate } from 'react-router-dom';
 
 function ProcessPage() {
@@ -143,6 +135,7 @@ function ProcessPage() {
 
             {/* Main Layout */}
             <div className={styles.mainLayout}>
+
                 {/* Sidebar */}
                 <nav className={styles.sidebar}>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
@@ -163,7 +156,7 @@ function ProcessPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -172,6 +165,11 @@ function ProcessPage() {
                     <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
+                    </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
                     </div>
                 </nav>
 

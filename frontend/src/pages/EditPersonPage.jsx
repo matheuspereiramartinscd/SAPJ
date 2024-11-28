@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';  // useParams to get the person's ID
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-import styles from './PersonRegisterPage.module.css';
+import styles from './EditPersonPage.module.css';  // Create a separate CSS file for the person edit page
 
-function PersonRegisterPage() {
-    const [formData, setFormData] = useState({
+function EditPersonPage() {
+    const [personData, setPersonData] = useState({
         codigo: '',
         nome: '',
         cpf: '',
@@ -13,55 +13,61 @@ function PersonRegisterPage() {
         email: '',
         cidade: '',
         estado: '',
-        tipo: 'Fisica', // Tipo padrão
+        tipo: 'Fisica', // Default type
     });
 
+    const { id } = useParams();  // Get the ID from the URL
     const navigate = useNavigate();
 
-    // Função para lidar com a mudança nos campos do formulário
+    // Fetch person data when the component mounts
+    useEffect(() => {
+        const fetchPersonData = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/pessoas/${id}/`);  // API to fetch the person's data by ID
+                const data = await response.json();
+                setPersonData(data);  // Set the fetched data into state
+            } catch (error) {
+                console.error('Error fetching person data:', error);
+            }
+        };
+
+        if (id) {
+            fetchPersonData();  // Fetch person data if ID is present
+        }
+    }, [id]);
+
+    // Handle form field changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
+        setPersonData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    // Função para enviar o formulário
+    // Handle form submission (editing the person)
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Enviando dados para a API
-            const response = await fetch('http://127.0.0.1:8000/api/pessoas/registrar/', {
-                method: 'POST',
+            const response = await fetch(`http://127.0.0.1:8000/api/pessoas/edit/${id}/`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(personData),
             });
 
             if (response.ok) {
-                alert('Pessoa registrada com sucesso!');
-                setFormData({
-                    codigo: '',
-                    nome: '',
-                    cpf: '',
-                    rg: '',
-                    telefone: '',
-                    email: '',
-                    cidade: '',
-                    estado: '',
-                    tipo: 'Fisica', // Resetando o tipo para o padrão
-                });
-                navigate('/personpage'); // Redireciona para a página de pessoas
+                alert('Pessoa atualizada com sucesso!');
+                navigate('/personpage');  // Redirect to the person page after successful update
             } else {
                 const errorData = await response.json();
                 alert('Erro: ' + JSON.stringify(errorData));
             }
         } catch (error) {
-            console.error('Erro ao registrar pessoa:', error);
-            alert('Erro ao registrar a pessoa');
+            console.error('Erro ao atualizar a pessoa:', error);
+            alert('Erro ao atualizar a pessoa');
         }
     };
 
@@ -129,10 +135,9 @@ function PersonRegisterPage() {
                     </div>
                 </nav>
 
-
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
-                        <h1>Registrar Pessoa</h1>
+                        <h1>Editar Pessoa</h1>
                     </header>
 
                     <div className={styles.formContainer}>
@@ -142,7 +147,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="codigo"
-                                    value={formData.codigo}
+                                    value={personData.codigo}
                                     onChange={handleChange}
                                     required
                                 />
@@ -152,7 +157,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="nome"
-                                    value={formData.nome}
+                                    value={personData.nome}
                                     onChange={handleChange}
                                     required
                                 />
@@ -162,7 +167,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="cpf"
-                                    value={formData.cpf}
+                                    value={personData.cpf}
                                     onChange={handleChange}
                                     required
                                 />
@@ -172,7 +177,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="rg"
-                                    value={formData.rg}
+                                    value={personData.rg}
                                     onChange={handleChange}
                                 />
                             </label>
@@ -181,7 +186,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="telefone"
-                                    value={formData.telefone}
+                                    value={personData.telefone}
                                     onChange={handleChange}
                                 />
                             </label>
@@ -190,7 +195,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="email"
                                     name="email"
-                                    value={formData.email}
+                                    value={personData.email}
                                     onChange={handleChange}
                                     required
                                 />
@@ -200,7 +205,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="cidade"
-                                    value={formData.cidade}
+                                    value={personData.cidade}
                                     onChange={handleChange}
                                     required
                                 />
@@ -210,7 +215,7 @@ function PersonRegisterPage() {
                                 <input
                                     type="text"
                                     name="estado"
-                                    value={formData.estado}
+                                    value={personData.estado}
                                     onChange={handleChange}
                                     required
                                 />
@@ -219,7 +224,7 @@ function PersonRegisterPage() {
                                 Tipo de Pessoa:
                                 <select
                                     name="tipo"
-                                    value={formData.tipo}
+                                    value={personData.tipo}
                                     onChange={handleChange}
                                     className={styles.tipoSelect}
                                     required
@@ -228,12 +233,15 @@ function PersonRegisterPage() {
                                     <option value="Juridica">Juridica</option>
                                 </select>
                             </label>
+
                             <button type="submit" className={styles.submitButton}>
-                                Registrar
+                                Atualizar Pessoa
                             </button>
+
+                            {/* Back button */}
                             <button
                                 type="button"
-                                className={styles.backButton}
+                                className={styles.submitButton}
                                 onClick={() => navigate('/personpage')}
                             >
                                 Voltar
@@ -246,4 +254,4 @@ function PersonRegisterPage() {
     );
 }
 
-export default PersonRegisterPage;
+export default EditPersonPage;

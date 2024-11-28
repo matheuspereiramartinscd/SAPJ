@@ -51,6 +51,11 @@
     color: #333;
 }
 
+.pageHeader {
+    text-align: right;
+    margin-right: -4px;
+}
+
 .tipoSelect {
     padding: 10px;
     font-size: 14px;

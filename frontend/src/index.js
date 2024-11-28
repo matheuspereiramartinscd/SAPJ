@@ -17,6 +17,7 @@ import AutomationPage from './pages/AutomationPage';
 import DashboardPage from './pages/DashboardPage';
 import ProcessRegisterPage from './pages/ProcessRegisterPage';
 import EditProcessPage from './pages/EditProcessPage';
+import EditPersonPage from './pages/EditPersonPage';
 import PersonRegisterPage from './pages/PersonRegisterPage'; // Importando a nova página de cadastro de pessoa
 import PersonDetailsPage from './pages/PersonDetailPage'; // Importando a nova página de detalhes de pessoa
 
@@ -43,7 +44,7 @@ root.render(
       <Route path="/processregister" element={<ProcessRegisterPage />} />
       <Route path="/processes/details/:id" element={<ProcessDetailsPage />} />
       <Route path="/process/edit/:id" element={<EditProcessPage />} />
-
+      <Route path="pessoas/edit/:id" element={<EditPersonPage />} />
       {/* Nova rota para registro de pessoa */}
       <Route path="/personregister" element={<PersonRegisterPage />} />
 

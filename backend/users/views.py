@@ -177,3 +177,19 @@ def delete_pessoa(request, id):
         return JsonResponse({'message': 'Pessoa excluída com sucesso'}, status=204)  # Retorna sucesso
     except Pessoa.DoesNotExist:
         return JsonResponse({'error': 'Pessoa não encontrada'}, status=404)  # Retorna erro se não encontrada
+
+class EditPessoaView(APIView):
+    def put(self, request, id, format=None):
+        try:
+            pessoa = Pessoa.objects.get(id=id)  # Tenta encontrar a pessoa pelo ID
+        except Pessoa.DoesNotExist:
+            return Response({'error': 'Pessoa não encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Serializa os dados da pessoa com os dados fornecidos na requisição
+        serializer = PessoaSerializer(pessoa, data=request.data, partial=True)  # partial=True permite atualização parcial dos campos
+
+        # Se os dados forem válidos, salva e retorna a resposta
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

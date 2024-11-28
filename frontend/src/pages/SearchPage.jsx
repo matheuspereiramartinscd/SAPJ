@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SearchPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa'; import { useNavigate } from 'react-router-dom';
 
 function SearchPage() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -88,7 +87,7 @@ function SearchPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -98,7 +97,13 @@ function SearchPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
+                    </div>
                 </nav>
+
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Pesquisar Jurisprudências</h1>

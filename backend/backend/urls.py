@@ -7,6 +7,7 @@ from users.views import ProcessEditView
 from users.views import listar_pessoas 
 from users.views import detalhes_pessoa
 from users.views import delete_pessoa
+from users.views import EditPessoaView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -21,5 +22,5 @@ urlpatterns = [
  path('api/processes/edit/<int:id>/', ProcessEditView.as_view(), name='process-edit'),
  path('api/pessoas/<int:id>/', detalhes_pessoa, name='detalhes_pessoa'),
 path('api/pessoas/<int:id>/delete/', delete_pessoa, name='delete_pessoa'),
-
+ path('api/pessoas/edit/<int:id>/', EditPessoaView.as_view(), name='edit_pessoa')
 ]

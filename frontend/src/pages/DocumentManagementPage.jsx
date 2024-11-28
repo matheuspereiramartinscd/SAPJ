@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './ProcessPage.module.css';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaDownload, FaTrash, FaUpload } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 
 function DocumentManagementPage() {
     const [documents, setDocuments] = useState([
@@ -92,7 +93,7 @@ function DocumentManagementPage() {
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
                         <FaUser className={styles.icon} />
-                        <span>Usuário</span>
+                        <span>Pessoas</span>
                     </div>
                     <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
                         <FaHandshake className={styles.icon} />
@@ -101,6 +102,11 @@ function DocumentManagementPage() {
                     <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
+                    </div>
+                    {/* Novo ícone de Documentos na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                        <FaFileAltIcon className={styles.icon} />
+                        <span>Documentos</span>
                     </div>
                 </nav>
 
