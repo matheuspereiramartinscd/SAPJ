@@ -9,6 +9,9 @@ from django.http import JsonResponse
 from rest_framework.exceptions import NotFound
 from .serializers import PessoaSerializer
 from .models import Pessoa 
+from .serializers import TaskSerializer
+from rest_framework import generics
+from .models import Task  # Importa o modelo Task
 
 class UserRegistrationView(APIView):
     def post(self, request):
@@ -193,3 +196,11 @@ class EditPessoaView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TaskListCreateView(generics.ListCreateAPIView):
+    """
+    View para listar todas as tarefas e criar uma nova tarefa.
+    """
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer

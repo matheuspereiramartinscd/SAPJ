@@ -1,55 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './TaskManagementPage.module.css';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaClock, FaPlus, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 
-
 function TaskManagementPage() {
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            name: 'Revisar documentos',
-            process: '12345 - Ação Trabalhista',
-            people: ['João Silva', 'Maria Oliveira'],
-            createdDate: '2024-11-20',
-            dueDate: '2024-11-30',
-            status: 'Pendente',
-        },
-        {
-            id: 2,
-            name: 'Preparar audiência',
-            process: '67890 - Ação Civil',
-            people: ['Ana Costa', 'Carlos Souza'],
-            createdDate: '2024-11-18',
-            dueDate: '2024-11-25',
-            status: 'Em andamento',
-        },
-        {
-            id: 3,
-            name: 'Enviar documentação',
-            process: '11223 - Ação Penal',
-            people: ['Fernanda Lima'],
-            createdDate: '2024-11-10',
-            dueDate: '2024-11-15',
-            status: 'Concluída',
-        },
-    ]);
-
+    const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
 
+    // Fetch tasks from the backend API
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/tasks/');
+                const data = await response.json();
+                console.log('Tasks:', data); // Check if tasks are fetched properly
+                setTasks(data);
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+
+        fetchTasks();
+    }, []);
+
+    // Handle logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
-    const handleDeleteTask = (id) => {
-        setTasks(tasks.filter((task) => task.id !== id));
+    // Delete task by ID
+    const handleDeleteTask = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/tasks/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setTasks(tasks.filter((task) => task.id !== id)); // Update local state to reflect deletion
+                alert('Tarefa excluída com sucesso!');
+            } else {
+                const errorData = await response.json();
+                console.error('Erro ao excluir tarefa:', errorData);
+                throw new Error('Erro ao excluir tarefa');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
+    // Navigate to the task creation page
     const handleAddTask = () => {
-        // Função para adicionar nova tarefa (exemplo para implementar no futuro)
-        alert('Adicionar nova tarefa');
+        navigate('/taskregister');
     };
 
     return (
@@ -126,22 +132,22 @@ function TaskManagementPage() {
 
                     {/* Task Columns */}
                     <div className={styles.taskColumns}>
-                        {['Pendente', 'Em andamento', 'Concluída'].map((status, index) => (
+                        {['pendente', 'em andamento', 'concluída'].map((status, index) => (
                             <div key={index} className={styles.taskColumn}>
                                 <h2>
-                                    <FaClock /> {status}
+                                    <FaClock /> {status === 'pendente' ? 'Pendente' : status === 'em andamento' ? 'Em andamento' : 'Concluída'}
                                 </h2>
                                 <div className={styles.taskColumnContent}>
                                     {tasks
                                         .filter((task) => task.status === status)
                                         .map((task) => (
                                             <div key={task.id} className={styles.taskCard}>
-                                                <h3>{task.name}</h3>
-                                                <p><strong>Processo:</strong> {task.process}</p>
-                                                <p><strong>Pessoas:</strong> {task.people.join(', ')}</p>
+                                                <h3>{task.titulo}</h3> {/* Use task.titulo instead of task.name */}
+                                                <p><strong>Processo:</strong> {task.processo}</p>
+                                                <p><strong>Pessoas:</strong> {task.pessoas.join(', ')}</p>
                                                 <p>
-                                                    <strong>Criado em:</strong> {task.createdDate} |{' '}
-                                                    <strong>Conclusão:</strong> {task.dueDate}
+                                                    <strong>Criado em:</strong> {task.data_criacao || 'N/A'} |{' '}
+                                                    <strong>Conclusão:</strong> {task.data_conclusao}
                                                 </p>
                                                 <button
                                                     onClick={() => handleDeleteTask(task.id)}
@@ -155,6 +161,7 @@ function TaskManagementPage() {
                             </div>
                         ))}
                     </div>
+
 
                     {/* Único botão para criar tarefa */}
                     <div className={styles.createTaskButtonContainer}>

@@ -1,0 +1,312 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    margin-left: 60px;
+    justify-content: center;
+    flex: 1;
+    padding: 20px;
+    /* Adicionando padding para espaçar melhor os elementos */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete o tamanho do layout */
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkboxItem {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.checkboxItem input {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.checkboxItem label {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.checkboxItem label:hover {
+    color: #007bff;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+
+/* Formulário de Registro */
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    /* Garante que o padding não afete o layout */
+    margin: 0 auto;
+    /* Centraliza o formulário */
+}
+
+.formContainer label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.formContainer input,
+.formContainer select {
+    padding: 12px;
+    /* Ajuste para tornar os campos mais fáceis de usar */
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    /* Para garantir que a largura do input leve o padding em conta */
+}
+
+.formContainer textarea {
+    padding: 12px;
+    /* Mesmo ajuste para o textarea */
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.formContainer input:focus,
+.formContainer select:focus,
+.formContainer textarea:focus {
+    border-color: #e67e22;
+    outline: none;
+    box-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+}
+
+/* Botões */
+/* Botões */
+.submitButton,
+.backButton {
+    background-color: #e67e22;
+    color: white;
+    padding: 12px 20px;
+    /* Aumentando o padding para botões mais largos */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    width: 100%;
+    /* Tornando os botões responsivos */
+}
+
+.submitButton:hover,
+.backButton:hover {
+    background-color: #d35400;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    left: 0;
+    top: 60px;
+    transition: width 0.3s;
+    z-index: 500;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebar:hover {
+    width: 200px;
+    /* Expande a sidebar ao passar o mouse */
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: all 0.3s;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .formContainer {
+        width: 90%;
+    }
+
+    .formContainer input,
+    .formContainer select {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .submitButton {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebarIcon {
+        padding: 25px 15px;
+    }
+
+    .header {
+        padding: 10px;
+    }
+
+    .mainLayout {
+        margin-left: 50px;
+        /* Ajuste de margem para a sidebar */
+    }
+}
+
+@media (max-width: 768px) {
+    .formContainer {
+        width: 95%;
+    }
+
+    .submitButton {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebarIcon {
+        padding: 25px 15px;
+    }
+
+    .header {
+        padding: 10px;
+    }
+
+    .mainLayout {
+        margin-left: 50px;
+        /* Ajuste de margem para a sidebar */
+    }
+}

@@ -106,3 +106,23 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return self.nome
+
+from django.db import models
+
+class Task(models.Model):
+    STATUS_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('em_andamento', 'Em andamento'),
+        ('concluida', 'Concluída'),
+    ]
+
+    titulo = models.CharField(max_length=255)
+    processo = models.ForeignKey(Processo, on_delete=models.CASCADE, related_name='tasks')
+    pessoas = models.ManyToManyField(Pessoa, related_name='tasks')
+    data_conclusao = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    criado_em = models.DateTimeField(auto_now_add=True)  # Preenche automaticamente a data de criação
+    descricao = models.TextField(blank=True, null=True)  # Campo de descrição opcional
+
+    def __str__(self):
+        return f"{self.titulo} - {self.status}"

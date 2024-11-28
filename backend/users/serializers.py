@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User, Processo
 from .models import Pessoa
+from .models import Task 
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,3 +56,10 @@ class PessoaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pessoa
         fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado', 'tipo']
+class TaskSerializer(serializers.ModelSerializer):
+    processo = serializers.PrimaryKeyRelatedField(queryset=Processo.objects.all())
+    pessoas = serializers.PrimaryKeyRelatedField(queryset=Pessoa.objects.all(), many=True)
+
+    class Meta:
+        model = Task
+        fields = ['id', 'titulo', 'processo', 'pessoas', 'data_conclusao', 'status', 'criado_em', 'descricao']
