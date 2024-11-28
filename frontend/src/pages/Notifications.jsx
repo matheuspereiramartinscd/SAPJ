@@ -12,7 +12,7 @@ function Notifications() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handleSelectRecipient = (e) => {

@@ -40,7 +40,7 @@ function TaskManagementPage() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handleDeleteTask = (id) => {

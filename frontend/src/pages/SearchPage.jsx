@@ -10,7 +10,7 @@ function SearchPage() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handleSearch = () => {

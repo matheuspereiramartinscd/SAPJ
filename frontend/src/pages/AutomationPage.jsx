@@ -10,7 +10,7 @@ function AutomationPage() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handleTemplateChange = (e) => {

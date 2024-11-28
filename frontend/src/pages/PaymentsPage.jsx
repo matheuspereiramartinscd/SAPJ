@@ -7,9 +7,8 @@ function PaymentsPage() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Remover o token do localStorage e redirecionar para a página de login
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handlePay = (id) => {

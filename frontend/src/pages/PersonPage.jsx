@@ -58,9 +58,8 @@ function PersonPage() {
     }, [isFisica, isJuridica, people]);
 
     const handleLogout = () => {
-        // Remover o token do localStorage e redirecionar para a página de login
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     const handleSelectFisica = (e) => {

@@ -44,7 +44,10 @@ function EditPersonPage() {
             [name]: value,
         }));
     };
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
     // Handle form submission (editing the person)
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,7 +91,7 @@ function EditPersonPage() {
 
                 <div className={styles.headerRight}>
                     <button className={styles.editButton}>Editar</button>
-                    <button className={styles.logoutButton}>Sair</button>
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
                         <FaUser className={styles.userIcon} />
                         <span>Usuário</span>

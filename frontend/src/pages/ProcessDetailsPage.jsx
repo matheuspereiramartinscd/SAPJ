@@ -47,7 +47,10 @@ function ProcessDetailsPage() {
         navigate(`/process/edit/${id}/`);
     };
 
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
     // Função para arquivar o processo
     const handleArchiveProcess = () => {
         const updatedProcess = { ...processo, status: 'Arquivado' };
@@ -86,7 +89,7 @@ function ProcessDetailsPage() {
 
                 <div className={styles.headerRight}>
                     <button className={styles.editButton}>Editar</button>
-                    <button className={styles.logoutButton}>Sair</button>
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
                         <FaUser className={styles.userIcon} />
                         <span>Usuário</span>
@@ -223,7 +226,7 @@ function ProcessDetailsPage() {
                             <button onClick={handleEditProcess} className={styles.editButton}><FaEdit /> Editar</button>
 
 
-                            <button className={styles.deleteButton}><FaTrashAlt /> Excluir</button>
+
                         </div>
                     </div>
                 </main>

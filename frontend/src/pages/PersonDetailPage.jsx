@@ -52,7 +52,10 @@ function PersonDetailPage() {
     const handleGoBack = () => {
         navigate('/personpage'); // Volta para a lista de pessoas
     };
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
     const handleEditProcess = () => {
         // Navega para a página de edição do processo
         navigate(`/pessoas/edit/${id}/`);
@@ -79,7 +82,7 @@ function PersonDetailPage() {
 
                 <div className={styles.headerRight}>
                     <button className={styles.editButton}>Editar</button>
-                    <button className={styles.logoutButton}>Sair</button>
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
                         <FaUser className={styles.userIcon} />
                         <span>Usuário</span>

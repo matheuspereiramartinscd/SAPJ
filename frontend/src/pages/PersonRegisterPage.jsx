@@ -26,7 +26,10 @@ function PersonRegisterPage() {
             [name]: value,
         }));
     };
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
     // Função para enviar o formulário
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,7 +85,7 @@ function PersonRegisterPage() {
 
                 <div className={styles.headerRight}>
                     <button className={styles.editButton}>Editar</button>
-                    <button className={styles.logoutButton}>Sair</button>
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
                         <FaUser className={styles.userIcon} />
                         <span>Usuário</span>

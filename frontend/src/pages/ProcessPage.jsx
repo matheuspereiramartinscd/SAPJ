@@ -59,9 +59,8 @@ function ProcessPage() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
-
     const handleSelectArchived = (e) => {
         setIsArchived(e.target.checked);
     };
