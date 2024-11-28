@@ -153,3 +153,27 @@ def listar_pessoas(request):
     serializer = PessoaSerializer(pessoas, many=True)
     return Response(serializer.data)
     
+@api_view(['GET'])
+def detalhes_pessoa(request, id):
+    """
+    Função para obter os detalhes de uma pessoa específica.
+    """
+    try:
+        pessoa = Pessoa.objects.get(id=id)
+        serializer = PessoaSerializer(pessoa)
+        return Response(serializer.data, status=200)
+    except Pessoa.DoesNotExist:
+        return Response({'error': 'Pessoa não encontrada'}, status=404)
+
+
+@api_view(['DELETE'])
+def delete_pessoa(request, id):
+    """
+    Função para deletar uma pessoa pelo ID.
+    """
+    try:
+        pessoa = Pessoa.objects.get(id=id)  # Tenta encontrar a pessoa pelo ID
+        pessoa.delete()  # Deleta a pessoa
+        return JsonResponse({'message': 'Pessoa excluída com sucesso'}, status=204)  # Retorna sucesso
+    except Pessoa.DoesNotExist:
+        return JsonResponse({'error': 'Pessoa não encontrada'}, status=404)  # Retorna erro se não encontrada

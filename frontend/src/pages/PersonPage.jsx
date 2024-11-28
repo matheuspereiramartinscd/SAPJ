@@ -78,25 +78,36 @@ function PersonPage() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/pessoas/${id}/`, {
+            // Faz uma requisição DELETE para o endpoint correspondente
+            const response = await fetch(`http://localhost:8000/api/pessoas/${id}/delete/`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', // Cabeçalho básico para requisições REST
                 },
             });
 
+            // Verifica se a requisição foi bem-sucedida
             if (response.ok) {
                 alert('Pessoa excluída com sucesso');
-                // Atualiza a lista de pessoas removendo a pessoa excluída diretamente do estado
+                // Atualiza o estado local removendo a pessoa excluída
                 setPeople((prevPeople) => prevPeople.filter((person) => person.id !== id));
-                setFilteredPeople((prevPeople) => prevPeople.filter((person) => person.id !== id));
+                setFilteredPeople((prevFiltered) =>
+                    prevFiltered.filter((person) => person.id !== id)
+                );
+            } else if (response.status === 404) {
+                // Lida com o caso de pessoa não encontrada
+                alert('Pessoa não encontrada. Ela pode já ter sido excluída.');
             } else {
-                alert('Erro ao excluir pessoa');
+                // Lida com outros erros do servidor
+                alert('Erro ao excluir pessoa. Por favor, tente novamente.');
             }
         } catch (error) {
+            // Lida com erros de conexão ou outros problemas
             console.error('Erro ao excluir pessoa:', error);
+            alert('Erro ao conectar com o servidor. Verifique sua conexão.');
         }
     };
+
 
     const handleViewDetails = (id) => {
         navigate(`/persondetails/${id}`);

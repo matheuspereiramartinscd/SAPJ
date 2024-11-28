@@ -5,6 +5,8 @@ from users.views import register_process, get_processes  # Corrigido para 'get_p
 from users.views import ProcessDetails
 from users.views import ProcessEditView
 from users.views import listar_pessoas 
+from users.views import detalhes_pessoa
+from users.views import delete_pessoa
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,4 +19,7 @@ urlpatterns = [
      path('api/processes/details/<int:pk>/', ProcessDetails.as_view(), name='process_details'),  # Detalhes do processo
     path('api/people/list/', listar_pessoas, name='listar_pessoas'),
  path('api/processes/edit/<int:id>/', ProcessEditView.as_view(), name='process-edit'),
+ path('api/pessoas/<int:id>/', detalhes_pessoa, name='detalhes_pessoa'),
+path('api/pessoas/<int:id>/delete/', delete_pessoa, name='delete_pessoa'),
+
 ]
