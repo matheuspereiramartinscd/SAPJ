@@ -7,7 +7,7 @@ import ProcessPage from './pages/ProcessPage';    // Importando HomePage como pa
 import UserRegistrationForm from './pages/UserRegistrationForm';
 import ProcessDetailsPage from './pages/ProcessDetailsPage';    // Importando HomePage como padrão
 import PersonPage from './pages/PersonPage';
-import PersonDetailsPage from './pages/PersonDetailsPage';
+
 import SearchPage from './pages/SearchPage';
 import TaskManagementPage from './pages/TaskManagementPage';
 import PaymentsPage from './pages/PaymentsPage';
@@ -18,6 +18,7 @@ import DashboardPage from './pages/DashboardPage';
 import ProcessRegisterPage from './pages/ProcessRegisterPage';
 import EditProcessPage from './pages/EditProcessPage';
 import PersonRegisterPage from './pages/PersonRegisterPage'; // Importando a nova página de cadastro de pessoa
+import PersonDetailsPage from './pages/PersonDetailPage'; // Importando a nova página de detalhes de pessoa
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -30,7 +31,7 @@ root.render(
       <Route path="/processpage" element={<ProcessPage />} />
       <Route path="/processdetails" element={<ProcessDetailsPage />} />
       <Route path="/personpage" element={<PersonPage />} />
-      <Route path="/persondetails" element={<PersonDetailsPage />} />
+
       <Route path="/processdetails/:id" element={<ProcessDetailsPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/tasks" element={<TaskManagementPage />} />
@@ -45,6 +46,9 @@ root.render(
 
       {/* Nova rota para registro de pessoa */}
       <Route path="/personregister" element={<PersonRegisterPage />} />
+
+      {/* Nova rota para detalhes de pessoa */}
+      <Route path="/persondetails/:id" element={<PersonDetailsPage />} />
     </Routes>
   </Router>
 );

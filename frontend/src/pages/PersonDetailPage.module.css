@@ -43,6 +43,10 @@ body {
     z-index: 1000;
 }
 
+.photoUpload {
+    margin-left: 200px;
+}
+
 /* Logo */
 .logoContainer {
     display: flex;
@@ -412,7 +416,6 @@ body {
 .notesSection {
     flex: 2;
     /* As anotações ocupam o mesmo espaço que o processo */
-    margin-left: -150px;
 }
 
 /* Layout for back button and other action buttons */
