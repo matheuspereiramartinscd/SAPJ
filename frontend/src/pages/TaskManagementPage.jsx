@@ -79,6 +79,11 @@ function TaskManagementPage() {
         }
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0]; // Only return the date part (YYYY-MM-DD)
+    };
+
     // Navigate to the task creation page
     const handleAddTask = () => {
         navigate('/taskregister');
@@ -171,37 +176,91 @@ function TaskManagementPage() {
                     <header className={styles.pageHeader}>
                         <h1>Gestão de Tarefas</h1>
                     </header>
-
                     {/* Task Columns */}
                     <div className={styles.taskColumns}>
-                        {['pendente', 'em andamento', 'concluída'].map((status, index) => (
-                            <div key={index} className={styles.taskColumn}>
-                                <h2>
-                                    <FaClock /> {status === 'pendente' ? 'Pendente' : status === 'em andamento' ? 'Em andamento' : 'Concluída'}
-                                </h2>
-                                <div className={styles.taskColumnContent}>
-                                    {tasks
-                                        .filter((task) => task.status === status)
-                                        .map((task) => (
-                                            <div key={task.id} className={styles.taskCard}>
-                                                <h3>{task.titulo}</h3>
-                                                <p><strong>Processo:</strong> {getProcessDetails(task.processo)}</p>
-                                                <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
-                                                <p>
-                                                    <strong>Criado em:</strong> {task.criado_em || 'N/A'} |{' '}
-                                                    <strong>Conclusão:</strong> {task.data_conclusao}
-                                                </p>
-                                                <button
-                                                    onClick={() => handleDeleteTask(task.id)}
-                                                    className={styles.deleteButton}
-                                                >
-                                                    <FaTrash /> Excluir
-                                                </button>
-                                            </div>
-                                        ))}
-                                </div>
+                        {/* Pendente Column */}
+                        <div className={styles.taskColumn}>
+                            <h2>
+                                <FaClock /> Pendente
+                            </h2>
+                            <div className={styles.taskColumnContent}>
+                                {tasks
+                                    .filter((task) => task.status === 'pendente')
+                                    .map((task) => (
+                                        <div key={task.id} className={styles.taskCard}>
+                                            <h3>{task.titulo}</h3>
+                                            <p><strong>Processo:</strong> {getProcessDetails(task.processo)}</p>
+                                            <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
+                                            <p>
+                                                <strong>Criado em:</strong> {formatDate(task.criado_em)} |{' '}
+                                                <strong>Conclusão:</strong> {task.data_conclusao}
+                                            </p>
+                                            <button
+                                                onClick={() => handleDeleteTask(task.id)}
+                                                className={styles.deleteButton}
+                                            >
+                                                <FaTrash /> Excluir
+                                            </button>
+                                        </div>
+                                    ))}
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Em andamento Column */}
+                        <div className={styles.taskColumn}>
+                            <h2>
+                                <FaClock /> Em andamento
+                            </h2>
+                            <div className={styles.taskColumnContent}>
+                                {tasks
+                                    .filter((task) => task.status === 'em_andamento')
+                                    .map((task) => (
+                                        <div key={task.id} className={styles.taskCard}>
+                                            <h3>{task.titulo}</h3>
+                                            <p><strong>Processo:</strong> {getProcessDetails(task.processo)}</p>
+                                            <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
+                                            <p>
+                                                <strong>Criado em:</strong> {formatDate(task.criado_em)} |{' '}
+                                                <strong>Conclusão:</strong> {task.data_conclusao}
+                                            </p>
+                                            <button
+                                                onClick={() => handleDeleteTask(task.id)}
+                                                className={styles.deleteButton}
+                                            >
+                                                <FaTrash /> Excluir
+                                            </button>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+
+                        {/* Concluída Column */}
+                        <div className={styles.taskColumn}>
+                            <h2>
+                                <FaClock /> Concluída
+                            </h2>
+                            <div className={styles.taskColumnContent}>
+                                {tasks
+                                    .filter((task) => task.status === 'concluida')
+                                    .map((task) => (
+                                        <div key={task.id} className={styles.taskCard}>
+                                            <h3>{task.titulo}</h3>
+                                            <p><strong>Processo:</strong> {getProcessDetails(task.processo)}</p>
+                                            <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
+                                            <p>
+                                                <strong>Criado em:</strong> {formatDate(task.criado_em)} |{' '}
+                                                <strong>Conclusão:</strong> {task.data_conclusao}
+                                            </p>
+                                            <button
+                                                onClick={() => handleDeleteTask(task.id)}
+                                                className={styles.deleteButton}
+                                            >
+                                                <FaTrash /> Excluir
+                                            </button>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Único botão para criar tarefa */}

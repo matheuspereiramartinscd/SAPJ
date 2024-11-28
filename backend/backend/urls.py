@@ -9,6 +9,7 @@ from users.views import detalhes_pessoa
 from users.views import delete_pessoa
 from users.views import EditPessoaView
 from users.views import TaskListCreateView
+from users.views import TaskEditView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,8 @@ urlpatterns = [
 path('api/pessoas/<int:id>/delete/', delete_pessoa, name='delete_pessoa'),
  path('api/pessoas/edit/<int:id>/', EditPessoaView.as_view(), name='edit_pessoa'),
 path('api/tasks/', TaskListCreateView.as_view(), name='task-list-create'),
+path('api/tasks/edit/<int:id>/', TaskEditView.as_view(), name='edit_task'),  # New 
+
+
+
 ]

@@ -204,3 +204,24 @@ class TaskListCreateView(generics.ListCreateAPIView):
     """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+class TaskEditView(APIView):
+    """
+    View to edit a task.
+    """
+
+    def put(self, request, id, format=None):
+        try:
+            # Try to find the task by ID
+            task = Task.objects.get(id=id)
+        except Task.DoesNotExist:
+            return Response({'error': 'Tarefa não encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Serialize the task with the new data provided in the request
+        serializer = TaskSerializer(task, data=request.data, partial=True)  # partial=True allows partial updates
+
+        # If the data is valid, save and return the updated task
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

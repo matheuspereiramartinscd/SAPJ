@@ -5,7 +5,8 @@ from . import views
 from .views import get_processes  # Corrigido para 'get_processes'
 from .views import ProcessDetails
 from .views import registrar_pessoa, listar_pessoas
-
+from .views import ProcessDetails
+from .views import TaskEditView
 
 
 urlpatterns = [
@@ -19,5 +20,4 @@ urlpatterns = [
     path('api/processes/details/<int:pk>/', ProcessDetails.as_view(), name='process_details'),  # Detalhes do processo
       path('pessoas/registrar/', registrar_pessoa, name='registrar_pessoa'),
     path('pessoas/', listar_pessoas, name='listar_pessoas'),
-
 ]

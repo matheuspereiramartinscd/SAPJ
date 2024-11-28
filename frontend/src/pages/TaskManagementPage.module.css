@@ -8,12 +8,17 @@
 
 .mainLayout {
     display: flex;
+
     flex-grow: 1;
 }
 
 /* Header e Sidebar */
 
 /* Reutiliza estilos globais */
+.pageHeader h1 {
+    margin-top: 220px;
+    /* Ajuste conforme necessário */
+}
 
 /* Main Content */
 .mainContent {
@@ -29,6 +34,45 @@
     height: calc(100vh - 300px);
     /* Ajusta a altura, descontando o header */
     box-sizing: border-box;
+}
+
+/* Custom Scrollbar for Task Columns */
+.taskColumn {
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    /* Adiciona margem entre as colunas, se necessário */
+
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    /* Para Firefox */
+    scrollbar-color: #27ae60 #f7f7f7;
+    /* Cor da barra e o fundo da área de rolagem */
+}
+
+/* Custom Scrollbar for Webkit Browsers (Chrome, Safari, etc.) */
+.taskColumn::-webkit-scrollbar {
+    width: 8px;
+    /* Largura da barra de rolagem */
+}
+
+.taskColumn::-webkit-scrollbar-thumb {
+    background-color: #27ae60;
+    /* Cor da parte que você arrasta */
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.taskColumn::-webkit-scrollbar-thumb:hover {
+    background-color: #229954;
+    /* Cor ao passar o mouse */
+}
+
+.taskColumn::-webkit-scrollbar-track {
+    background-color: #f7f7f7;
+    /* Cor de fundo da área de rolagem */
+    border-radius: 10px;
 }
 
 .pageHeader {
@@ -80,6 +124,19 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.taskColumn {
+
+
+    min-height: 300px;
+    /* Defina a altura mínima desejada */
+    max-height: 500px;
+    /* Defina um limite máximo de altura */
+    overflow-y: auto;
+    /* Adiciona barra de rolagem se o conteúdo for muito alto */
+    margin-bottom: 20px;
+    /* Adiciona margem entre as colunas, se necessário */
 }
 
 .taskColumnContent {
