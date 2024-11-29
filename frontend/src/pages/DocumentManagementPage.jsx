@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './DocumentManagementPage.module.css';
 import { FaUpload, FaDownload, FaTrash, FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 function DocumentManagementPage() {
     const [documents, setDocuments] = useState([]);
@@ -19,6 +20,11 @@ function DocumentManagementPage() {
         fetchDocuments();
     }, []);
 
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];  // Exibe apenas a data no formato YYYY-MM-DD
+    };
     // Função para fazer o upload de documentos
     const handleUploadDocument = async () => {
         if (!newDocument.file) {
@@ -53,23 +59,35 @@ function DocumentManagementPage() {
     // Função para fazer o download de um documento
     const handleDownload = (doc) => {
         const fileUrl = doc.file.startsWith('http') ? doc.file : `http://localhost:8000${doc.file}`;
-        window.location.href = fileUrl;  // Baixar o arquivo
+        window.open(fileUrl, '_blank');  // Abre o arquivo em uma nova aba
     };
 
 
     // Função para excluir um documento
     const handleDelete = async (docId) => {
-        const response = await fetch(`http://localhost:8000/api/documents/${docId}/`, {
-            method: 'DELETE',
-        });
+        try {
+            const response = await fetch(`http://localhost:8000/api/documents/delete/${docId}/`, {
+                method: 'DELETE',
+                headers: {
+                    // Se você estiver usando autenticação, adicione o token aqui
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
 
-        if (response.ok) {
-            setDocuments(documents.filter(doc => doc.id !== docId));
-            alert('Documento excluído com sucesso!');
-        } else {
-            alert('Erro ao excluir o documento.');
+            if (response.ok) {
+                setDocuments(documents.filter(doc => doc.id !== docId));
+                alert('Documento excluído com sucesso!');
+            } else {
+                const errorMessage = await response.text();
+                console.error('Erro ao excluir documento:', errorMessage);  // Log para debug
+                alert(`Erro ao excluir o documento: ${errorMessage}`);
+            }
+        } catch (error) {
+            console.error('Erro inesperado ao excluir documento:', error);  // Log para debug
+            alert('Erro inesperado ao tentar excluir o documento.');
         }
     };
+
 
     // Handle Logout
     const handleLogout = () => {
@@ -136,16 +154,58 @@ function DocumentManagementPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
+                    </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
+
                 {/* Main Content */}
                 <main className={styles.mainContent}>
                     <h1>Gestão de Documentos</h1>
 
+
+                    {/* Lista de Documentos */}
+                    <table className={styles.table}>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+
+                                <th>Extensão</th>
+                                <th>Data de Criação</th>
+                                <th>Descrição</th>
+                                <th>Download</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {documents.map((doc) => (
+                                <tr key={doc.id}>
+                                    <td>{doc.id}</td>
+
+                                    <td>{doc.file.split('.').pop()}</td> {/* Extensão do arquivo */}
+                                    <td>{formatDate(doc.created_at)}</td> {/* Data de Criação formatada */}
+                                    <td>{doc.description}</td>
+                                    <td>
+                                        <button onClick={() => handleDownload(doc)} className={styles.downloadButton}>
+                                            <FaDownload />
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDelete(doc.id)} className={styles.deleteButton}>
+                                            <FaTrash />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                     {/* Upload de Documento */}
                     <div className={styles.uploadSection}>
                         <input
@@ -169,41 +229,7 @@ function DocumentManagementPage() {
                         </button>
                     </div>
 
-                    {/* Lista de Documentos */}
-                    <table className={styles.table}>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Extensão</th>
-                                <th>Data de Criação</th>
-                                <th>Descrição</th>
-                                <th>Download</th>
-                                <th>Excluir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {documents.map((doc) => (
-                                <tr key={doc.id}>
-                                    <td>{doc.id}</td>
-                                    <td>{doc.name}</td>
-                                    <td>{doc.file.split('.').pop()}</td> {/* Extensão do arquivo */}
-                                    <td>{doc.created_at}</td> {/* Data de Criação */}
-                                    <td>{doc.description}</td>
-                                    <td>
-                                        <button onClick={() => handleDownload(doc)} className={styles.downloadButton}>
-                                            <FaDownload />
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleDelete(doc.id)} className={styles.deleteButton}>
-                                            <FaTrash />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+
                 </main>
             </div>
         </div>

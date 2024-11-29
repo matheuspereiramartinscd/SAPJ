@@ -7,7 +7,7 @@ import {
 
 } from 'react-icons/fa';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-
+import { FaSearch } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function PersonDetailPage() {
@@ -121,12 +121,18 @@ function PersonDetailPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
+                    </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
+
 
                 {/* Main Content */}
                 <main className={styles.mainContent}>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './TaskRegisterPage.module.css';
 import { FaRegFileAlt, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { FaHome, FaTasks, FaUser, FaChartLine } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 function TaskRegisterPage() {
     const [taskData, setTaskData] = useState({
@@ -153,11 +154,18 @@ function TaskRegisterPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
+                    </div>
+                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
+
 
 
                 <main className={styles.mainContent}>

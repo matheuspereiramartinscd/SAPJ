@@ -3,7 +3,7 @@ import styles from './DashboardPage.module.css';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa'; import { useNavigate } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-
+import { FaSearch } from 'react-icons/fa';
 // Registrar as escalas e outros componentes necessários
 ChartJS.register(
     CategoryScale,
@@ -98,6 +98,11 @@ function DashboardPage() {
                     <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
+                    </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
                     </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>

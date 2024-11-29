@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './HomePage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon, FaSearch } from 'react-icons/fa';
 
 function HomePage() {
     const navigate = useNavigate();
@@ -70,6 +70,11 @@ function HomePage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
+                    </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
@@ -115,6 +120,13 @@ function HomePage() {
                             <h3>Pagamentos</h3>
                             <p>Gerenciar pagamentos e transações.</p>
                         </div>
+                        {/* Novo Card - Consultas */}
+                        <div className={`${styles.card} ${styles.consultasCard}`} onClick={() => navigate('/search')}>
+                            <FaSearch className={styles.cardIcon} />
+                            <h3>Consultas</h3>
+                            <p>Realizar consultas no sistema.</p>
+                        </div>
+
                         {/* Novo Card - Documentos */}
                         <div className={`${styles.card} ${styles.documentosCard}`} onClick={() => navigate('/documents')}>
                             <FaFileAltIcon className={styles.cardIcon} />

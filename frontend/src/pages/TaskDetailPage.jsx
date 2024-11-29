@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa';
 import axios from 'axios';
 import styles from './TaskDetailPage.module.css';
+import { FaSearch } from 'react-icons/fa';
 
 function TaskDetailPage() {
     const navigate = useNavigate();
@@ -79,80 +80,86 @@ function TaskDetailPage() {
             </header>
 
             {/* Sidebar */}
-            <div className={styles.mainLayout}>
-                <nav className={styles.sidebar}>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
-                        <FaHome className={styles.icon} />
-                        <span>Home</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/processpage')}>
-                        <FaRegFileAlt className={styles.icon} />
-                        <span>Casos</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/tasks')}>
-                        <FaTasks className={styles.icon} />
-                        <span>Tarefas</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/dashboard')}>
-                        <FaChartLine className={styles.icon} />
-                        <span>Dashboard</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
-                        <FaUser className={styles.icon} />
-                        <span>Pessoas</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
-                        <FaHandshake className={styles.icon} />
-                        <span>Automação</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
-                        <FaFileInvoiceDollar className={styles.icon} />
-                        <span>Pagamentos</span>
-                    </div>
-                    <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
-                        <FaFileAltIcon className={styles.icon} />
-                        <span>Documentos</span>
-                    </div>
-                </nav>
-
-                {/* Main Content */}
-                <main className={styles.mainContent}>
-                    <header className={styles.pageHeader}>
-                        <h1>Detalhes da Tarefa</h1>
-                    </header>
-                    <div className={styles.contentBox}>
-                        <div className={styles.detailsWrapper}>
-                            <div className={styles.detailsSection}>
-                                <h2>Informações da Tarefa</h2>
-                                <p><strong>Título:</strong> {task.titulo}</p>
-                                <p><strong>Processo:</strong> {task.processo}</p>
-                                <p><strong>Data de Conclusão:</strong> {task.data_conclusao}</p>
-                                <p><strong>Status:</strong> {task.status}</p>
-                                <p><strong>Descrição:</strong> {task.descricao}</p>
-                                <p><strong>Valor Total do Processo:</strong> R$ {task.valor_total_processo}</p>
-                                <p><strong>Valor do Advogado:</strong> R$ {task.valor_advogado}</p>
-                                <p><strong>Pessoas Envolvidas</strong>  <ul>
-                                    {task.pessoas.map((personId) => (
-                                        <li key={personId}>Pessoa ID: {personId}</li>
-                                    ))}
-                                </ul></p>
-                            </div>
+            <nav className={styles.sidebar}>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/home')}>
+                    <FaHome className={styles.icon} />
+                    <span>Home</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/processpage')}>
+                    <FaRegFileAlt className={styles.icon} />
+                    <span>Casos</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/tasks')}>
+                    <FaTasks className={styles.icon} />
+                    <span>Tarefas</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/dashboard')}>
+                    <FaChartLine className={styles.icon} />
+                    <span>Dashboard</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/personpage')}>
+                    <FaUser className={styles.icon} />
+                    <span>Pessoas</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/automation')}>
+                    <FaHandshake className={styles.icon} />
+                    <span>Automação</span>
+                </div>
+                <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
+                    <FaFileInvoiceDollar className={styles.icon} />
+                    <span>Pagamentos</span>
+                </div>
+                {/* Novo ícone de Consultas na sidebar */}
+                <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                    <FaSearch className={styles.icon} />
+                    <span>Consultas</span>
+                </div>
+                {/* Novo ícone de Documentos na sidebar */}
+                <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
+                    <FaFileAltIcon className={styles.icon} />
+                    <span>Documentos</span>
+                </div>
+            </nav>
 
 
+            {/* Main Content */}
+            <main className={styles.mainContent}>
+                <header className={styles.pageHeader}>
+                    <h1>Detalhes da Tarefa</h1>
+                </header>
+                <div className={styles.contentBox}>
+                    <div className={styles.detailsWrapper}>
+                        <div className={styles.detailsSection}>
+                            <h2>Informações da Tarefa</h2>
+                            <p><strong>Título:</strong> {task.titulo}</p>
+                            <p><strong>Processo:</strong> {task.processo}</p>
+                            <p><strong>Data de Conclusão:</strong> {task.data_conclusao}</p>
+                            <p><strong>Status:</strong> {task.status}</p>
+                            <p><strong>Descrição:</strong> {task.descricao}</p>
+                            <p><strong>Valor Total do Processo:</strong> R$ {task.valor_total_processo}</p>
+                            <p><strong>Valor do Advogado:</strong> R$ {task.valor_advogado}</p>
+                            <p><strong>Pessoas Envolvidas</strong>  <ul>
+                                {task.pessoas.map((personId) => (
+                                    <li key={personId}>Pessoa ID: {personId}</li>
+                                ))}
+                            </ul></p>
                         </div>
 
-                        <div className={styles.actions}>
-                            <button onClick={handleGoBack} className={styles.backButton}>
-                                <FaArrowLeft /> Voltar
-                            </button>
-                            <button onClick={handleEditTask} className={styles.editButton}>
-                                <FaEdit /> Editar
-                            </button>
-                        </div>
+
                     </div>
-                </main>
-            </div>
+
+                    <div className={styles.actions}>
+                        <button onClick={handleGoBack} className={styles.backButton}>
+                            <FaArrowLeft /> Voltar
+                        </button>
+                        <button onClick={handleEditTask} className={styles.editButton}>
+                            <FaEdit /> Editar
+                        </button>
+                    </div>
+                </div>
+            </main>
         </div>
+
 
     );
 }

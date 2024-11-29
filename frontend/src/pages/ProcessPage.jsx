@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ProcessPage.module.css';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-
+import { FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function ProcessPage() {
@@ -165,12 +165,18 @@ function ProcessPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
+                    </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
+
 
                 {/* Main Content */}
                 <main className={styles.mainContent}>

@@ -2,15 +2,39 @@
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
-    height: 100%;
-
+    height: 100vh;
+    /* Garantir que o container ocupe 100% da altura da tela */
+    margin: 0;
+    /* Remover qualquer margem que possa afetar o layout */
 }
 
-/* Main Layout */
 .mainLayout {
     display: flex;
     flex-grow: 1;
+    height: 100%;
+    /* Garantir que o mainLayout ocupe o restante da altura */
+}
 
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: 100%;
+    /* Garantir que a sidebar ocupe 100% da altura */
+    transition: width 0.3s;
+}
+
+/* Garantir que o conteúdo principal ocupe a largura restante */
+.mainContent {
+    display: flex;
+    flex-grow: 1;
+    /* Garantir que o conteúdo ocupe o restante da largura */
+    padding: 20px;
+    gap: 20px;
+    overflow: auto;
 }
 
 /* Header */
@@ -140,15 +164,7 @@
 }
 
 /* Main Content */
-.mainContent {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-    gap: 20px;
-    flex-grow: 1;
-    margin-bottom: 20px;
-    overflow: auto;
-}
+
 
 /* Cards Container */
 .cardsContainer {
@@ -237,6 +253,11 @@
 .documentosCard {
     background-color: #f39c12;
     /* Amarelo dourado */
+}
+
+.consultasCard {
+    background-color: #922e23;
+    /* Cor de fundo vermelha */
 }
 
 .cardButton {

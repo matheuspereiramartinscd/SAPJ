@@ -5,7 +5,7 @@ import { FaEdit, FaArchive, FaTrashAlt, FaFileUpload, FaArrowLeft, FaHome, FaReg
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 
-
+import { FaSearch } from 'react-icons/fa';
 function ProcessDetailsPage() {
     const navigate = useNavigate();
     const { id } = useParams();  // Pega o ID do processo pela URL
@@ -136,12 +136,18 @@ function ProcessDetailsPage() {
                             <FaFileInvoiceDollar className={styles.icon} />
                             <span>Pagamentos</span>
                         </div>
+                        {/* Novo ícone de Consultas na sidebar */}
+                        <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                            <FaSearch className={styles.icon} />
+                            <span>Consultas</span>
+                        </div>
                         {/* Novo ícone de Documentos na sidebar */}
                         <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                             <FaFileAltIcon className={styles.icon} />
                             <span>Documentos</span>
                         </div>
                     </nav>
+
 
                     {/* Caixa em volta do conteúdo principal */}
                     <div className={styles.contentBox}>

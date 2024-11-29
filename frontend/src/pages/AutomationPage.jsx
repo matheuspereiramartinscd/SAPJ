@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './AutomationPage.module.css';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 function AutomationPage() {
     const [selectedTemplate, setSelectedTemplate] = useState('');
@@ -79,6 +80,11 @@ function AutomationPage() {
                     <div className={styles.sidebarIcon} onClick={() => navigate('/payments')}>
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
+                    </div>
+                    {/* Novo ícone de Consultas na sidebar */}
+                    <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
+                        <FaSearch className={styles.icon} />
+                        <span>Consultas</span>
                     </div>
                     {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
