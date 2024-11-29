@@ -81,23 +81,18 @@
     align-items: center;
 }
 
+
+
 .addButton {
-    display: flex;
-    align-items: center;
-    gap: 5px;
     background-color: #27ae60;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-
-
-    align-self: flex-end;
-    /* Alinha o botão à direita */
+    width: 150px;
+    font-size: 14px;
     margin-top: 20px;
-    /* Espaçamento em relação aos cards */
-
 }
 
 .addButton:hover {
@@ -127,16 +122,24 @@
 }
 
 .taskColumn {
-
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-height: 300px;
-    /* Defina a altura mínima desejada */
     max-height: 500px;
-    /* Defina um limite máximo de altura */
     overflow-y: auto;
-    /* Adiciona barra de rolagem se o conteúdo for muito alto */
+    /* Mantém a barra de rolagem vertical */
+    overflow-x: hidden;
+    /* Remove a barra de rolagem horizontal */
     margin-bottom: 20px;
-    /* Adiciona margem entre as colunas, se necessário */
+    width: 400px;
+    box-sizing: border-box;
+    /* Inclui padding e bordas no cálculo de largura */
 }
 
 .taskColumnContent {
@@ -160,6 +163,10 @@
     padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    /* Aumenta a largura */
+    margin: 0 auto 15px;
+    /* Centraliza horizontalmente */
 }
 
 .taskCard h3 {
@@ -173,12 +180,38 @@
 }
 
 .deleteButton {
-    background-color: #e74c3c;
+    background-color: rgb(221, 30, 9);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 150px;
+    cursor: pointer;
+    font-size: 14px;
+
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    /* Centraliza o botão */
+    margin-top: 10px;
+}
+
+.detailsButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    width: 150px;
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+.detailsButton:hover {
+    background-color: #c56a1a;
 }
 
 .deleteButton:hover {

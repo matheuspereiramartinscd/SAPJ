@@ -22,6 +22,7 @@ import EditTaskPage from './pages/EditTaskPage';
 import PersonRegisterPage from './pages/PersonRegisterPage'; // Importando a nova página de cadastro de pessoa
 import PersonDetailsPage from './pages/PersonDetailPage'; // Importando a nova página de detalhes de pessoa
 import TaskRegisterPage from './pages/TaskRegisterPage';
+import TaskDetailPage from './pages/TaskDetailPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -55,6 +56,8 @@ root.render(
 
       {/* Nova rota para detalhes de pessoa */}
       <Route path="/persondetails/:id" element={<PersonDetailsPage />} />
+      <Route path="/taskdetails/:taskId" element={<TaskDetailPage />} />
+
     </Routes>
   </Router>
 );

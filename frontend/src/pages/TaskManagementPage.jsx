@@ -59,7 +59,7 @@ function TaskManagementPage() {
     // Delete task by ID
     const handleDeleteTask = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/tasks/${id}`, {
+            const response = await fetch(`http://localhost:8000/api/tasks/${id}/delete/`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,15 +193,28 @@ function TaskManagementPage() {
                                             <p><strong>Pessoas:</strong> {getPeopleNames(task.pessoas)}</p>
                                             <p>
                                                 <strong>Criado em:</strong> {formatDate(task.criado_em)} |{' '}
-                                                <strong>Conclusão:</strong> {task.data_conclusao}
+
                                             </p>
-                                            <button
-                                                onClick={() => handleDeleteTask(task.id)}
-                                                className={styles.deleteButton}
-                                            >
-                                                <FaTrash /> Excluir
-                                            </button>
+                                            <p><strong>Conclusão:</strong> {task.data_conclusao}</p>
+                                            <div className={styles.buttonContainer}>
+                                                <button
+                                                    onClick={() => navigate(`/taskdetails/${task.id}`)}
+                                                    className={styles.detailsButton}
+                                                >
+                                                    Ver Detalhes
+                                                </button>
+
+                                            </div>
+                                            <div className={styles.buttonContainer}>
+                                                <button
+                                                    onClick={() => handleDeleteTask(task.id)}
+                                                    className={styles.deleteButton}
+                                                >
+                                                    <FaTrash /> Excluir
+                                                </button>
+                                            </div>
                                         </div>
+
                                     ))}
                             </div>
                         </div>

@@ -225,3 +225,39 @@ class TaskEditView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def detalhes_task(request, id):
+    """
+    Função para obter os detalhes de uma tarefa específica.
+    """
+    try:
+        task = Task.objects.get(id=id)  # Tenta encontrar a tarefa pelo ID
+        serializer = TaskSerializer(task)  # Serializa a tarefa encontrada
+        return Response(serializer.data, status=200)  # Retorna os dados serializados e status HTTP 200
+    except Task.DoesNotExist:
+        return Response({'error': 'Tarefa não encontrada'}, status=404)  # Retorna erro se a tarefa não for encontrada
+
+@api_view(['DELETE'])
+def delete_pessoa(request, id):
+    """
+    Função para deletar uma pessoa pelo ID.
+    """
+    try:
+        pessoa = Pessoa.objects.get(id=id)  # Tenta encontrar a pessoa pelo ID
+        pessoa.delete()  # Deleta a pessoa
+        return JsonResponse({'message': 'Pessoa excluída com sucesso'}, status=204)  # Retorna sucesso
+    except Pessoa.DoesNotExist:
+        return JsonResponse({'error': 'Pessoa não encontrada'}, status=404)  # Retorna erro se não encontrada
+
+@api_view(['DELETE'])
+def delete_task(request, id):
+    """
+    Função para deletar uma tarefa pelo ID.
+    """
+    try:
+        task = Task.objects.get(id=id)  # Tenta encontrar a tarefa pelo ID
+        task.delete()  # Deleta a tarefa
+        return JsonResponse({'message': 'Tarefa excluída com sucesso'}, status=204)  # Retorna sucesso
+    except Task.DoesNotExist:
+        return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)  # Retorna erro se não encontrada

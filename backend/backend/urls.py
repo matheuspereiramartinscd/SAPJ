@@ -10,6 +10,8 @@ from users.views import delete_pessoa
 from users.views import EditPessoaView
 from users.views import TaskListCreateView
 from users.views import TaskEditView
+from users.views import detalhes_task 
+from users.views import delete_pessoa, delete_task
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +29,9 @@ path('api/pessoas/<int:id>/delete/', delete_pessoa, name='delete_pessoa'),
  path('api/pessoas/edit/<int:id>/', EditPessoaView.as_view(), name='edit_pessoa'),
 path('api/tasks/', TaskListCreateView.as_view(), name='task-list-create'),
 path('api/tasks/edit/<int:id>/', TaskEditView.as_view(), name='edit_task'),  # New 
+path('api/tasks/<int:id>/', detalhes_task, name='detalhes_task'),  # Nova rota para detalhes de tarefas
 
-
+    # URL para deletar uma tarefa
+    path('api/tasks/<int:id>/delete/', delete_task, name='delete_task'),
 
 ]

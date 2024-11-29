@@ -1,45 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaTasks, FaUser, FaChartLine } from 'react-icons/fa';
-import { FaRegFileAlt, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-
 import styles from './TaskRegisterPage.module.css';
+import { FaRegFileAlt, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+import { FaHome, FaTasks, FaUser, FaChartLine } from 'react-icons/fa';
 
 function TaskRegisterPage() {
     const [taskData, setTaskData] = useState({
-        titulo: '', // Alterado de title para titulo
-        processo: '', // Alterado de processId para processo
-        pessoas: [], // Array de ids de pessoas selecionadas
-        data_conclusao: '', // Alterado de dueDate para data_conclusao
-        status: 'pendente', // Mantido o valor padrão como "pendente"
-        descricao: '', // Novo campo para descrição
+        titulo: '',
+        processo: '',
+        pessoas: [],
+        data_conclusao: '',
+        status: 'pendente',
+        descricao: '',
+        valor_total_processo: '', // Novo campo
+        valor_advogado: '', // Novo campo
     });
 
     const [processList, setProcessList] = useState([]);
     const [peopleList, setPeopleList] = useState([]);
-
     const navigate = useNavigate();
 
-    // Função para carregar os processos e pessoas disponíveis
     useEffect(() => {
-        // Carregar os processos
         const fetchProcesses = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/processes/list/');
                 const data = await response.json();
-                console.log('Processes:', data); // Verifique se os dados estão sendo recebidos corretamente
                 setProcessList(data);
             } catch (error) {
                 console.error('Erro ao carregar processos', error);
             }
         };
 
-        // Carregar as pessoas
         const fetchPeople = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/people/list/');
                 const data = await response.json();
-                console.log('People:', data); // Verifique se os dados estão sendo recebidos corretamente
                 setPeopleList(data);
             } catch (error) {
                 console.error('Erro ao carregar pessoas', error);
@@ -58,30 +53,25 @@ function TaskRegisterPage() {
         });
     };
 
-    const handlePeopleChange = (e) => {
-        const { options } = e.target;
-        const selectedPeople = Array.from(options)
-            .filter((option) => option.selected)
-            .map((option) => parseInt(option.value)); // Certifique-se de que os IDs das pessoas sejam números inteiros
-
-        console.log("Estado de pessoas atualizado:", selectedPeople);
-
-        setTaskData((prevData) => ({
-            ...prevData,
-            pessoas: selectedPeople, // Atualiza o estado com os IDs das pessoas selecionadas
-        }));
-    };
-
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
+    const handlePeopleChange = (e) => {
+        const { options } = e.target;
+        const selectedPeople = Array.from(options)
+            .filter((option) => option.selected)
+            .map((option) => parseInt(option.value));
+
+        setTaskData((prevData) => ({
+            ...prevData,
+            pessoas: selectedPeople,
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Verifique o formato dos dados antes de enviar
-        console.log('Dados da tarefa:', taskData);
 
         try {
             const response = await fetch('http://localhost:8000/api/tasks/', {
@@ -106,6 +96,7 @@ function TaskRegisterPage() {
     };
 
     return (
+
         <div className={styles.pageContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
@@ -168,29 +159,31 @@ function TaskRegisterPage() {
                     </div>
                 </nav>
 
+
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Cadastrar Tarefa</h1>
                     </header>
                     <div className={styles.formContainer}>
                         <form onSubmit={handleSubmit} className={styles.taskForm}>
+                            {/* Título */}
                             <label>
                                 Título:
                                 <input
                                     type="text"
-                                    name="titulo" // Alterado para "titulo"
-                                    value={taskData.titulo} // Alterado para "titulo"
+                                    name="titulo"
+                                    value={taskData.titulo}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
 
-                            {/* Processo (Select) */}
+                            {/* Processo */}
                             <label>
                                 Processo:
                                 <select
-                                    name="processo" // Alterado para "processo"
-                                    value={taskData.processo} // Alterado para "processo"
+                                    name="processo"
+                                    value={taskData.processo}
                                     onChange={handleChange}
                                     required
                                 >
@@ -203,14 +196,14 @@ function TaskRegisterPage() {
                                 </select>
                             </label>
 
-                            {/* Pessoas (Select Multiple) */}
+                            {/* Pessoas */}
                             <label>Pessoas:</label>
                             <select
-                                name="pessoas" // Alterado para "pessoas"
-                                value={taskData.pessoas} // Alterado para "pessoas"
+                                name="pessoas"
+                                value={taskData.pessoas}
                                 onChange={handlePeopleChange}
-                                multiple // Permite selecionar várias opções
-                                size={5} // Tamanho da lista, você pode ajustar conforme necessário
+                                multiple
+                                size={5}
                             >
                                 {peopleList.map((person) => (
                                     <option key={person.id} value={person.id}>
@@ -224,21 +217,38 @@ function TaskRegisterPage() {
                                 Data de Conclusão:
                                 <input
                                     type="date"
-                                    name="data_conclusao" // Alterado para "data_conclusao"
-                                    value={taskData.data_conclusao} // Alterado para "data_conclusao"
+                                    name="data_conclusao"
+                                    value={taskData.data_conclusao}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
 
-                            {/* Data de Criação (exibido automaticamente) */}
+                            {/* Valor Total do Processo */}
                             <label>
-                                Data de Criação:
+                                Valor Total do Processo:
                                 <input
-                                    type="text"
-                                    name="data_criacao"
-                                    value={new Date().toLocaleDateString()} // Mostra a data atual
-                                    disabled
+                                    type="number"
+                                    name="valor_total_processo"
+                                    value={taskData.valor_total_processo}
+                                    onChange={handleChange}
+                                    step="0.01"
+                                    placeholder="Ex: 1000.00"
+                                    required
+                                />
+                            </label>
+
+                            {/* Valor do Advogado */}
+                            <label>
+                                Valor do Advogado:
+                                <input
+                                    type="number"
+                                    name="valor_advogado"
+                                    value={taskData.valor_advogado}
+                                    onChange={handleChange}
+                                    step="0.01"
+                                    placeholder="Ex: 300.00"
+                                    required
                                 />
                             </label>
 
@@ -246,16 +256,18 @@ function TaskRegisterPage() {
                             <label>
                                 Descrição:
                                 <textarea
-                                    name="descricao" // Novo campo para descrição
-                                    value={taskData.descricao} // Novo campo para descrição
+                                    name="descricao"
+                                    value={taskData.descricao}
                                     onChange={handleChange}
-                                    rows="4" // Ajuste o número de linhas conforme necessário
+                                    rows="4"
                                     required
                                 />
                             </label>
 
-
-                            <button type="submit" className={styles.submitButton}> Cadastrar Tarefa</button>
+                            {/* Botões */}
+                            <button type="submit" className={styles.submitButton}>
+                                Cadastrar Tarefa
+                            </button>
                             <button
                                 type="button"
                                 className={styles.submitButton}
@@ -263,7 +275,6 @@ function TaskRegisterPage() {
                             >
                                 Voltar
                             </button>
-
                         </form>
                     </div>
                 </main>
