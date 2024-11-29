@@ -67,3 +67,15 @@ class TaskSerializer(serializers.ModelSerializer):
             'id', 'titulo', 'processo', 'pessoas', 'data_conclusao', 'status', 
             'criado_em', 'descricao', 'valor_total_processo', 'valor_advogado'  # Inclua os novos campos
         ]
+
+
+# serializers.py
+
+from .models import Document
+
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = ['id', 'file', 'description', 'created_at']
+
+    file = serializers.FileField()  # Verifique se o campo FileField está sendo utilizado

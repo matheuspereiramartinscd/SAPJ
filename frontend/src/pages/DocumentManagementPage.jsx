@@ -1,46 +1,78 @@
-import React, { useState } from 'react';
-import styles from './ProcessPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaDownload, FaTrash, FaUpload } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import styles from './DocumentManagementPage.module.css';
+import { FaUpload, FaDownload, FaTrash, FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 
 function DocumentManagementPage() {
-    const [documents, setDocuments] = useState([
-        {
-            code: '001',
-            name: 'Documento Exemplo 1',
-            extension: '.pdf',
-            creationDate: '2024-11-26',
-            description: 'Exemplo de documento',
-        },
-        {
-            code: '002',
-            name: 'Documento Exemplo 2',
-            extension: '.docx',
-            creationDate: '2024-11-25',
-            description: 'Outro exemplo de documento',
-        }
-    ]);
+    const [documents, setDocuments] = useState([]);
+    const [newDocument, setNewDocument] = useState({ file: null, description: '' });
     const navigate = useNavigate();
 
+    // Função para carregar documentos
+    useEffect(() => {
+        const fetchDocuments = async () => {
+            const response = await fetch('http://localhost:8000/api/documents/');
+            const data = await response.json();
+            setDocuments(data);
+        };
+
+        fetchDocuments();
+    }, []);
+
+    // Função para fazer o upload de documentos
+    const handleUploadDocument = async () => {
+        if (!newDocument.file) {
+            alert('Por favor, selecione um arquivo!');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', newDocument.file);  // Certifique-se de que o campo é 'file'
+        formData.append('description', newDocument.description);
+        formData.append('code', `doc-${new Date().getTime()}`);
+
+        try {
+            const response = await fetch('http://localhost:8000/api/documents/', {
+                method: 'POST',
+                body: formData,  // Envia os dados com FormData
+            });
+
+            if (response.ok) {
+                const newDoc = await response.json();
+                setDocuments([...documents, newDoc]);  // Adiciona o novo documento à lista
+                alert('Documento carregado com sucesso!');
+            } else {
+                alert('Erro ao carregar o documento. Verifique os dados.');
+            }
+        } catch (error) {
+            console.error('Erro ao fazer upload:', error);
+            alert('Erro inesperado ao tentar enviar o documento.');
+        }
+    };
+
+    // Função para fazer o download de um documento
+    const handleDownload = (doc) => {
+        window.location.href = `http://localhost:8000${doc.file}`;  // Baixar o arquivo
+    };
+
+    // Função para excluir um documento
+    const handleDelete = async (docId) => {
+        const response = await fetch(`http://localhost:8000/api/documents/${docId}/`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            setDocuments(documents.filter(doc => doc.id !== docId));
+            alert('Documento excluído com sucesso!');
+        } else {
+            alert('Erro ao excluir o documento.');
+        }
+    };
+
+    // Handle Logout
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
-    };
-
-    const handleUploadDocument = () => {
-        // Lógica para o upload de documentos (a ser implementada)
-        console.log('Upload de documento');
-    };
-
-    const handleDownload = (doc) => {
-        // Lógica para o download de documentos (a ser implementada)
-        console.log(`Baixar: ${doc.name}`);
-    };
-
-    const handleDelete = (docCode) => {
-        // Deletar documento
-        setDocuments(documents.filter(doc => doc.code !== docCode));
     };
 
     return (
@@ -108,27 +140,38 @@ function DocumentManagementPage() {
                         <span>Documentos</span>
                     </div>
                 </nav>
-
                 {/* Main Content */}
                 <main className={styles.mainContent}>
-                    <header className={styles.pageHeader}>
-                        <h1>Gestão de Documentos</h1>
-                    </header>
+                    <h1>Gestão de Documentos</h1>
 
-                    {/* Top Section: Botões à esquerda */}
-                    <div className={styles.topSection}>
-                        <div className={styles.buttonContainer}>
-                            <button onClick={handleUploadDocument} className={styles.uploadButton}>
-                                <FaUpload /> Upload de Documento
-                            </button>
-                        </div>
+                    {/* Upload de Documento */}
+                    <div className={styles.uploadSection}>
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    setNewDocument({ ...newDocument, file });
+                                } else {
+                                    alert('Nenhum arquivo selecionado.');
+                                }
+                            }}
+                        />
+                        <textarea
+                            placeholder="Descrição do documento"
+                            value={newDocument.description}
+                            onChange={(e) => setNewDocument({ ...newDocument, description: e.target.value })}
+                        />
+                        <button onClick={handleUploadDocument} className={styles.uploadButton}>
+                            <FaUpload /> Upload de Documento
+                        </button>
                     </div>
 
-                    {/* Tabela */}
+                    {/* Lista de Documentos */}
                     <table className={styles.table}>
                         <thead>
                             <tr>
-                                <th>Código</th>
+                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Extensão</th>
                                 <th>Data de Criação</th>
@@ -138,12 +181,12 @@ function DocumentManagementPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {documents.map(doc => (
-                                <tr key={doc.code}>
-                                    <td>{doc.code}</td>
+                            {documents.map((doc) => (
+                                <tr key={doc.id}>
+                                    <td>{doc.id}</td>
                                     <td>{doc.name}</td>
-                                    <td>{doc.extension}</td>
-                                    <td>{doc.creationDate}</td>
+                                    <td>{doc.file.split('.').pop()}</td> {/* Extensão do arquivo */}
+                                    <td>{doc.created_at}</td> {/* Data de Criação */}
                                     <td>{doc.description}</td>
                                     <td>
                                         <button onClick={() => handleDownload(doc)} className={styles.downloadButton}>
@@ -151,7 +194,7 @@ function DocumentManagementPage() {
                                         </button>
                                     </td>
                                     <td>
-                                        <button onClick={() => handleDelete(doc.code)} className={styles.deleteButton}>
+                                        <button onClick={() => handleDelete(doc.id)} className={styles.deleteButton}>
                                             <FaTrash />
                                         </button>
                                     </td>

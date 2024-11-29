@@ -8,6 +8,8 @@ from .views import registrar_pessoa, listar_pessoas
 from .views import ProcessDetails
 from .views import TaskEditView
 from .views import delete_pessoa, delete_task
+from .views import DocumentListCreate, DocumentDelete
+
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
@@ -20,7 +22,9 @@ urlpatterns = [
     path('api/processes/details/<int:pk>/', ProcessDetails.as_view(), name='process_details'),  # Detalhes do processo
       path('pessoas/registrar/', registrar_pessoa, name='registrar_pessoa'),
     path('pessoas/', listar_pessoas, name='listar_pessoas'),
- 
+ # Adicionando as rotas de documentos
+    path('api/documents/', DocumentListCreate.as_view(), name='list_create_documents'),
+    path('api/documents/delete/<int:id>/', DocumentDelete.as_view(), name='delete_document'),
 
     
 ]

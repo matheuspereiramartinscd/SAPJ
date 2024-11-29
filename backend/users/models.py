@@ -128,3 +128,12 @@ class Task(models.Model):
 
     def __str__(self):
         return f"{self.titulo} - {self.status}"
+
+class Document(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    file = models.FileField(upload_to='documents/')
+    created_at = models.DateTimeField(auto_now_add=True)  # Este campo deve existir no modelo
+
+    def __str__(self):
+        return self.name

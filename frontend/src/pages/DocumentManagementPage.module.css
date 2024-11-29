@@ -11,7 +11,8 @@
     flex-grow: 1;
 }
 
-/* Header */
+/*
+/*/
 .header {
     display: flex;
     justify-content: space-between;
@@ -22,6 +23,7 @@
     padding: 10px 20px;
     margin: 0;
     width: 100%;
+    box-sizing: border-box;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -34,6 +36,8 @@
 
 .logo {
     height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
 }
 
 .logoText {
@@ -91,8 +95,14 @@
     background-color: #333;
     display: flex;
     flex-direction: column;
+    justify-content: start;
     padding-top: 20px;
     height: calc(100vh - 60px);
+    position: fixed;
+    /* Torna a sidebar fixa na tela */
+    left: 0;
+    top: 60px;
+    /* Começa após o header */
     transition: width 0.3s;
 }
 
@@ -110,9 +120,20 @@
     background-color: #444;
 }
 
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
 .sidebar:hover {
     width: 200px;
 }
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+
 
 /* Main Content */
 .mainContent {

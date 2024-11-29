@@ -261,3 +261,24 @@ def delete_task(request, id):
         return JsonResponse({'message': 'Tarefa excluída com sucesso'}, status=204)  # Retorna sucesso
     except Task.DoesNotExist:
         return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)  # Retorna erro se não encontrada
+
+
+from .models import Document
+from .serializers import DocumentSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework import generics
+
+class DocumentListCreate(generics.ListCreateAPIView):
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def create(self, request, *args, **kwargs):
+        print(f"Data received: {request.data}")  # Adicionando um log para depuração
+        return super().create(request, *args, **kwargs)
+
+class DocumentDelete(generics.DestroyAPIView):
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
+
+    

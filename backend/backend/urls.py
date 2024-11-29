@@ -12,6 +12,12 @@ from users.views import TaskListCreateView
 from users.views import TaskEditView
 from users.views import detalhes_task 
 from users.views import delete_pessoa, delete_task
+from users.views import DocumentListCreate, DocumentDelete
+from django.conf.urls.static import static
+from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +39,9 @@ path('api/tasks/<int:id>/', detalhes_task, name='detalhes_task'),  # Nova rota p
 
     # URL para deletar uma tarefa
     path('api/tasks/<int:id>/delete/', delete_task, name='delete_task'),
-
+# Documentos (adicionadas as novas rotas)
+    path('api/documents/', DocumentListCreate.as_view(), name='list_create_documents'),
+    path('api/documents/delete/<int:id>/', DocumentDelete.as_view(), name='delete_document'),
 ]
+if settings.DEBUG:  # Garante que o Django só vai servir arquivos estáticos quando estiver em modo DEBUG
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
