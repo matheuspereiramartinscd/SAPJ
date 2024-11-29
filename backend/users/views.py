@@ -277,8 +277,13 @@ class DocumentListCreate(generics.ListCreateAPIView):
         print(f"Data received: {request.data}")  # Adicionando um log para depuração
         return super().create(request, *args, **kwargs)
 
-class DocumentDelete(generics.DestroyAPIView):
-    queryset = Document.objects.all()
-    serializer_class = DocumentSerializer
 
-    
+class DocumentDelete(APIView):
+    def delete(self, request, id):
+        try:
+            # Tenta encontrar o documento pelo ID
+            document = Document.objects.get(id=id)
+            document.delete()  # Deleta o documento
+            return JsonResponse({'message': 'Documento excluído com sucesso'}, status=204)  # Retorna sucesso
+        except Document.DoesNotExist:
+            return JsonResponse({'error': 'Documento não encontrado'}, status=404)  # Retorna erro se não encontrado
