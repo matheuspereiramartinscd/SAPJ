@@ -56,10 +56,14 @@ class PessoaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pessoa
         fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado', 'tipo']
+
 class TaskSerializer(serializers.ModelSerializer):
     processo = serializers.PrimaryKeyRelatedField(queryset=Processo.objects.all())
     pessoas = serializers.PrimaryKeyRelatedField(queryset=Pessoa.objects.all(), many=True)
 
     class Meta:
         model = Task
-        fields = ['id', 'titulo', 'processo', 'pessoas', 'data_conclusao', 'status', 'criado_em', 'descricao']
+        fields = [
+            'id', 'titulo', 'processo', 'pessoas', 'data_conclusao', 'status', 
+            'criado_em', 'descricao', 'valor_total_processo', 'valor_advogado'  # Inclua os novos campos
+        ]

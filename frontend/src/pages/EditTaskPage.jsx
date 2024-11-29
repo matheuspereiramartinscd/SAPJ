@@ -8,13 +8,16 @@ import styles from './EditTaskPage.module.css';
 function EditTaskPage() {
     const { taskId } = useParams(); // Obtém o ID da tarefa da URL
     const [taskData, setTaskData] = useState({
-        titulo: '', // Alterado de title para titulo
-        processo: '', // Alterado de processId para processo
-        pessoas: [], // Array de ids de pessoas selecionadas
-        data_conclusao: '', // Alterado de dueDate para data_conclusao
-        status: 'pendente', // Mantido o valor padrão como "pendente"
-        descricao: '', // Novo campo para descrição
+        titulo: '',
+        processo: '',
+        pessoas: [],
+        data_conclusao: '',
+        status: 'pendente',
+        descricao: '',
+        valor_total_processo: '', // Novo campo
+        valor_advogado: '', // Novo campo
     });
+
 
     const [processList, setProcessList] = useState([]);
     const [peopleList, setPeopleList] = useState([]);
@@ -75,6 +78,7 @@ function EditTaskPage() {
             [name]: value,
         });
     };
+
 
     const handlePeopleChange = (e) => {
         const { options } = e.target;
@@ -282,6 +286,30 @@ function EditTaskPage() {
                                     <option value="em_andamento">Em andamento</option>
                                     <option value="concluida">Concluída</option>
                                 </select>
+                            </label>
+                            <label>
+                                Valor Total do Processo:
+                                <input
+                                    type="number"
+                                    name="valor_total_processo"
+                                    value={taskData.valor_total_processo}
+                                    onChange={handleChange}
+                                    step="0.01" // Permite decimais
+                                    required
+                                />
+                            </label>
+
+                            {/* Valor a Ser Pago ao Advogado */}
+                            <label>
+                                Valor a Ser Pago ao Advogado:
+                                <input
+                                    type="number"
+                                    name="valor_advogado"
+                                    value={taskData.valor_advogado}
+                                    onChange={handleChange}
+                                    step="0.01" // Permite decimais
+                                    required
+                                />
                             </label>
 
                             <button type="submit" className={styles.submitButton}>Atualizar Tarefa</button>
