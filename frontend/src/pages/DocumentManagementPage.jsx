@@ -52,8 +52,10 @@ function DocumentManagementPage() {
 
     // Função para fazer o download de um documento
     const handleDownload = (doc) => {
-        window.location.href = `http://localhost:8000${doc.file}`;  // Baixar o arquivo
+        const fileUrl = doc.file.startsWith('http') ? doc.file : `http://localhost:8000${doc.file}`;
+        window.location.href = fileUrl;  // Baixar o arquivo
     };
+
 
     // Função para excluir um documento
     const handleDelete = async (docId) => {
