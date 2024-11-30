@@ -55,7 +55,7 @@ class PessoaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pessoa
-        fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'telefone', 'email', 'cidade', 'estado', 'tipo']
+        fields = ['id', 'codigo', 'nome', 'cpf', 'rg', 'foto', 'telefone', 'email', 'cidade', 'estado', 'tipo']
 
 class TaskSerializer(serializers.ModelSerializer):
     processo = serializers.PrimaryKeyRelatedField(queryset=Processo.objects.all())

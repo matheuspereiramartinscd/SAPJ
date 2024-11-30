@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './DashboardPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa'; import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { FaSearch } from 'react-icons/fa';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon, FaSearch } from 'react-icons/fa';
+
 // Registrar as escalas e outros componentes necessários
 ChartJS.register(
     CategoryScale,
@@ -16,24 +18,26 @@ ChartJS.register(
 
 function DashboardPage() {
     const navigate = useNavigate();
+    const [advogados, setAdvogados] = useState([]); // Estado para armazenar dados dos advogados
     const [processData, setProcessData] = useState({
         totalProcesses: 120,
         totalRevenue: 500000,
         processesByLawyer: [40, 30, 20, 30],
         revenueByLawyer: [150000, 120000, 80000, 50000],
-        winLoseRatioByLawyer: [80, 70, 90, 60],
-        revenueWinLossByLawyer: [200000, 150000, 100000, 50000],
     });
 
+    // Buscar dados dos advogados ao carregar a página
     useEffect(() => {
-        setProcessData({
-            totalProcesses: 120,
-            totalRevenue: 500000,
-            processesByLawyer: [40, 30, 20, 30],
-            revenueByLawyer: [150000, 120000, 80000, 50000],
-            winLoseRatioByLawyer: [80, 70, 90, 60],
-            revenueWinLossByLawyer: [200000, 150000, 100000, 50000],
-        });
+        const fetchAdvogados = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/people/list/');
+                setAdvogados(response.data); // Atualiza os advogados com os dados da API
+            } catch (error) {
+                console.error('Erro ao buscar advogados:', error);
+            }
+        };
+
+        fetchAdvogados();
     }, []);
 
     const handleLogout = () => {
@@ -61,10 +65,8 @@ function DashboardPage() {
                     <button className={styles.editButton}>Editar</button>
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
                         <span>Usuário</span>
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
                 </div>
             </header>
 
@@ -111,7 +113,6 @@ function DashboardPage() {
                     </div>
                 </nav>
 
-
                 {/* Dashboard Content */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
@@ -132,10 +133,13 @@ function DashboardPage() {
 
                     {/* Cards dos Advogados */}
                     <div className={styles.lawyerCards}>
-                        {['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'].map((lawyer, index) => (
-                            <div className={styles.lawyerCard} key={index}>
-                                <img src={`https://randomuser.me/api/portraits/men/${index + 1}.jpg`} alt="Advogado" />
-                                <h3>{lawyer}</h3>
+                        {advogados.map((advogado, index) => (
+                            <div className={styles.lawyerCard} key={advogado.id}>
+                                <img
+                                    src={`http://localhost:8000/${advogado.foto}`} // URL da imagem
+                                    alt={advogado.nome}
+                                />
+                                <h3>{advogado.nome}</h3>
                             </div>
                         ))}
                     </div>
@@ -151,56 +155,6 @@ function DashboardPage() {
                                         label: 'Número de Processos',
                                         data: processData.processesByLawyer,
                                         backgroundColor: '#e67e22',
-                                    }],
-                                }}
-                            />
-                        </div>
-
-                        <div className={styles.chart}>
-                            <h3>Faturamento por Advogado</h3>
-                            <Bar
-                                data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
-                                    datasets: [{
-                                        label: 'Faturamento (R$)',
-                                        data: processData.revenueByLawyer,
-                                        backgroundColor: '#e67e22',
-                                    }],
-                                }}
-                            />
-                        </div>
-
-                        <div className={styles.chart}>
-                            <h3>Causas Ganhadas vs Perdidas</h3>
-                            <Bar
-                                data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
-                                    datasets: [{
-                                        label: 'Causas Ganhadas (%)',
-                                        data: processData.winLoseRatioByLawyer,
-                                        backgroundColor: '#27ae60',
-                                    }, {
-                                        label: 'Causas Perdidas (%)',
-                                        data: processData.winLoseRatioByLawyer.map(val => 100 - val),
-                                        backgroundColor: '#c0392b',
-                                    }],
-                                }}
-                            />
-                        </div>
-
-                        <div className={styles.chart}>
-                            <h3>Faturamento Ganho vs Perdido</h3>
-                            <Bar
-                                data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
-                                    datasets: [{
-                                        label: 'Faturamento Ganhado (R$)',
-                                        data: processData.revenueWinLossByLawyer,
-                                        backgroundColor: '#27ae60',
-                                    }, {
-                                        label: 'Faturamento Perdido (R$)',
-                                        data: processData.revenueWinLossByLawyer.map(val => processData.totalRevenue - val),
-                                        backgroundColor: '#c0392b',
                                     }],
                                 }}
                             />

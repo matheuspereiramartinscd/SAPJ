@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importe o hook useNavigate
 import styles from './UserRegistrationForm.module.css';
 import axios from 'axios';
-export const UserRegistrationForm = () => {
 
+export const UserRegistrationForm = () => {
+    const navigate = useNavigate(); // Inicialize o hook para navegação
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,35 +20,27 @@ export const UserRegistrationForm = () => {
             const response = await axios.post('http://localhost:8000/api/register/', userData);
             alert('Usuário cadastrado com sucesso!');
             console.log(response.data);
+            navigate('/'); // Redirecione para a página padrão
         } catch (error) {
-            console.error(error.response.data);
+            console.error(error.response?.data || error.message);
             alert('Erro ao cadastrar usuário!');
         }
     };
 
-
     return (
         <main className={styles.container}>
-            {/* Header da página */}
-
             <div className={styles.pageTitleContainer}>
                 <h1 className={styles.pageTitle}>
                     Sistema de Automação de Processos Jurídicos com IA
                 </h1>
             </div>
 
-
-
-
-
             <div className={styles.formWrapper}>
                 <div className={styles.formContainer}>
                     <form onSubmit={handleSubmit} className={styles.formContent}>
                         <h1 className={styles.formTitle}>Cadastro de usuários</h1>
                         <label htmlFor="fullName">Nome completo</label>
-                        {/* Campo: Nome completo */}
                         <div className={styles.formField}>
-
                             <input
                                 id="fullName"
                                 type="text"
@@ -55,9 +49,7 @@ export const UserRegistrationForm = () => {
                             />
                         </div>
                         <label htmlFor="login">Login *</label>
-                        {/* Campo: Login */}
                         <div className={styles.formField}>
-
                             <input
                                 id="login"
                                 type="text"
@@ -67,9 +59,7 @@ export const UserRegistrationForm = () => {
                             />
                         </div>
                         <label htmlFor="cpf">CPF</label>
-                        {/* Campo: CPF */}
                         <div className={styles.formField}>
-
                             <input
                                 id="cpf"
                                 type="text"
@@ -78,9 +68,7 @@ export const UserRegistrationForm = () => {
                             />
                         </div>
                         <label htmlFor="birthDate">Nascimento</label>
-                        {/* Campo: Data de nascimento */}
                         <div className={styles.formField}>
-
                             <input
                                 id="birthDate"
                                 type="date"
@@ -88,9 +76,7 @@ export const UserRegistrationForm = () => {
                             />
                         </div>
                         <label htmlFor="password">Senha *</label>
-                        {/* Campo: Senha */}
                         <div className={styles.formField}>
-
                             <input
                                 id="password"
                                 type="password"
