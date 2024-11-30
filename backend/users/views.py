@@ -389,7 +389,6 @@ def create_payment_intent(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 
-stripe.api_key = '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'  # Chave secreta do Stripe
 
 def search_view(request):
     if request.method == "POST":
