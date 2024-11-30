@@ -20,13 +20,13 @@ function DashboardPage() {
     const navigate = useNavigate();
     const [advogados, setAdvogados] = useState([]); // Estado para armazenar dados dos advogados
     const [processData, setProcessData] = useState({
-        totalProcesses: 120,
+        totalProcesses: 0, // Inicializado com 0, pois o valor será obtido da API
         totalRevenue: 500000,
         processesByLawyer: [40, 30, 20, 30],
         revenueByLawyer: [150000, 120000, 80000, 50000],
     });
 
-    // Buscar dados dos advogados ao carregar a página
+    // Buscar dados dos advogados e o total de processos ao carregar a página
     useEffect(() => {
         const fetchAdvogados = async () => {
             try {
@@ -37,7 +37,21 @@ function DashboardPage() {
             }
         };
 
+        const fetchProcessData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/processes/count/');
+                setProcessData((prevData) => ({
+                    ...prevData,
+                    totalProcesses: response.data.total_processos, // Atualiza o total de processos
+                }));
+            } catch (error) {
+                console.error('Erro ao buscar dados de processos:', error);
+            }
+        };
+
+        // Chama as funções de fetch
         fetchAdvogados();
+        fetchProcessData();
     }, []);
 
     const handleLogout = () => {
@@ -155,6 +169,54 @@ function DashboardPage() {
                                         label: 'Número de Processos',
                                         data: processData.processesByLawyer,
                                         backgroundColor: '#e67e22',
+                                    }],
+                                }}
+                            />
+                        </div>
+                        <div className={styles.chart}>
+                            <h3>Faturamento por Advogado</h3>
+                            <Bar
+                                data={{
+                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
+                                    datasets: [{
+                                        label: 'Faturamento (R$)',
+                                        data: processData.revenueByLawyer,
+                                        backgroundColor: '#e67e22',
+                                    }],
+                                }}
+                            />
+                        </div>
+                        <div className={styles.chart}>
+                            <h3>Causas Ganhadas vs Perdidas</h3>
+                            <Bar
+                                data={{
+                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
+                                    datasets: [{
+                                        label: 'Causas Ganhadas (%)',
+                                        data: processData.winLoseRatioByLawyer,
+                                        backgroundColor: '#27ae60',
+                                    }, {
+                                        label: 'Causas Perdidas (%)',
+                                        data: processData.revenueByLawyer,
+                                        backgroundColor: '#c0392b',
+                                    }],
+                                }}
+                            />
+                        </div>
+
+                        <div className={styles.chart}>
+                            <h3>Faturamento Ganho vs Perdido</h3>
+                            <Bar
+                                data={{
+                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
+                                    datasets: [{
+                                        label: 'Faturamento Ganhado (R$)',
+                                        data: processData.revenueWinLossByLawyer,
+                                        backgroundColor: '#27ae60',
+                                    }, {
+                                        label: 'Faturamento Perdido (R$)',
+                                        data: processData.winLoseRatioByLawyer,
+                                        backgroundColor: '#c0392b',
                                     }],
                                 }}
                             />

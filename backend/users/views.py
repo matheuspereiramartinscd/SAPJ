@@ -476,3 +476,10 @@ class UploadPhotoView(APIView):
             return Response({"detail": "Person not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def contar_processos(request):
+    """
+    Conta o total de processos registrados no banco de dados.
+    """
+    total_processos = Processo.objects.count()  # Conta todos os processos na tabela Processo
+    return JsonResponse({'total_processos': total_processos})
