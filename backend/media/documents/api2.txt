@@ -1,0 +1,464 @@
+{"list": [
+  {
+    "id": 28859,
+    "nome": "Adriano Alvarenga",
+    "partido": "PP",
+    "tagLocalizacao": 5951
+  },
+  {
+    "id": 16234,
+    "nome": "Alê Portela",
+    "partido": "PL",
+    "tagLocalizacao": 5952
+  },
+  {
+    "id": 7752,
+    "nome": "Alencar da Silveira Jr.",
+    "partido": "PDT",
+    "tagLocalizacao": 645
+  },
+  {
+    "id": 19150,
+    "nome": "Ana Paula Siqueira",
+    "partido": "REDE",
+    "tagLocalizacao": 3895
+  },
+  {
+    "id": 26143,
+    "nome": "Andréia de Jesus",
+    "partido": "PT",
+    "tagLocalizacao": 3896
+  },
+  {
+    "id": 7327,
+    "nome": "Antonio Carlos Arantes",
+    "partido": "PL",
+    "tagLocalizacao": 649
+  },
+  {
+    "id": 9652,
+    "nome": "Arlen Santiago",
+    "partido": "AVANTE",
+    "tagLocalizacao": 652
+  },
+  {
+    "id": 22514,
+    "nome": "Arnaldo Silva",
+    "partido": "UNIÃO",
+    "tagLocalizacao": 1670
+  },
+  {
+    "id": 26098,
+    "nome": "Beatriz Cerqueira",
+    "partido": "PT",
+    "tagLocalizacao": 3898
+  },
+  {
+    "id": 28860,
+    "nome": "Bella Gonçalves",
+    "partido": "PSOL",
+    "tagLocalizacao": 5953
+  },
+  {
+    "id": 26145,
+    "nome": "Betão",
+    "partido": "PT",
+    "tagLocalizacao": 3899
+  },
+  {
+    "id": 13425,
+    "nome": "Betinho Pinto Coelho",
+    "partido": "PV",
+    "tagLocalizacao": 3900
+  },
+  {
+    "id": 28861,
+    "nome": "Bim da Ambulância",
+    "partido": "AVANTE",
+    "tagLocalizacao": 5954
+  },
+  {
+    "id": 18857,
+    "nome": "Bosco",
+    "partido": "CIDADANIA",
+    "tagLocalizacao": 989
+  },
+  {
+    "id": 26148,
+    "nome": "Bruno Engler",
+    "partido": "PL",
+    "tagLocalizacao": 3901
+  },
+  {
+    "id": 28862,
+    "nome": "Caporezzo",
+    "partido": "PL",
+    "tagLocalizacao": 5955
+  },
+  {
+    "id": 10002,
+    "nome": "Carlos Henrique",
+    "partido": "REPUBLICANOS",
+    "tagLocalizacao": 991
+  },
+  {
+    "id": 18848,
+    "nome": "Cassio Soares",
+    "partido": "PSD",
+    "tagLocalizacao": 992
+  },
+  {
+    "id": 18849,
+    "nome": "Celinho Sintrocel",
+    "partido": "PCdoB",
+    "tagLocalizacao": 981
+  },
+  {
+    "id": 26062,
+    "nome": "Charles Santos",
+    "partido": "REPUBLICANOS",
+    "tagLocalizacao": 3902
+  },
+  {
+    "id": 28863,
+    "nome": "Chiara Biondini",
+    "partido": "PP",
+    "tagLocalizacao": 5986
+  },
+  {
+    "id": 26149,
+    "nome": "Coronel Henrique",
+    "partido": "PL",
+    "tagLocalizacao": 3904
+  },
+  {
+    "id": 26163,
+    "nome": "Coronel Sandro",
+    "partido": "PL",
+    "tagLocalizacao": 3905
+  },
+  {
+    "id": 22523,
+    "nome": "Cristiano Silveira",
+    "partido": "PT",
+    "tagLocalizacao": 1672
+  },
+  {
+    "id": 26164,
+    "nome": "Delegada Sheila",
+    "partido": "PL",
+    "tagLocalizacao": 3906
+  },
+  {
+    "id": 28864,
+    "nome": "Delegado Christiano Xavier",
+    "partido": "PSD",
+    "tagLocalizacao": 5956
+  },
+  {
+    "id": 26151,
+    "nome": "Doorgal Andrada",
+    "partido": "PRD",
+    "tagLocalizacao": 3908
+  },
+  {
+    "id": 22531,
+    "nome": "Douglas Melo",
+    "partido": "PSD",
+    "tagLocalizacao": 1674
+  },
+  {
+    "id": 22581,
+    "nome": "Doutor Jean Freire",
+    "partido": "PT",
+    "tagLocalizacao": 1675
+  },
+  {
+    "id": 26152,
+    "nome": "Doutor Paulo",
+    "partido": "PRD",
+    "tagLocalizacao": 3909
+  },
+  {
+    "id": 18850,
+    "nome": "Doutor Wilson Batista",
+    "partido": "PSD",
+    "tagLocalizacao": 982
+  },
+  {
+    "id": 28865,
+    "nome": "Dr. Maurício",
+    "partido": "NOVO",
+    "tagLocalizacao": 5957
+  },
+  {
+    "id": 17919,
+    "nome": "Duarte Bechir",
+    "partido": "PSD",
+    "tagLocalizacao": 673
+  },
+  {
+    "id": 28866,
+    "nome": "Eduardo Azevedo",
+    "partido": "PL",
+    "tagLocalizacao": 5958
+  },
+  {
+    "id": 18852,
+    "nome": "Elismar Prado",
+    "partido": "PSD",
+    "tagLocalizacao": 994
+  },
+  {
+    "id": 28867,
+    "nome": "Enes Cândido",
+    "partido": "REPUBLICANOS",
+    "tagLocalizacao": 5959
+  },
+  {
+    "id": 22516,
+    "nome": "Fábio Avelar",
+    "partido": "AVANTE",
+    "tagLocalizacao": 1677
+  },
+  {
+    "id": 7762,
+    "nome": "Gil Pereira",
+    "partido": "PSD",
+    "tagLocalizacao": 680
+  },
+  {
+    "id": 28868,
+    "nome": "Grego da Fundação",
+    "partido": "PMN",
+    "tagLocalizacao": 5960
+  },
+  {
+    "id": 24621,
+    "nome": "Gustavo Santana",
+    "partido": "PL",
+    "tagLocalizacao": 1875
+  },
+  {
+    "id": 5905,
+    "nome": "Hely Tarqüínio",
+    "partido": "PV",
+    "tagLocalizacao": 685
+  },
+  {
+    "id": 8095,
+    "nome": "Ione Pinheiro",
+    "partido": "UNIÃO",
+    "tagLocalizacao": 1679
+  },
+  {
+    "id": 22728,
+    "nome": "João Junior",
+    "partido": "PMN",
+    "tagLocalizacao": 6494
+  },
+  {
+    "id": 22561,
+    "nome": "João Magalhães",
+    "partido": "MDB",
+    "tagLocalizacao": 1682
+  },
+  {
+    "id": 18858,
+    "nome": "João Vítor Xavier",
+    "partido": "CIDADANIA",
+    "tagLocalizacao": 1000
+  },
+  {
+    "id": 10434,
+    "nome": "Leandro Genaro",
+    "partido": "PSD",
+    "tagLocalizacao": 1683
+  },
+  {
+    "id": 12552,
+    "nome": "Leleco Pimentel",
+    "partido": "PT",
+    "tagLocalizacao": 5961
+  },
+  {
+    "id": 26153,
+    "nome": "Leninha",
+    "partido": "PT",
+    "tagLocalizacao": 3914
+  },
+  {
+    "id": 7769,
+    "nome": "Leonídio Bouças",
+    "partido": "PSDB",
+    "tagLocalizacao": 1457
+  },
+  {
+    "id": 28869,
+    "nome": "Lohanna",
+    "partido": "PV",
+    "tagLocalizacao": 5962
+  },
+  {
+    "id": 28870,
+    "nome": "Lucas Lasmar",
+    "partido": "REDE",
+    "tagLocalizacao": 5963
+  },
+  {
+    "id": 28871,
+    "nome": "Lud Falcão",
+    "partido": "PODE",
+    "tagLocalizacao": 5964
+  },
+  {
+    "id": 28872,
+    "nome": "Luizinho",
+    "partido": "PT",
+    "tagLocalizacao": 5965
+  },
+  {
+    "id": 28874,
+    "nome": "Maria Clara Marra",
+    "partido": "PSDB",
+    "tagLocalizacao": 5967
+  },
+  {
+    "id": 21125,
+    "nome": "Mário Henrique Caixa",
+    "partido": "PV",
+    "tagLocalizacao": 1458
+  },
+  {
+    "id": 28875,
+    "nome": "Marli Ribeiro",
+    "partido": "PL",
+    "tagLocalizacao": 5968
+  },
+  {
+    "id": 4458,
+    "nome": "Marquinho Lemos",
+    "partido": "PT",
+    "tagLocalizacao": 3915
+  },
+  {
+    "id": 26111,
+    "nome": "Mauro Tramonte",
+    "partido": "REPUBLICANOS",
+    "tagLocalizacao": 3916
+  },
+  {
+    "id": 18022,
+    "nome": "Nayara Rocha",
+    "partido": "PP",
+    "tagLocalizacao": 5969
+  },
+  {
+    "id": 18863,
+    "nome": "Neilando Pimenta",
+    "partido": "PSB",
+    "tagLocalizacao": 1005
+  },
+  {
+    "id": 22521,
+    "nome": "Noraldino Júnior",
+    "partido": "PSB",
+    "tagLocalizacao": 1687
+  },
+  {
+    "id": 28876,
+    "nome": "Oscar Teixeira",
+    "partido": "PP",
+    "tagLocalizacao": 5970
+  },
+  {
+    "id": 26119,
+    "nome": "Professor Cleiton",
+    "partido": "PV",
+    "tagLocalizacao": 3918
+  },
+  {
+    "id": 17872,
+    "nome": "Professor Wendel Mesquita",
+    "partido": "SOLIDARIEDADE",
+    "tagLocalizacao": 3920
+  },
+  {
+    "id": 26138,
+    "nome": "Rafael Martins",
+    "partido": "PSD",
+    "tagLocalizacao": 3921
+  },
+  {
+    "id": 26114,
+    "nome": "Raul Belém",
+    "partido": "CIDADANIA",
+    "tagLocalizacao": 3922
+  },
+  {
+    "id": 11307,
+    "nome": "Ricardo Campos",
+    "partido": "PT",
+    "tagLocalizacao": 5971
+  },
+  {
+    "id": 22607,
+    "nome": "Roberto Andrade",
+    "partido": "PRD",
+    "tagLocalizacao": 1690
+  },
+  {
+    "id": 28877,
+    "nome": "Rodrigo Lopes",
+    "partido": "UNIÃO",
+    "tagLocalizacao": 5972
+  },
+  {
+    "id": 9673,
+    "nome": "Sargento Rodrigues",
+    "partido": "PL",
+    "tagLocalizacao": 706
+  },
+  {
+    "id": 18860,
+    "nome": "Tadeu Leite",
+    "partido": "MDB",
+    "tagLocalizacao": 1010
+  },
+  {
+    "id": 22515,
+    "nome": "Thiago Cota",
+    "partido": "PDT",
+    "tagLocalizacao": 1691
+  },
+  {
+    "id": 22616,
+    "nome": "Tito Torres",
+    "partido": "PSD",
+    "tagLocalizacao": 1692
+  },
+  {
+    "id": 18867,
+    "nome": "Ulysses Gomes",
+    "partido": "PT",
+    "tagLocalizacao": 1011
+  },
+  {
+    "id": 28878,
+    "nome": "Vitório Júnior",
+    "partido": "PP",
+    "tagLocalizacao": 5973
+  },
+  {
+    "id": 26105,
+    "nome": "Zé Guilherme",
+    "partido": "PP",
+    "tagLocalizacao": 3924
+  },
+  {
+    "id": 28879,
+    "nome": "Zé Laviola",
+    "partido": "NOVO",
+    "tagLocalizacao": 5974
+  }
+]}

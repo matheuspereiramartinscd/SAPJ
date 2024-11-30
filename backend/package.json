@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-router-dom": "^7.0.1"
+    "react-router-dom": "^7.0.1",
+    "stripe": "^17.4.0"
   }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar</title>
+</head>
+
+<body>
+    <h1>Pagamento</h1>
+    <p>Finalize o pagamento abaixo:</p>
+
+    <form id="payment-form">
+        <div id="card-element"></div>
+        <button id="submit">Pagar</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('pk_test_...');  // Sua chave pública do Stripe
+        var clientSecret = "{{ client_secret }}"; // Recebendo o clientSecret do Django
+
+        var elements = stripe.elements();
+        var card = elements.create('card');
+        card.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card
+                }
+            }).then(function (result) {
+                if (result.error) {
+                    alert('Erro no pagamento: ' + result.error.message);
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        alert('Pagamento realizado com sucesso!');
+                        window.location.href = '/success/';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

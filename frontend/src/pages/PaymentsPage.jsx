@@ -5,13 +5,25 @@ import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFile
 import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 
+// Função para obter o token CSRF do cookie
+const getCSRFToken = () => {
+    const csrfToken = document.cookie
+        .split(';')
+        .find(cookie => cookie.trim().startsWith('csrftoken='))?.split('=')[1];
+    return csrfToken;
+};
+
 function PaymentsPage() {
     const navigate = useNavigate();
     const [pagamentos, setPagamentos] = useState([]);
 
+    // Carregar os pagamentos ao montar o componente
     useEffect(() => {
-        // Requisição para buscar os pagamentos da API
-        axios.get('http://localhost:8000/api/pagamentos/')
+        axios.get('http://localhost:8000/api/pagamentos/', {
+            headers: {
+                'X-CSRFToken': getCSRFToken(),  // Incluindo o token CSRF no cabeçalho
+            }
+        })
             .then(response => {
                 setPagamentos(response.data);  // Atualiza o estado com os dados recebidos
             })
@@ -25,16 +37,16 @@ function PaymentsPage() {
         navigate('/');
     };
 
-    const handlePay = (id) => {
-        alert(`Pagamento realizado para o item de ID: ${id}`);
-    };
-
     const handleDelete = (id) => {
         const confirmDelete = window.confirm('Tem certeza que deseja excluir este pagamento?');
         if (confirmDelete) {
-            axios.delete(`http://localhost:8000/api/pagamentos/${id}/`)
+            axios.delete(`http://localhost:8000/api/pagamentos/${id}/`, {
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),  // Incluindo o token CSRF no cabeçalho
+                }
+            })
                 .then(() => {
-                    setPagamentos(pagamentos.filter(pagamento => pagamento.id !== id)); // Atualiza a lista de pagamentos
+                    setPagamentos(pagamentos.filter(pagamento => pagamento.id !== id)); // Remove o pagamento da lista
                     alert('Pagamento excluído com sucesso!');
                 })
                 .catch(error => {
@@ -46,6 +58,26 @@ function PaymentsPage() {
 
     const handleCreatePayment = () => {
         navigate('/paymentregister'); // Redireciona para a página de criação de pagamento
+    };
+
+    const handlePay = (id) => {
+        // Atualiza o status do pagamento para 'Pago'
+        axios.patch(`http://localhost:8000/api/pagamentos/${id}/`, { status: 'Pago' }, {
+            headers: {
+                'X-CSRFToken': getCSRFToken(),  // Incluindo o token CSRF no cabeçalho
+            }
+        })
+            .then(() => {
+                // Atualiza o estado local com o pagamento atualizado
+                setPagamentos(pagamentos.map(pagamento =>
+                    pagamento.id === id ? { ...pagamento, status: 'Pago' } : pagamento
+                ));
+                alert('Pagamento realizado com sucesso!');
+            })
+            .catch((error) => {
+                console.error("Erro ao atualizar o status do pagamento:", error);
+                alert('Erro ao atualizar o status do pagamento');
+            });
     };
 
     return (
@@ -150,7 +182,7 @@ function PaymentsPage() {
                             {pagamentos.map((pagamento) => (
                                 <tr key={pagamento.id}>
                                     <td>{pagamento.id}</td>
-                                    <td>{pagamento.nome}</td> {/* Exibe o nome do pagamento diretamente */}
+                                    <td>{pagamento.nome}</td>
                                     <td>{new Date(pagamento.data).toLocaleDateString()}</td>
                                     <td>{pagamento.tipo}</td>
                                     <td>{pagamento.status}</td>

@@ -291,6 +291,8 @@ class DocumentDelete(APIView):
 from .models import Pagamento
 from .serializers import PagamentoSerializer
 from rest_framework import viewsets
+from django.conf import settings
+import stripe
 
 
 class PagamentoViewSet(viewsets.ModelViewSet):
@@ -305,3 +307,87 @@ class PagamentoViewSet(viewsets.ModelViewSet):
 
     def perform_destroy(self, instance):
         instance.delete()
+
+
+
+stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+
+def create_checkout_session(request):
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[
+            {
+                'price_data': {
+                    'currency': 'brl',
+                    'product_data': {
+                        'name': 'Produto Exemplo',
+                    },
+                    'unit_amount': 1000,  # Valor em centavos (R$10.00)
+                },
+                'quantity': 1,
+            },
+        ],
+        mode='payment',
+        success_url=request.build_absolute_uri('/success/'),
+        cancel_url=request.build_absolute_uri('/cancel/'),
+    )
+    return JsonResponse({
+        'id': checkout_session.id
+    })
+
+from django.shortcuts import render
+
+
+# Função para renderizar a página de sucesso
+def success(request):
+    return render(request, 'payments/success.html')  # Renderiza o template success.html
+
+def cancel(request):
+    return render(request, 'payments/cancel.html')  # Renderiza o template cancel.htm
+
+
+
+def payment_success(request):
+    return render(request, 'payments/success.html')
+
+def payment_cancel(request):
+    return render(request, 'payments/cancel.html')
+
+def stripe_webhook(request):
+    # Lógica para verificar o status do pagamento
+    if pagamento_confirmado:
+        return redirect('payment_success')
+    else:
+        return redirect('payment_cancel')
+
+
+import json
+
+
+from django.views.decorators.csrf import csrf_exempt
+
+ 
+stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+
+@csrf_exempt
+def create_payment_intent(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            amount = data.get('amount', 0)  # Valor do pagamento
+            
+            # Cria o PaymentIntent com a chave secreta de teste
+            intent = stripe.PaymentIntent.create(
+                amount=amount,
+                currency='brl',  # Moeda (Real Brasileiro)
+                payment_method_types=['card'],  # Método de pagamento (cartões)
+            )
+
+            return JsonResponse({
+                'clientSecret': intent.client_secret,
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+stripe.api_key = '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'  # Chave secreta do Stripe
+

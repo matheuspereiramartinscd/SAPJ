@@ -24,12 +24,44 @@ SECRET_KEY = 'django-insecure-qc30a#7yk8w+tkz)(1$+wv&0owx_8pmj5_u-$g9kd5*myxkv&r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# settings.py
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # ou o domínio do seu frontend
+]
+CSRF_COOKIE_SAMESITE = 'None'  # Habilite isso para permitir cookies de diferentes origens
+CSRF_COOKIE_SECURE = False  # Somente se você usar HTTPS em produção
+
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_COOKIE_HTTPONLY = False  # Isso permite que o JavaScript leia o cookie
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',  # Adicione o domínio correto
+]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR / 'payments/templates',  # Certifique-se de que o caminho está correto
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 ALLOWED_HOSTS = []
 # settings.py
 import os
 
 # settings.py
+STRIPE_TEST_PUBLIC_KEY = ''
+STRIPE_TEST_SECRET_KEY = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -57,7 +89,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

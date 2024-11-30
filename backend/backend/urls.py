@@ -16,6 +16,9 @@ from users.views import DocumentListCreate, DocumentDelete
 from users.views import PagamentoViewSet  # Importando o viewset de Pagamento
 from django.conf.urls.static import static
 from django.conf import settings
+from users.views import create_checkout_session
+from users.views import success, cancel
+from users.views import create_payment_intent
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,10 +40,13 @@ urlpatterns = [
     path('api/tasks/<int:id>/delete/', delete_task, name='delete_task'),
     path('api/documents/', DocumentListCreate.as_view(), name='list_create_documents'),
     path('api/documents/delete/<int:id>/', DocumentDelete.as_view(), name='delete_document'),
-
+ path('create-checkout-session/', create_checkout_session, name='create_checkout_session'),
     # Adicionando a rota para pagamentos
-    path('api/pagamentos/', PagamentoViewSet.as_view({'get': 'list', 'post': 'create'}), name='pagamento-list-create'),
-    path('api/pagamentos/<int:pk>/', PagamentoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='pagamento-detail'),
+     path('api/create-payment-intent/', create_payment_intent, name='create-payment-intent'),
+    path('success/', success, name='success'),
+    path('cancel/', cancel, name='cancel'),
+    path('api/pagamentos/', PagamentoViewSet.as_view({'get': 'list', 'post': 'create','patch': 'partial_update'}), name='pagamento-list-create'),
+    path('api/pagamentos/<int:pk>/', PagamentoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update','delete': 'destroy'}), name='pagamento-detail'),
 ]
 
 if settings.DEBUG:
