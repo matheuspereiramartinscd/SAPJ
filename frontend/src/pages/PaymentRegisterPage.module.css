@@ -1,0 +1,381 @@
+/* ProcessPage.module.css */
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/* Main Layout */
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    /* Garantir que o header ocupe 100% da largura */
+    box-sizing: border-box;
+    /* Garantir que o padding não afete a largura */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+}
+
+/* Botão para criar pagamento */
+.createPaymentButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.createPaymentButton:hover {
+    background-color: #45a049;
+}
+
+/* Botão de excluir pagamento */
+.deleteButton {
+    background-color: #cc332e;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.deleteButton:hover {
+    background-color: #d32f2f;
+}
+
+
+.logo {
+    height: 37px;
+    margin-left: -10px;
+    margin-right: -60px;
+}
+
+.logoText {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sapjText {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.lawSoftwareText {
+    font-size: 12px;
+    color: #ddd;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.editButton,
+.logoutButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton:hover,
+.logoutButton:hover {
+    background-color: #d35400;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userIcon,
+.contactIcon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    /* Ajustando para que ocupe toda a altura */
+    transition: width 0.3s;
+}
+
+.sidebarIcon {
+    display: flex;
+    align-items: center;
+    padding: 35px 20px;
+    color: white;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebarIcon:hover {
+    background-color: #444;
+}
+
+.sidebarIcon span {
+    display: none;
+    transition: display 0.3s;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .sidebarIcon span {
+    display: inline;
+}
+
+/* Main Content */
+/* ProcessPage.module.css */
+
+/* Main Layout */
+
+.pageHeader {
+    margin-bottom: 50px;
+}
+
+.mainLayout {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    /* Centralizando o conteúdo da página */
+}
+
+/* Main Content */
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+/* Container para os botões e filtros */
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Botões */
+.buttonContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.buttonContainer .addButton,
+.buttonContainer .reportButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonContainer .addButton:hover,
+.buttonContainer .reportButton:hover {
+    background-color: #d35400;
+}
+
+/* Caixas de Arquivamento */
+.filters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.table td {
+    color: #555;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .table {
+        font-size: 14px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px 10px;
+    }
+}
+
+.payButton {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.payButton:hover {
+    background-color: #27ae60;
+}
+
+
+/* Formulário de Registro */
+.personForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo para os campos de seleção (tipo e status) */
+.selectInput {
+    width: 100%;
+    /* Faz com que o campo ocupe toda a largura disponível */
+    padding: 10px;
+    /* Adiciona espaçamento interno */
+    font-size: 14px;
+    /* Define o tamanho da fonte */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    border: 1px solid #ccc;
+    /* Cor da borda */
+    background-color: #fff;
+    /* Cor de fundo branca */
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    /* Animação suave para borda e sombra */
+}
+
+/* Estilo quando o campo de seleção está em foco (ao clicar) */
+.selectInput:focus {
+    border-color: #4CAF50;
+    /* Cor da borda quando em foco */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    /* Sombra para destacar o campo */
+}
+
+/* Estilo das opções no campo de seleção */
+.selectInput option {
+    padding: 10px;
+    /* Espaçamento interno nas opções */
+}
+
+.personForm label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.personForm input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 95%;
+    margin-bottom: 15px;
+    /* Melhor espaçamento entre os campos */
+}
+
+/* Botões */
+.submitButton,
+.backButton {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submitButton:hover,
+.backButton:hover {
+    background-color: #d35400;
+}

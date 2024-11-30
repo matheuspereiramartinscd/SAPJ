@@ -29,6 +29,25 @@ function PaymentsPage() {
         alert(`Pagamento realizado para o item de ID: ${id}`);
     };
 
+    const handleDelete = (id) => {
+        const confirmDelete = window.confirm('Tem certeza que deseja excluir este pagamento?');
+        if (confirmDelete) {
+            axios.delete(`http://localhost:8000/api/pagamentos/${id}/`)
+                .then(() => {
+                    setPagamentos(pagamentos.filter(pagamento => pagamento.id !== id)); // Atualiza a lista de pagamentos
+                    alert('Pagamento excluído com sucesso!');
+                })
+                .catch(error => {
+                    console.error('Erro ao excluir pagamento:', error);
+                    alert('Erro ao excluir pagamento');
+                });
+        }
+    };
+
+    const handleCreatePayment = () => {
+        navigate('/paymentregister'); // Redireciona para a página de criação de pagamento
+    };
+
     return (
         <div className={styles.homeContainer}>
             {/* Header */}
@@ -104,6 +123,14 @@ function PaymentsPage() {
                         <h1>Pagamentos e Faturamento</h1>
                     </header>
 
+                    {/* Botão para criar pagamento */}
+                    <button
+                        onClick={handleCreatePayment}
+                        className={styles.createPaymentButton}
+                    >
+                        Criar Pagamento
+                    </button>
+
                     {/* Tabela de Pagamentos */}
                     <table className={styles.table}>
                         <thead>
@@ -135,6 +162,12 @@ function PaymentsPage() {
                                             className={styles.payButton}
                                         >
                                             Pagar
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(pagamento.id)}
+                                            className={styles.deleteButton}
+                                        >
+                                            Excluir
                                         </button>
                                     </td>
                                 </tr>

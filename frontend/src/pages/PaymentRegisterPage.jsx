@@ -6,50 +6,22 @@ import { FaHome, FaTasks, FaUser, FaChartLine } from 'react-icons/fa';
 import { FaSearch } from 'react-icons/fa';
 
 function PaymentRegisterPage() {
-    const [taskData, setTaskData] = useState({
-        titulo: '',
-        processo: '',
-        pessoas: [],
-        data_conclusao: '',
-        status: 'pendente',
-        descricao: '',
-        valor_total_processo: '', // Novo campo
-        valor_advogado: '', // Novo campo
+    const [paymentData, setPaymentData] = useState({
+        codigo: '',
+        nome: '',
+        data: '',
+        tipo: 'Credito', // Padrão para "Credito"
+        status: 'Pendente', // Padrão para "Pendente"
+        conta_bancaria: '',
+        valor: '',
     });
 
-    const [processList, setProcessList] = useState([]);
-    const [peopleList, setPeopleList] = useState([]);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchProcesses = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/processes/list/');
-                const data = await response.json();
-                setProcessList(data);
-            } catch (error) {
-                console.error('Erro ao carregar processos', error);
-            }
-        };
-
-        const fetchPeople = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/people/list/');
-                const data = await response.json();
-                setPeopleList(data);
-            } catch (error) {
-                console.error('Erro ao carregar pessoas', error);
-            }
-        };
-
-        fetchProcesses();
-        fetchPeople();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setTaskData({
-            ...taskData,
+        setPaymentData({
+            ...paymentData,
             [name]: value,
         });
     };
@@ -59,37 +31,25 @@ function PaymentRegisterPage() {
         navigate('/');
     };
 
-    const handlePeopleChange = (e) => {
-        const { options } = e.target;
-        const selectedPeople = Array.from(options)
-            .filter((option) => option.selected)
-            .map((option) => parseInt(option.value));
-
-        setTaskData((prevData) => ({
-            ...prevData,
-            pessoas: selectedPeople,
-        }));
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8000/api/tasks/', {
+            const response = await fetch('http://localhost:8000/api/pagamentos/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(taskData),
+                body: JSON.stringify(paymentData),
             });
 
             if (response.ok) {
-                alert('Tarefa cadastrada com sucesso!');
-                navigate('/tasks');
+                alert('Pagamento cadastrado com sucesso!');
+                navigate('/payments');
             } else {
                 const errorData = await response.json();
-                console.error('Erro ao cadastrar tarefa:', errorData);
-                throw new Error('Erro ao cadastrar a tarefa');
+                console.error('Erro ao cadastrar pagamento:', errorData);
+                throw new Error('Erro ao cadastrar o pagamento');
             }
         } catch (error) {
             alert(error.message);
@@ -97,8 +57,8 @@ function PaymentRegisterPage() {
     };
 
     return (
-
-        <div className={styles.pageContainer}>
+        <div className={styles.homeContainer}>
+            {/* Header */}
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -123,6 +83,7 @@ function PaymentRegisterPage() {
                 </div>
             </header>
 
+            {/* Main Layout */}
             <div className={styles.mainLayout}>
                 {/* Sidebar */}
                 <nav className={styles.sidebar}>
@@ -154,132 +115,123 @@ function PaymentRegisterPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
-                    {/* Novo ícone de Consultas na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
                         <FaSearch className={styles.icon} />
                         <span>Consultas</span>
                     </div>
-                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
 
-
-
+                {/* Formulário de Cadastro de Pagamento */}
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
-                        <h1>Cadastrar Tarefa</h1>
+                        <h1>Cadastrar Pagamento</h1>
                     </header>
                     <div className={styles.formContainer}>
-                        <form onSubmit={handleSubmit} className={styles.taskForm}>
-                            {/* Título */}
+                        <form onSubmit={handleSubmit} className={styles.personForm}>
+                            {/* Código */}
                             <label>
-                                Título:
+                                Código:
                                 <input
                                     type="text"
-                                    name="titulo"
-                                    value={taskData.titulo}
+                                    name="codigo"
+                                    value={paymentData.codigo}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
 
-                            {/* Processo */}
+                            {/* Nome */}
                             <label>
-                                Processo:
-                                <select
-                                    name="processo"
-                                    value={taskData.processo}
+                                Nome:
+                                <input
+                                    type="text"
+                                    name="nome"
+                                    value={paymentData.nome}
                                     onChange={handleChange}
                                     required
+                                />
+                            </label>
+
+                            {/* Data */}
+                            <label>
+                                Data:
+                                <input
+                                    type="date"
+                                    name="data"
+                                    value={paymentData.data}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </label>
+
+                            {/* Tipo */}
+                            <label>
+                                Tipo:
+                                <select
+                                    name="tipo"
+                                    value={paymentData.tipo}
+                                    onChange={handleChange}
+                                    required
+                                    className={styles.selectInput} // Adicionando classe personalizada
                                 >
-                                    <option value="">Selecione um processo</option>
-                                    {processList.map((process) => (
-                                        <option key={process.id} value={process.id}>
-                                            {process.codigo} - {process.numero} - {process.tipo}
-                                        </option>
-                                    ))}
+                                    <option value="Credito">Crédito</option>
+                                    <option value="Debito">Débito</option>
                                 </select>
                             </label>
 
-                            {/* Pessoas */}
-                            <label>Pessoas:</label>
-                            <select
-                                name="pessoas"
-                                value={taskData.pessoas}
-                                onChange={handlePeopleChange}
-                                multiple
-                                size={5}
-                            >
-                                {peopleList.map((person) => (
-                                    <option key={person.id} value={person.id}>
-                                        {person.nome}
-                                    </option>
-                                ))}
-                            </select>
-
-                            {/* Data de Conclusão */}
+                            {/* Status */}
                             <label>
-                                Data de Conclusão:
+                                Status:
+                                <select
+                                    name="status"
+                                    value={paymentData.status}
+                                    onChange={handleChange}
+                                    required
+                                    className={styles.selectInput} // Adicionando classe personalizada
+                                >
+                                    <option value="Pendente">Pendente</option>
+                                    <option value="Pago">Pago</option>
+                                </select>
+                            </label>
+
+                            {/* Conta Bancária */}
+                            <label>
+                                Conta Bancária:
                                 <input
-                                    type="date"
-                                    name="data_conclusao"
-                                    value={taskData.data_conclusao}
+                                    type="text"
+                                    name="conta_bancaria"
+                                    value={paymentData.conta_bancaria}
                                     onChange={handleChange}
                                     required
                                 />
                             </label>
 
-                            {/* Valor Total do Processo */}
+                            {/* Valor */}
                             <label>
-                                Valor Total do Processo:
-                                <input
-                                    type="number"
-                                    name="valor_total_processo"
-                                    value={taskData.valor_total_processo}
-                                    onChange={handleChange}
-                                    step="0.01"
-                                    placeholder="Ex: 1000.00"
-                                    required
-                                />
-                            </label>
-
-                            {/* Valor do Advogado */}
-                            <label>
-                                Valor do Advogado:
+                                Valor:
                                 <input
                                     type="number"
-                                    name="valor_advogado"
-                                    value={taskData.valor_advogado}
+                                    name="valor"
+                                    value={paymentData.valor}
                                     onChange={handleChange}
+                                    required
                                     step="0.01"
-                                    placeholder="Ex: 300.00"
-                                    required
-                                />
-                            </label>
-
-                            {/* Descrição */}
-                            <label>
-                                Descrição:
-                                <textarea
-                                    name="descricao"
-                                    value={taskData.descricao}
-                                    onChange={handleChange}
-                                    rows="4"
-                                    required
+                                    placeholder="Ex: 1500.00"
                                 />
                             </label>
 
                             {/* Botões */}
                             <button type="submit" className={styles.submitButton}>
-                                Cadastrar Tarefa
+                                Cadastrar Pagamento
                             </button>
                             <button
                                 type="button"
                                 className={styles.submitButton}
-                                onClick={() => navigate('/tasks')}
+                                onClick={() => navigate('/payments')}
                             >
                                 Voltar
                             </button>

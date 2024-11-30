@@ -297,3 +297,11 @@ class PagamentoViewSet(viewsets.ModelViewSet):
     queryset = Pagamento.objects.all()  # Obtém todos os pagamentos
     serializer_class = PagamentoSerializer  # Usa o serializer para formatar os dados
 
+    def destroy(self, request, *args, **kwargs):
+        # Este método será chamado quando o endpoint DELETE for chamado
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def perform_destroy(self, instance):
+        instance.delete()

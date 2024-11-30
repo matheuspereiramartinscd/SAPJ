@@ -37,6 +37,38 @@
     align-items: center;
 }
 
+/* Botão para criar pagamento */
+.createPaymentButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.createPaymentButton:hover {
+    background-color: #45a049;
+}
+
+/* Botão de excluir pagamento */
+.deleteButton {
+    background-color: #cc332e;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.deleteButton:hover {
+    background-color: #d32f2f;
+}
+
+
 .logo {
     height: 37px;
     margin-left: -10px;

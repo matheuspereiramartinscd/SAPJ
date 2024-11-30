@@ -40,6 +40,7 @@ urlpatterns = [
 
     # Adicionando a rota para pagamentos
     path('api/pagamentos/', PagamentoViewSet.as_view({'get': 'list', 'post': 'create'}), name='pagamento-list-create'),
+    path('api/pagamentos/<int:pk>/', PagamentoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='pagamento-detail'),
 ]
 
 if settings.DEBUG:
