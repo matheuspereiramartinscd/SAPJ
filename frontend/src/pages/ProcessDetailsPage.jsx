@@ -158,15 +158,13 @@ function ProcessDetailsPage() {
                                     <h2>Dados do Processo</h2>
                                     <p><strong>ID:</strong> {processo.id}</p>
                                     <p><strong>Cliente:</strong> {processo.cliente}</p>
-                                    <p><strong>Número Atual:</strong> {processo.numeroAtual}</p>
-                                    <p><strong>Número Original:</strong> {processo.numeroOriginal}</p>
-                                    <p><strong>Procedimento:</strong> {processo.procedimento}</p>
+                                    <p><strong>Número Atual:</strong> {processo.numero}</p>
+
                                     <p><strong>Tribunal:</strong> {processo.tribunal}</p>
                                     <p><strong>Foro:</strong> {processo.foro}</p>
                                     <p><strong>Comarca:</strong> {processo.comarca}</p>
                                     <p><strong>Vara:</strong> {processo.vara}</p>
-                                    <p><strong>Pastas Ativas:</strong> {processo.pastasAtivas}</p>
-                                    <p><strong>Pastas Arquivadas:</strong> {processo.pastasArquivadas}</p>
+
                                     <p><strong>Honorários:</strong> {processo.honorarios}</p>
                                     <p><strong>Porcentagem:</strong> {processo.porcentagem}</p>
                                     <p><strong>Valor da Causa:</strong> {processo.valorCausa}</p>

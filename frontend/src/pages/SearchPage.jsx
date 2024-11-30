@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 import styles from './SearchPage.module.css';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa'; import { useNavigate } from 'react-router-dom';
+import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import axios from 'axios';
 
 function SearchPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedOrgaos, setSelectedOrgaos] = useState([]);
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
-    const handleSearch = () => {
-        // Simulação de pesquisa
-        const sampleResults = [
-            {
-                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/TJMG.svg/1200px-TJMG.svg.png', // Exemplo de logo
-                RE: '001234',
-                orgaoJulgador: 'TJMG',
-                relator: 'Des. João Silva',
-                redator: 'Dr. Ana Pereira',
-                julgamento: '2024-11-20',
-                publicacao: '2024-11-25',
-                ementa: 'Exemplo de texto descritivo da ementa do caso.',
-            },
-            // Adicione outros resultados se necessário
-        ];
-        setResults(sampleResults);
-    };
+    const handleSearch = async () => {
+        try {
+            const API_KEY = 'cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw==';
 
+            const response = await axios.post(
+                'https://api-publica.datajud.cnj.jus.br/api_publica_tjmg/_search',
+                {
+                    query: {
+                        match: {
+                            numeroProcesso: searchQuery
+                        }
+                    }
+                },
+                {
+                    headers: {
+                        'Authorization': `APIKey ${API_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            setResults(response.data.hits.hits);
+            setError(null);  // Limpar o erro se a requisição for bem-sucedida
+        } catch (error) {
+            setError('Erro ao buscar jurisprudência. Tente novamente mais tarde.');
+            console.error('Erro ao buscar jurisprudência:', error);
+        }
+    };
     const toggleOrgao = (orgao) => {
         if (selectedOrgaos.includes(orgao)) {
             setSelectedOrgaos(selectedOrgaos.filter((o) => o !== orgao));
@@ -110,7 +123,6 @@ function SearchPage() {
                     </div>
                 </nav>
 
-
                 <main className={styles.mainContent}>
                     <header className={styles.pageHeader}>
                         <h1>Pesquisar Jurisprudências</h1>
@@ -119,7 +131,7 @@ function SearchPage() {
                     <div className={styles.searchSection}>
                         <input
                             type="text"
-                            placeholder="Digite o termo da pesquisa..."
+                            placeholder="Digite o número do processo..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className={styles.searchInput}
@@ -146,25 +158,29 @@ function SearchPage() {
                             />
                             STF
                         </label>
-                        {/* Adicione mais opções de órgãos aqui */}
                     </div>
 
                     <div className={styles.resultsSection}>
-                        {results.map((result, index) => (
-                            <div key={index} className={styles.resultCard}>
-                                <img src={result.logo} alt={result.orgaoJulgador} className={styles.resultLogo} />
-                                <div className={styles.resultDetails}>
-                                    <p><strong>RE:</strong> {result.RE}</p>
-                                    <p><strong>Órgão Julgador:</strong> {result.orgaoJulgador}</p>
-                                    <p><strong>Relator(a):</strong> {result.relator}</p>
-                                    <p><strong>Redator(a):</strong> {result.redator}</p>
-                                    <p><strong>Julgamento:</strong> {result.julgamento}</p>
-                                    <p><strong>Publicação:</strong> {result.publicacao}</p>
-                                    <p><strong>Ementa:</strong> {result.ementa}</p>
+                        {results.length > 0 ? (
+                            results.map((result, index) => (
+                                <div key={index} className={styles.resultCard}>
+                                    <div className={styles.resultDetails}>
+                                        <p><strong>RE:</strong> {result._source.numeroProcesso}</p>
+                                        <p><strong>Classe:</strong> {result._source.classe.nome}</p>
+                                        <p><strong>Tribunal:</strong> {result._source.tribunal}</p>
+                                        <p><strong>Data Ajuizamento:</strong> {new Date(result._source.dataAjuizamento).toLocaleDateString()}</p>
+                                        <p><strong>Última Atualização:</strong> {new Date(result._source.dataHoraUltimaAtualizacao).toLocaleDateString()}</p>
+                                        <p><strong>Movimentos:</strong> {result._source.movimentos.map((mov, idx) => (
+                                            <span key={idx}>{mov.nome} ({new Date(mov.dataHora).toLocaleDateString()})</span>
+                                        ))}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <p></p>
+                        )}
                     </div>
+
                 </main>
             </div>
         </div>

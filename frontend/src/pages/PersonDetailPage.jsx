@@ -4,17 +4,24 @@ import styles from './PersonDetailPage.module.css';
 import {
     FaEdit,
     FaArrowLeft,
-
+    FaHome,
+    FaRegFileAlt,
+    FaTasks,
+    FaChartLine,
+    FaUser,
+    FaHandshake,
+    FaFileInvoiceDollar,
+    FaPhoneAlt,
+    FaSearch,
+    FaFileAlt as FaFileAltIcon
 } from 'react-icons/fa';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-import { FaSearch } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function PersonDetailPage() {
     const navigate = useNavigate();
     const { id } = useParams(); // Obtém o ID da pessoa pela URL
     const [person, setPerson] = useState(null);
-    const [photo, setPhoto] = useState(null); // Armazena o arquivo de foto
+    const [photo, setPhoto] = useState(null); // Armazena a URL da foto
 
     // Carrega os detalhes da pessoa
     useEffect(() => {
@@ -28,38 +35,52 @@ function PersonDetailPage() {
     }, [id]);
 
     // Manipula o envio da foto
+
+
+    // Navegar de volta
+    const handleGoBack = () => {
+        navigate('/personpage'); // Volta para a lista de pessoas
+    };
+
     const handlePhotoUpload = async (e) => {
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('file', file);
 
         try {
-            // Faz upload da foto para o diretório público
-            await axios.post(`http://127.0.0.1:8000/api/upload-photo/`, formData, {
+            // Faz upload da foto para a URL com o ID da pessoa
+            const response = await axios.post(`http://127.0.0.1:8000/api/pessoas/${id}/upload-photo/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('Foto enviada com sucesso!');
-            setPhoto(URL.createObjectURL(file)); // Atualiza a visualização da foto
+
+            if (response.data.file_name) {
+                // Atualiza a foto com a URL retornada do backend (supondo que o backend retorne a URL ou nome do arquivo)
+                alert('Foto enviada com sucesso!');
+                setPhoto(`http://127.0.0.1:8000/media/${response.data.file_name}`); // Atualiza o estado com a URL da foto
+            } else {
+                alert('Erro ao enviar a foto.');
+            }
         } catch (error) {
             console.error('Erro ao enviar a foto:', error);
             alert('Erro ao enviar a foto.');
         }
     };
 
-    // Navegar de volta
-    const handleGoBack = () => {
-        navigate('/personpage'); // Volta para a lista de pessoas
-    };
+
+
+
+
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/');
+        navigate('/'); // Logout e navega para a página inicial
     };
+
     const handleEditProcess = () => {
-        // Navega para a página de edição do processo
-        navigate(`/pessoas/edit/${id}/`);
+        navigate(`/pessoas/edit/${id}/`); // Navega para a página de edição do processo
     };
+
     if (!person) {
         return <div>Carregando...</div>; // Exibe "Carregando..." enquanto os dados não estão disponíveis
     }
@@ -90,6 +111,7 @@ function PersonDetailPage() {
                     <FaPhoneAlt className={styles.contactIcon} />
                 </div>
             </header>
+
             <div className={styles.mainLayout}>
                 {/* Sidebar */}
                 <nav className={styles.sidebar}>
@@ -121,18 +143,15 @@ function PersonDetailPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
-                    {/* Novo ícone de Consultas na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
                         <FaSearch className={styles.icon} />
                         <span>Consultas</span>
                     </div>
-                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
-
 
                 {/* Main Content */}
                 <main className={styles.mainContent}>
@@ -158,13 +177,7 @@ function PersonDetailPage() {
                             {/* Upload de Foto */}
                             <div className={styles.photoUpload}>
                                 <h2>Foto</h2>
-                                <div className={styles.photoPreview}>
-                                    {photo ? (
-                                        <img src={photo} alt="Preview" className={styles.photo} />
-                                    ) : (
-                                        <p>Nenhuma foto enviada.</p>
-                                    )}
-                                </div>
+
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -172,6 +185,7 @@ function PersonDetailPage() {
                                     className={styles.photoInput}
                                 />
                             </div>
+
                         </div>
 
                         {/* Ações */}
@@ -179,12 +193,7 @@ function PersonDetailPage() {
                             <button onClick={handleGoBack} className={styles.backButton}>
                                 <FaArrowLeft /> Voltar
                             </button>
-
                             <button onClick={handleEditProcess} className={styles.editButton}><FaEdit /> Editar</button>
-
-
-
-
                         </div>
                     </div>
                 </main>

@@ -391,3 +391,90 @@ def create_payment_intent(request):
 
 stripe.api_key = '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'  # Chave secreta do Stripe
 
+def search_view(request):
+    if request.method == "POST":
+        # Obter o número do processo a partir da requisição POST
+        search_query = request.POST.get("numeroProcesso")
+
+        # Definir a URL e cabeçalhos para a requisição à API Pública do Datajud
+        api_url = 'https://api-publica.datajud.cnj.jus.br/api_publica_tjmg/_search'
+        api_key = 'cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw=='  # Chave Pública
+        headers = {
+            'Authorization': f'APIKey {api_key}',
+            'Content-Type': 'application/json'
+        }
+
+        # Corpo da requisição para a API
+        data = {
+            "query": {
+                "match": {
+                    "numeroProcesso": search_query
+                }
+            }
+        }
+
+        # Realizar a requisição para a API Pública
+        response = requests.post(api_url, json=data, headers=headers)
+
+        if response.status_code == 200:
+            result_data = response.json()
+            # Extrair os hits (metadados) da resposta da API
+            results = result_data.get("hits", {}).get("hits", [])
+            return JsonResponse({"results": results})
+
+        else:
+            # Caso a requisição falhe, retornar um erro
+            return JsonResponse({"error": "Erro ao buscar jurisprudência"}, status=500)
+
+    # Para o método GET, apenas renderizar a página de pesquisa
+    return render(request, 'search_page.html')  # A página HTML que contém a pesquisa
+
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+@api_view(['POST'])
+def upload_photo(request):
+    # Verifique se o arquivo foi enviado
+    if 'foto' not in request.FILES:
+        return Response({'error': 'No photo uploaded'}, status=400)
+
+    foto = request.FILES['foto']
+
+    # Aqui você pode identificar a pessoa e atualizar a foto
+    pessoa_id = request.data.get('person_id')  # Supondo que você passe o ID da pessoa
+    try:
+        pessoa = Pessoa.objects.get(id=pessoa_id)
+    except Pessoa.DoesNotExist:
+        return Response({'error': 'Pessoa não encontrada'}, status=404)
+
+    # Atualize o campo de foto
+    pessoa.foto = foto
+    pessoa.save()
+
+    return Response({'message': 'Foto atualizada com sucesso', 'file_name': foto.name})
+
+
+
+class UploadPhotoView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            person_id = kwargs.get('id')  # A chave 'id' deve vir da URL
+            person = Pessoa.objects.get(id=person_id)  # Aqui alteramos Person para Pessoa
+            photo = request.data.get('file')  # Corrigido para "file", pois no seu frontend o campo se chama 'file'
+
+            if not photo:
+                return Response({"detail": "No file uploaded."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Salve a foto
+            person.foto = photo  # Aqui estamos assumindo que o campo é 'foto' no modelo Pessoa
+            person.save()
+
+            return Response({"file_name": photo.name, "photo_url": person.foto.url}, status=status.HTTP_200_OK)
+
+        except Pessoa.DoesNotExist:  # Certifique-se de que está tratando a exceção corretamente
+            return Response({"detail": "Person not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

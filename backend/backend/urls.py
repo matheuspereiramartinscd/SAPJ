@@ -19,6 +19,8 @@ from django.conf import settings
 from users.views import create_checkout_session
 from users.views import success, cancel
 from users.views import create_payment_intent
+from users.views import search_view
+from users.views import UploadPhotoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,9 +44,13 @@ urlpatterns = [
     path('api/documents/delete/<int:id>/', DocumentDelete.as_view(), name='delete_document'),
  path('create-checkout-session/', create_checkout_session, name='create_checkout_session'),
     # Adicionando a rota para pagamentos
+    path('api/upload-photo/', UploadPhotoView.as_view(), name='upload_photo'),
      path('api/create-payment-intent/', create_payment_intent, name='create-payment-intent'),
     path('success/', success, name='success'),
     path('cancel/', cancel, name='cancel'),
+path('api/pessoas/<int:id>/upload-photo/', UploadPhotoView.as_view(), name='upload_photo'),
+
+
     path('api/pagamentos/', PagamentoViewSet.as_view({'get': 'list', 'post': 'create','patch': 'partial_update'}), name='pagamento-list-create'),
     path('api/pagamentos/<int:pk>/', PagamentoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update','delete': 'destroy'}), name='pagamento-detail'),
 ]

@@ -103,6 +103,7 @@ class Pessoa(models.Model):
         max_length=20,
         choices=[('Fisica', 'Física'), ('Juridica', 'Jurídica')]  # Aqui agora aceita 'Física' e 'Jurídica' com acento
     )
+    foto = models.ImageField(upload_to='pessoas_fotos/', blank=True, null=True, default='pessoas_fotos/default.jpg')
 
     def __str__(self):
         return self.nome
@@ -138,19 +139,16 @@ class Document(models.Model):
     def __str__(self):
         return self.name
 
-import uuid
-
 class Pagamento(models.Model):
-    nome = models.CharField(max_length=255)
-    data = models.DateField()
-    tipo = models.CharField(max_length=255)
-    status = models.CharField(max_length=255)
-    conta_bancaria = models.CharField(max_length=255)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-    codigo = models.CharField(max_length=255, unique=True, blank=True)  # O código agora será gerado automaticamente
+    # Informações do pagamento
+    codigo = models.CharField(max_length=20, unique=True)  # Código único do pagamento
+    nome = models.CharField(max_length=255, default="Desconhecido")  # Valor padrão
 
-    def save(self, *args, **kwargs):
-        # Se o código não for fornecido, geramos automaticamente um código único
-        if not self.codigo:
-            self.codigo = f'{self.id:04}'  # Usa o ID gerado pelo banco de dados como código
-        super().save(*args, **kwargs)
+    data = models.DateField()  # Data do pagamento
+    tipo = models.CharField(max_length=50, choices=[('Credito', 'Crédito'), ('Debito', 'Débito')])  # Tipo de pagamento
+    status = models.CharField(max_length=50, choices=[('Pendente', 'Pendente'), ('Concluido', 'Concluído'), ('Cancelado', 'Cancelado')])  # Status do pagamento
+    conta_bancaria = models.CharField(max_length=50, blank=True, null=True)  # Conta bancária associada
+    valor = models.DecimalField(max_digits=10, decimal_places=2)  # Valor do pagamento
+
+    def __str__(self):
+        return f"Pagamento {self.codigo} - {self.nome}"

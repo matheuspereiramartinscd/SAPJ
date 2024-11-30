@@ -63,8 +63,10 @@ import os
 STRIPE_TEST_PUBLIC_KEY = ''
 STRIPE_TEST_SECRET_KEY = ''
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'  # URL que será usada no frontend para acessar arquivos de mídia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # O diretório onde os arquivos de mídia serão salvos
+
+# Não se esqueça de adicionar o caminho estático se não estiver configurado
 MEDIA_ROOT = BASE_DIR / 'media'
 
 

@@ -7,7 +7,6 @@ import ProcessPage from './pages/ProcessPage';    // Importando HomePage como pa
 import UserRegistrationForm from './pages/UserRegistrationForm';
 import ProcessDetailsPage from './pages/ProcessDetailsPage';    // Importando HomePage como padrão
 import PersonPage from './pages/PersonPage';
-
 import SearchPage from './pages/SearchPage';
 import TaskManagementPage from './pages/TaskManagementPage';
 import PaymentsPage from './pages/PaymentsPage';
