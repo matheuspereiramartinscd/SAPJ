@@ -310,7 +310,6 @@ class PagamentoViewSet(viewsets.ModelViewSet):
 
 
 
-stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
 
 def create_checkout_session(request):
     checkout_session = stripe.checkout.Session.create(
