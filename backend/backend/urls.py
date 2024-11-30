@@ -46,6 +46,7 @@ urlpatterns = [
     path('api/documents/delete/<int:id>/', DocumentDelete.as_view(), name='delete_document'),
  path('create-checkout-session/', create_checkout_session, name='create_checkout_session'),
     # Adicionando a rota para pagamentos
+
     path('api/upload-photo/', UploadPhotoView.as_view(), name='upload_photo'),
      path('api/create-payment-intent/', create_payment_intent, name='create-payment-intent'),
     path('success/', success, name='success'),

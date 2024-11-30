@@ -24,6 +24,8 @@ function DashboardPage() {
         totalRevenue: 0, // Inicializado com 0, o valor será obtido da API
         processesByLawyer: [40, 30, 20, 30],
         revenueByLawyer: [150000, 120000, 80000, 50000],
+        winLoseRatioByLawyer: [70, 80, 60, 50], // Exemplo de dados para a razão de vitórias/derrotas
+        revenueWinLossByLawyer: [100000, 90000, 60000, 40000], // Exemplo de faturamento ganho/perdido
     });
     const [tasks, setTasks] = useState([]); // Estado para armazenar as tarefas
 
@@ -196,13 +198,12 @@ function DashboardPage() {
                         ))}
                     </div>
 
-                    {/* Gráficos */}
                     <div className={styles.charts}>
                         <div className={styles.chart}>
                             <h3>Processos por Advogado</h3>
                             <Bar
                                 data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
+                                    labels: advogados.map(advogado => advogado.nome), // Usando os nomes dos advogados
                                     datasets: [{
                                         label: 'Número de Processos',
                                         data: processData.processesByLawyer,
@@ -215,7 +216,7 @@ function DashboardPage() {
                             <h3>Faturamento por Advogado</h3>
                             <Bar
                                 data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
+                                    labels: advogados.map(advogado => advogado.nome), // Usando os nomes dos advogados
                                     datasets: [{
                                         label: 'Faturamento (R$)',
                                         data: processData.revenueByLawyer,
@@ -228,16 +229,19 @@ function DashboardPage() {
                             <h3>Causas Ganhadas vs Perdidas</h3>
                             <Bar
                                 data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
-                                    datasets: [{
-                                        label: 'Causas Ganhadas (%)',
-                                        data: processData.winLoseRatioByLawyer,
-                                        backgroundColor: '#27ae60',
-                                    }, {
-                                        label: 'Causas Perdidas (%)',
-                                        data: processData.revenueByLawyer,
-                                        backgroundColor: '#c0392b',
-                                    }],
+                                    labels: advogados.map(advogado => advogado.nome),
+                                    datasets: [
+                                        {
+                                            label: 'Causas Ganhadas (%)',
+                                            data: processData.winLoseRatioByLawyer,
+                                            backgroundColor: '#27ae60',
+                                        },
+                                        {
+                                            label: 'Causas Perdidas (%)',
+                                            data: processData.revenueByLawyer, // Troquei para revenueByLawyer para corresponder aos dados
+                                            backgroundColor: '#c0392b',
+                                        }
+                                    ],
                                 }}
                             />
                         </div>
@@ -246,16 +250,19 @@ function DashboardPage() {
                             <h3>Faturamento Ganho vs Perdido</h3>
                             <Bar
                                 data={{
-                                    labels: ['Advogado 1', 'Advogado 2', 'Advogado 3', 'Advogado 4'],
-                                    datasets: [{
-                                        label: 'Faturamento Ganhado (R$)',
-                                        data: processData.revenueWinLossByLawyer,
-                                        backgroundColor: '#27ae60',
-                                    }, {
-                                        label: 'Faturamento Perdido (R$)',
-                                        data: processData.winLoseRatioByLawyer,
-                                        backgroundColor: '#c0392b',
-                                    }],
+                                    labels: advogados.map(advogado => advogado.nome),
+                                    datasets: [
+                                        {
+                                            label: 'Faturamento Ganhado (R$)',
+                                            data: processData.revenueWinLossByLawyer,
+                                            backgroundColor: '#27ae60',
+                                        },
+                                        {
+                                            label: 'Faturamento Perdido (R$)',
+                                            data: processData.revenueByLawyer, // Usei revenueByLawyer como exemplo
+                                            backgroundColor: '#c0392b',
+                                        }
+                                    ],
                                 }}
                             />
                         </div>
