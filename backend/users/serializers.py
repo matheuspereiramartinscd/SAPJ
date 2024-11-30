@@ -79,3 +79,17 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = ['id', 'file', 'description', 'created_at']
 
     file = serializers.FileField()  # Verifique se o campo FileField está sendo utilizado
+from .models import Pagamento 
+
+class PagamentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pagamento
+        fields = ['id', 'codigo', 'nome', 'data', 'tipo', 'status', 'conta_bancaria', 'valor']
+
+    def validate_codigo(self, value):
+        """
+        Verifica se o código do pagamento já existe.
+        """
+        if Pagamento.objects.filter(codigo=value).exists():
+            raise serializers.ValidationError("Este código já existe. Por favor, forneça um código único.")
+        return value

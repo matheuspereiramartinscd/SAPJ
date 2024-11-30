@@ -287,3 +287,13 @@ class DocumentDelete(APIView):
             return JsonResponse({'message': 'Documento excluído com sucesso'}, status=204)  # Retorna sucesso
         except Document.DoesNotExist:
             return JsonResponse({'error': 'Documento não encontrado'}, status=404)  # Retorna erro se não encontrado
+
+from .models import Pagamento
+from .serializers import PagamentoSerializer
+from rest_framework import viewsets
+
+
+class PagamentoViewSet(viewsets.ModelViewSet):
+    queryset = Pagamento.objects.all()  # Obtém todos os pagamentos
+    serializer_class = PagamentoSerializer  # Usa o serializer para formatar os dados
+

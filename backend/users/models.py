@@ -137,3 +137,20 @@ class Document(models.Model):
 
     def __str__(self):
         return self.name
+
+import uuid
+
+class Pagamento(models.Model):
+    nome = models.CharField(max_length=255)
+    data = models.DateField()
+    tipo = models.CharField(max_length=255)
+    status = models.CharField(max_length=255)
+    conta_bancaria = models.CharField(max_length=255)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    codigo = models.CharField(max_length=255, unique=True, blank=True)  # O código agora será gerado automaticamente
+
+    def save(self, *args, **kwargs):
+        # Se o código não for fornecido, geramos automaticamente um código único
+        if not self.codigo:
+            self.codigo = f'{self.id:04}'  # Usa o ID gerado pelo banco de dados como código
+        super().save(*args, **kwargs)

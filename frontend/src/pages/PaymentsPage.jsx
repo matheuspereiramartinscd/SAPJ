@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './PaymentsPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
 import { FaSearch } from 'react-icons/fa';
+import axios from 'axios';
 
 function PaymentsPage() {
     const navigate = useNavigate();
+    const [pagamentos, setPagamentos] = useState([]);
+
+    useEffect(() => {
+        // Requisição para buscar os pagamentos da API
+        axios.get('http://localhost:8000/api/pagamentos/')
+            .then(response => {
+                setPagamentos(response.data);  // Atualiza o estado com os dados recebidos
+            })
+            .catch(error => {
+                console.error("Erro ao carregar os pagamentos:", error);
+            });
+    }, []);  // O array vazio faz com que a requisição seja feita apenas uma vez ao montar o componente.
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -75,19 +88,15 @@ function PaymentsPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
-                    {/* Novo ícone de Consultas na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
                         <FaSearch className={styles.icon} />
                         <span>Consultas</span>
                     </div>
-                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
                     </div>
                 </nav>
-
-
 
                 {/* Main Content */}
                 <main className={styles.mainContent}>
@@ -110,41 +119,26 @@ function PaymentsPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Exemplo de linha de dados */}
-                            <tr>
-                                <td>001</td>
-                                <td>João Silva</td>
-                                <td>25/11/2024</td>
-                                <td>Serviço</td>
-                                <td>Pendente</td>
-                                <td>12345-6</td>
-                                <td>R$ 500,00</td>
-                                <td>
-                                    <button
-                                        onClick={() => handlePay(1)}
-                                        className={styles.payButton}
-                                    >
-                                        Pagar
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>Maria Oliveira</td>
-                                <td>20/11/2024</td>
-                                <td>Produto</td>
-                                <td>Pendente</td>
-                                <td>54321-0</td>
-                                <td>R$ 1.200,00</td>
-                                <td>
-                                    <button
-                                        onClick={() => handlePay(2)}
-                                        className={styles.payButton}
-                                    >
-                                        Pagar
-                                    </button>
-                                </td>
-                            </tr>
+                            {/* Renderiza as linhas com base nos dados da API */}
+                            {pagamentos.map((pagamento) => (
+                                <tr key={pagamento.id}>
+                                    <td>{pagamento.id}</td>
+                                    <td>{pagamento.nome}</td> {/* Exibe o nome do pagamento diretamente */}
+                                    <td>{new Date(pagamento.data).toLocaleDateString()}</td>
+                                    <td>{pagamento.tipo}</td>
+                                    <td>{pagamento.status}</td>
+                                    <td>{pagamento.conta_bancaria}</td>
+                                    <td>R$ {pagamento.valor}</td>
+                                    <td>
+                                        <button
+                                            onClick={() => handlePay(pagamento.id)}
+                                            className={styles.payButton}
+                                        >
+                                            Pagar
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </main>
