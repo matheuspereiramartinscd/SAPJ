@@ -61,16 +61,17 @@ function PaymentsPage() {
     };
 
     const handlePay = (id) => {
-        // Atualiza o status do pagamento para 'Pago'
-        axios.patch(`http://localhost:8000/api/pagamentos/${id}/`, { status: 'Pago' }, {
+        console.log('Enviando requisição para atualizar status...');
+        axios.patch(`http://localhost:8000/api/pagamentos/${id}/`, { status: 'Concluido' }, {
             headers: {
-                'X-CSRFToken': getCSRFToken(),  // Incluindo o token CSRF no cabeçalho
+                'X-CSRFToken': getCSRFToken(),
             }
         })
-            .then(() => {
+            .then((response) => {
+                console.log('Resposta do servidor:', response);
                 // Atualiza o estado local com o pagamento atualizado
                 setPagamentos(pagamentos.map(pagamento =>
-                    pagamento.id === id ? { ...pagamento, status: 'Pago' } : pagamento
+                    pagamento.id === id ? { ...pagamento, status: 'Concluido' } : pagamento
                 ));
                 alert('Pagamento realizado com sucesso!');
             })
@@ -79,6 +80,7 @@ function PaymentsPage() {
                 alert('Erro ao atualizar o status do pagamento');
             });
     };
+
 
     return (
         <div className={styles.homeContainer}>
