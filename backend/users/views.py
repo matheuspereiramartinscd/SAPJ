@@ -483,3 +483,17 @@ def contar_processos(request):
     """
     total_processos = Processo.objects.count()  # Conta todos os processos na tabela Processo
     return JsonResponse({'total_processos': total_processos})
+
+from django.db.models import Sum
+
+def get_total_faturamento():
+    total_faturamento = Task.objects.filter(status='concluida').aggregate(Sum('valor_total_processo'))
+    return total_faturamento['valor_total_processo__sum'] or 0  # Se não houver valor, retorna 0
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class TotalFaturamentoView(APIView):
+    def get(self, request):
+        total_faturamento = Task.objects.filter(status='concluida').aggregate(Sum('valor_total_processo'))
+        return Response({'total_faturamento': total_faturamento['valor_total_processo__sum'] or 0})

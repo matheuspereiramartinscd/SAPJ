@@ -22,6 +22,7 @@ from users.views import create_payment_intent
 from users.views import search_view
 from users.views import UploadPhotoView
 from users.views import contar_processos
+from users.views import TotalFaturamentoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,7 +52,7 @@ urlpatterns = [
     path('cancel/', cancel, name='cancel'),
 path('api/pessoas/<int:id>/upload-photo/', UploadPhotoView.as_view(), name='upload_photo'),
 path('api/processes/count/', contar_processos, name='count_processes'),  # Novo endpoint
-
+ path('api/total-faturamento/', TotalFaturamentoView.as_view(), name='total-faturamento'),
     path('api/pagamentos/', PagamentoViewSet.as_view({'get': 'list', 'post': 'create','patch': 'partial_update'}), name='pagamento-list-create'),
     path('api/pagamentos/<int:pk>/', PagamentoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update','delete': 'destroy'}), name='pagamento-detail'),
 ]

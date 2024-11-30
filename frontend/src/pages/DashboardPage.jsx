@@ -21,12 +21,13 @@ function DashboardPage() {
     const [advogados, setAdvogados] = useState([]); // Estado para armazenar dados dos advogados
     const [processData, setProcessData] = useState({
         totalProcesses: 0, // Inicializado com 0, pois o valor será obtido da API
-        totalRevenue: 500000,
+        totalRevenue: 0, // Inicializado com 0, o valor será obtido da API
         processesByLawyer: [40, 30, 20, 30],
         revenueByLawyer: [150000, 120000, 80000, 50000],
     });
+    const [tasks, setTasks] = useState([]); // Estado para armazenar as tarefas
 
-    // Buscar dados dos advogados e o total de processos ao carregar a página
+    // Buscar dados dos advogados, processos, faturamento total e tarefas ao carregar a página
     useEffect(() => {
         const fetchAdvogados = async () => {
             try {
@@ -49,10 +50,49 @@ function DashboardPage() {
             }
         };
 
+        const fetchTotalRevenue = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/total-faturamento/');
+                setProcessData((prevData) => ({
+                    ...prevData,
+                    totalRevenue: response.data.total_faturamento, // Atualiza o faturamento total
+                }));
+            } catch (error) {
+                console.error('Erro ao buscar total de faturamento:', error);
+            }
+        };
+
+        const fetchTasks = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/tasks/'); // Supondo que a API de tarefas esteja em /api/tasks/
+                setTasks(response.data); // Atualiza as tarefas com os dados da API
+            } catch (error) {
+                console.error('Erro ao buscar tarefas:', error);
+            }
+        };
+
         // Chama as funções de fetch
         fetchAdvogados();
         fetchProcessData();
+        fetchTotalRevenue(); // Chama a função para buscar o faturamento total
+        fetchTasks();
     }, []);
+
+    // Função para calcular o faturamento total das tarefas concluídas
+    const calculateCompletedTasksRevenue = () => {
+        // Verifica se as tarefas estão definidas e se são um array
+        if (!Array.isArray(tasks)) return 0;
+
+        return tasks
+            .filter((task) => task.status === 'concluida') // Filtra as tarefas concluídas
+            .reduce((total, task) => {
+                const valor = parseFloat(task.valor); // Converte o valor para número
+                return isNaN(valor) ? total : total + valor; // Se o valor não for um número válido, ignora
+            }, 0); // Começa a soma do faturamento com 0
+    };
+
+    // Exibindo o faturamento total na renderização
+    const totalRevenue = processData.totalRevenue + calculateCompletedTasksRevenue();
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -115,12 +155,10 @@ function DashboardPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
-                    {/* Novo ícone de Consultas na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
                         <FaSearch className={styles.icon} />
                         <span>Consultas</span>
                     </div>
-                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
@@ -141,7 +179,7 @@ function DashboardPage() {
                         </div>
                         <div className={styles.card}>
                             <h2>Faturamento Total</h2>
-                            <p>R$ {processData.totalRevenue}</p>
+                            <p>R$ {totalRevenue.toFixed(2)}</p> {/* Exibe o faturamento total com as tarefas concluídas */}
                         </div>
                     </div>
 
