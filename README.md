@@ -40,78 +40,82 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
 
 ## Como Rodar o Projeto
 
-### Backend
 
-### Backend (Django)
+## Instalação
 
-1. **Clone o repositório do backend**:
-   ```bash
-   git clone https://github.com/seuusuario/projeto.git
-   cd projeto
-Instale o Python (se não tiver instalado):
+  ### Backend (Django)
 
-Para instalar o Python, siga as instruções para o seu sistema operacional no site oficial do Python.
-Crie e ative um ambiente virtual:
+  1. **Clone o repositório do backend**:
+     ```bash
+     git clone https://github.com/seuusuario/projeto.git
+     cd projeto
+     ```
 
-bash
-Copiar código
-python -m venv venv
-source venv/bin/activate  # No Windows, use: venv\Scripts\activate
-Instale as dependências:
+  2. **Instale o Python** (se não tiver instalado):
+     Para instalar o Python, siga as instruções para o seu sistema operacional no [site oficial do Python](https://www.python.org/downloads/).
 
-bash
-Copiar código
-pip install -r requirements.txt
-Instale o PostgreSQL (se não tiver instalado):
+  3. **Crie e ative um ambiente virtual**:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate  # No Windows, use: venv\Scripts\activate
+     ```
 
-Para instalar o PostgreSQL, siga as instruções para o seu sistema operacional no site oficial do PostgreSQL.
-Crie o banco de dados:
+  4. **Instale as dependências**:
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-Abra o terminal do PostgreSQL e execute:
-sql
-Copiar código
-CREATE DATABASE sistema_juridico;
-Configure o banco de dados no Django:
+  5. **Instale o PostgreSQL** (se não tiver instalado):
+     Para instalar o PostgreSQL, siga as instruções para o seu sistema operacional no [site oficial do PostgreSQL](https://www.postgresql.org/download/).
 
-Abra o arquivo settings.py do seu projeto Django e configure a conexão com o banco de dados PostgreSQL:
-python
-Copiar código
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sistema_juridico',
-        'USER': 'seu_usuario',  # Substitua com seu nome de usuário do PostgreSQL
-        'PASSWORD': 'sua_senha',  # Substitua com sua senha do PostgreSQL
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-Execute as migrações do banco de dados:
+  6. **Crie o banco de dados**:
+     Abra o terminal do PostgreSQL e execute:
+     ```sql
+     CREATE DATABASE sistema_juridico;
+     ```
 
-bash
-Copiar código
-python manage.py migrate
-Execute o servidor:
+  7. **Configure o banco de dados no Django**:
+     Abra o arquivo `settings.py` do seu projeto Django e configure a conexão com o banco de dados PostgreSQL:
+     ```python
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'sistema_juridico',
+             'USER': 'seu_usuario',  # Substitua com seu nome de usuário do PostgreSQL
+             'PASSWORD': 'sua_senha',  # Substitua com sua senha do PostgreSQL
+             'HOST': 'localhost',
+             'PORT': '5432',
+         }
+     }
+     ```
 
-bash
-Copiar código
-python manage.py runserver
-Agora o servidor Django está rodando localmente.
+  8. **Execute as migrações do banco de dados**:
+     ```bash
+     python manage.py migrate
+     ```
 
-Frontend (React.js)
-Clone o repositório do frontend:
+  9. **Execute o servidor**:
+     ```bash
+     python manage.py runserver
+     ```
 
-bash
-Copiar código
-git clone https://github.com/seuusuario/projeto-frontend.git
-cd projeto-frontend
-Instale as dependências:
+  Agora o servidor Django está rodando localmente.
 
-bash
-Copiar código
-npm install
-Execute o servidor:
+  ### Frontend (React.js)
 
-bash
-Copiar código
+  1. **Clone o repositório do frontend**:
+     ```bash
+     git clone https://github.com/seuusuario/projeto-frontend.git
+     cd projeto-frontend
+     ```
+
+  2. **Instale as dependências**:
+     ```bash
+     npm install
+     ```
+
+  3. **Execute o servidor**:
+     ```bash
+     npm start
+     ```
 npm start
