@@ -67,18 +67,18 @@ function SearchPage() {
                         <div className={styles.lawSoftwareText}>Law Software</div>
                     </div>
                 </div>
+
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
-                    <button onClick={handleLogout} className={styles.logoutButton}>
-                        Sair
-                    </button>
+
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
 
             <div className={styles.mainLayout}>
                 {/* Sidebar */}

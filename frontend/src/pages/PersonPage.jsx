@@ -115,7 +115,6 @@ function PersonPage() {
 
     return (
         <div className={styles.homeContainer}>
-            {/* Header */}
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -130,13 +129,13 @@ function PersonPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
 

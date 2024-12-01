@@ -1,19 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './HomePage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon, FaSearch } from 'react-icons/fa';
+import {
+    FaHome,
+    FaRegFileAlt,
+    FaTasks,
+    FaChartLine,
+    FaUser,
+    FaHandshake,
+    FaFileInvoiceDollar,
+    FaPhoneAlt,
+    FaFileAlt as FaFileAltIcon,
+    FaSearch,
+} from 'react-icons/fa';
 
 function HomePage() {
     const navigate = useNavigate();
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        // Recupera o nome do usuário do localStorage
+        const storedName = localStorage.getItem('userName');
+        if (storedName) {
+            setUserName(storedName);
+        }
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userName'); // Remove o nome do usuário no logout
         navigate('/');
     };
 
     return (
         <div className={styles.homeContainer}>
-            {/* Header */}
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -28,15 +48,16 @@ function HomePage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
 
             {/* Main Layout */}
             <div className={styles.mainLayout}>

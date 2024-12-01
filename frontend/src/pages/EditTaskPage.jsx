@@ -127,10 +127,14 @@ function EditTaskPage() {
     };
 
     return (
-        <div className={styles.pageContainer}>
+        <div className={styles.homeContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
-                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf8cfc4bab45b308fd4e0ac7bc915d27628c057eafc8bc12295629c46bb755ba?apiKey=6dd5f1c07ca94a1fb6a78e1e56b45e51&" alt="Company Logo" className={styles.logo} />
+                    <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf8cfc4bab45b308fd4e0ac7bc915d27628c057eafc8bc12295629c46bb755ba?apiKey=6dd5f1c07ca94a1fb6a78e1e56b45e51&"
+                        alt="Company Logo"
+                        className={styles.logo}
+                    />
                     <div className={styles.logoText}>
                         <div className={styles.sapjText}>SAPJ</div>
                         <div className={styles.lawSoftwareText}>Law Software</div>
@@ -138,15 +142,16 @@ function EditTaskPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
 
             <div className={styles.mainLayout}>
                 {/* Sidebar */}

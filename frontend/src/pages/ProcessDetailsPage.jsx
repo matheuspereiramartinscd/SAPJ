@@ -72,8 +72,7 @@ function ProcessDetailsPage() {
     }
 
     return (
-        <div className={styles.processDetailsContainer}>
-            {/* Header e Sidebar - Copiados de ProcessPage */}
+        <div className={styles.homeContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -88,15 +87,16 @@ function ProcessDetailsPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
 
             <div className={styles.mainLayout}>
 
@@ -184,10 +184,7 @@ function ProcessDetailsPage() {
 
                             <div className={styles.notesSection}>
                                 <div className={styles.attachmentsSection}>
-                                    <h2>Anexos</h2>
-                                    <button onClick={handleAttachFiles} className={styles.uploadButton}>
-                                        <FaFileUpload /> Anexar Arquivos
-                                    </button>
+
                                     <div style={{
                                         border: '1px solid #ccc',
                                         padding: '20px',
@@ -195,7 +192,8 @@ function ProcessDetailsPage() {
                                         backgroundColor: '#f9f9f9',
                                         boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
                                         marginTop: '20px',
-                                        width: '100%',  // Garantir que ocupa a largura disponível
+                                        marginLeft: '70px',
+                                        width: '80%',  // Garantir que ocupa a largura disponível
                                         boxSizing: 'border-box', // Inclui o padding dentro da largura
                                         overflow: 'hidden', // Evita transbordamento
                                         wordBreak: 'break-word', // Força quebra de linha em palavras longas
@@ -210,7 +208,7 @@ function ProcessDetailsPage() {
                                             wordWrap: 'break-word', // Quebra as palavras longas
                                             wordBreak: 'break-word', // Outra forma de quebra de palavras
                                             overflowWrap: 'break-word', // Garante que as palavras longas que não cabem sejam quebradas
-                                            width: '100%',  // Garante que ocupa 100% da largura disponível
+                                            width: '80%',  // Garante que ocupa 100% da largura disponível
                                             boxSizing: 'border-box'  // Inclui o padding na largura
                                         }}>
                                             {annotations ? annotations : 'Nenhuma anotação disponível.'}

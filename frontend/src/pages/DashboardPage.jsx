@@ -103,7 +103,6 @@ function DashboardPage() {
 
     return (
         <div className={styles.homeContainer}>
-            {/* Header */}
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -118,13 +117,16 @@ function DashboardPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <span>Usuário</span>
+
+
                     </div>
+
                 </div>
             </header>
+
 
             <div className={styles.dash}>
                 {/* Sidebar */}

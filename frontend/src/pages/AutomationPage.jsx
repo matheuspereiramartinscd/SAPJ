@@ -137,13 +137,13 @@ function AutomationPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
 
@@ -201,7 +201,7 @@ function AutomationPage() {
                                     <option value="">Selecione um processo</option>
                                     {processes.map((process) => (
                                         <option key={process.id} value={process.id}>
-                                            {process.numeroAtual} - {process.cliente}
+                                            {process.numero} - {process.cliente}
                                         </option>
                                     ))}
                                 </select>

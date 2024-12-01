@@ -31,7 +31,7 @@ export const UserRegistrationForm = () => {
         <main className={styles.container}>
             <div className={styles.pageTitleContainer}>
                 <h1 className={styles.pageTitle}>
-                    Sistema de Automação de Processos Jurídicos com IA
+                    Sistema de Automação de Processos Jurídicos
                 </h1>
             </div>
 

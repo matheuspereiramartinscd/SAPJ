@@ -52,8 +52,7 @@ function TaskDetailPage() {
     }
 
     return (
-        <div className={styles.pageContainer}>
-            {/* Header */}
+        <div className={styles.homeContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -68,16 +67,16 @@ function TaskDetailPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button onClick={handleLogout} className={styles.logoutButton}>
-                        Sair
-                    </button>
+
+                    <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
 
             {/* Sidebar */}
             <nav className={styles.sidebar}>

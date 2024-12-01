@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';  // useParams to get the person's ID
+import { useNavigate, useParams } from 'react-router-dom';
 import { FaHome, FaRegFileAlt, FaTasks, FaChartLine, FaUser, FaHandshake, FaFileInvoiceDollar, FaPhoneAlt, FaFileAlt as FaFileAltIcon } from 'react-icons/fa';
-import styles from './EditPersonPage.module.css';  // Create a separate CSS file for the person edit page
+import styles from './EditPersonPage.module.css';
 import { FaSearch } from 'react-icons/fa';
 
 function EditPersonPage() {
@@ -14,57 +14,69 @@ function EditPersonPage() {
         email: '',
         cidade: '',
         estado: '',
-        tipo: 'Fisica', // Default type
+        tipo: 'Fisica',
+        foto: null,  // Campo para a foto
     });
 
-    const { id } = useParams();  // Get the ID from the URL
+    const { id } = useParams();
     const navigate = useNavigate();
 
     // Fetch person data when the component mounts
     useEffect(() => {
         const fetchPersonData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/pessoas/${id}/`);  // API to fetch the person's data by ID
+                const response = await fetch(`http://127.0.0.1:8000/api/pessoas/${id}/`);
                 const data = await response.json();
-                setPersonData(data);  // Set the fetched data into state
+                setPersonData(data);
             } catch (error) {
                 console.error('Error fetching person data:', error);
             }
         };
 
         if (id) {
-            fetchPersonData();  // Fetch person data if ID is present
+            fetchPersonData();
         }
     }, [id]);
 
     // Handle form field changes
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setPersonData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        const { name, value, type, files } = e.target;
+        if (type === 'file') {
+            setPersonData((prevData) => ({
+                ...prevData,
+                [name]: files[0], // Atualiza o estado com o arquivo selecionado
+            }));
+        } else {
+            setPersonData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
     };
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
+
     // Handle form submission (editing the person)
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const formData = new FormData();
+        for (const key in personData) {
+            formData.append(key, personData[key]);
+        }
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/pessoas/edit/${id}/`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(personData),
+                body: formData,  // Envia os dados como FormData
             });
 
             if (response.ok) {
                 alert('Pessoa atualizada com sucesso!');
-                navigate('/personpage');  // Redirect to the person page after successful update
+                navigate('/personpage');
             } else {
                 const errorData = await response.json();
                 alert('Erro: ' + JSON.stringify(errorData));
@@ -76,7 +88,7 @@ function EditPersonPage() {
     };
 
     return (
-        <div className={styles.pageContainer}>
+        <div className={styles.homeContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -91,16 +103,18 @@ function EditPersonPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
 
+
+            {/* Main Layout */}
             <div className={styles.mainLayout}>
                 {/* Sidebar */}
                 <nav className={styles.sidebar}>
@@ -132,12 +146,10 @@ function EditPersonPage() {
                         <FaFileInvoiceDollar className={styles.icon} />
                         <span>Pagamentos</span>
                     </div>
-                    {/* Novo ícone de Consultas na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/search')}>
                         <FaSearch className={styles.icon} />
                         <span>Consultas</span>
                     </div>
-                    {/* Novo ícone de Documentos na sidebar */}
                     <div className={styles.sidebarIcon} onClick={() => navigate('/documents')}>
                         <FaFileAltIcon className={styles.icon} />
                         <span>Documentos</span>
@@ -242,6 +254,15 @@ function EditPersonPage() {
                                     <option value="Fisica">Fisica</option>
                                     <option value="Juridica">Juridica</option>
                                 </select>
+                            </label>
+
+                            <label>
+                                Foto:
+                                <input
+                                    type="file"
+                                    name="foto"
+                                    onChange={handleChange}
+                                />
                             </label>
 
                             <button type="submit" className={styles.submitButton}>

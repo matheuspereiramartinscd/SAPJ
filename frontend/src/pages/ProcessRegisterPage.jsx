@@ -74,7 +74,7 @@ function ProcessRegisterPage() {
     };
 
     return (
-        <div className={styles.pageContainer}>
+        <div className={styles.homeContainer}>
             <header className={styles.header}>
                 <div className={styles.logoContainer}>
                     <img
@@ -89,15 +89,16 @@ function ProcessRegisterPage() {
                 </div>
 
                 <div className={styles.headerRight}>
-                    <button className={styles.editButton}>Editar</button>
+
                     <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
                     <div className={styles.userInfo}>
-                        <FaUser className={styles.userIcon} />
-                        <span>Usuário</span>
+
+
                     </div>
-                    <FaPhoneAlt className={styles.contactIcon} />
+
                 </div>
             </header>
+
             {/* Main Layout */}
             <div className={styles.mainLayout}>
                 {/* Sidebar */}

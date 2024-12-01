@@ -7,28 +7,41 @@ function LoginPage() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // Estado para indicar carregamento
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
+        setLoading(true); // Indica início do carregamento
         try {
-            // Envia o 'login' e 'password' como esperado pelo backend
             const response = await axios.post('http://localhost:8000/api/login/', {
                 login,
                 password,
             });
 
-            // Sucesso: redireciona para a página inicial
+            // Ajuste conforme a resposta do backend
+            const { token, user } = response.data; // Supondo que 'user' contém os detalhes do usuário
+            const userName = user?.name || 'Usuário'; // Verifica se 'name' existe, senão usa um fallback
+
+            // Salva o token e o nome do usuário no localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('userName', userName);
+
+            // Redireciona para a página inicial
             navigate('/home');
         } catch (err) {
-            // Erro: exibe mensagem apropriada
+            // Define mensagem de erro apropriada
             if (err.response && err.response.status === 400) {
                 setError('Credenciais inválidas. Verifique o login e a senha.');
             } else {
                 setError('Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.');
             }
+        } finally {
+            setLoading(false); // Indica fim do carregamento
         }
     };
+
 
     const handleSignUpRedirect = () => {
         navigate('/registration');
@@ -39,7 +52,7 @@ function LoginPage() {
             {/* Faixa preta com o título da página */}
             <div className={styles.pageTitleContainer}>
                 <h1 className={styles.pageTitle}>
-                    Sistema de Automação de Processos Jurídicos com IA
+                    Sistema de Automação de Processos Jurídicos
                 </h1>
             </div>
 
@@ -73,7 +86,7 @@ function LoginPage() {
 
                 <form onSubmit={handleLogin}>
                     <div className={styles.inputField}>
-                        <label htmlFor="login" className={styles['visually-hidden']}>Login</label>
+                        <label htmlFor="login">Login</label>
                         <input
                             type="text"
                             id="login"
@@ -81,29 +94,39 @@ function LoginPage() {
                             onChange={(e) => setLogin(e.target.value)}
                             placeholder="Email ou nome de usuário"
                             aria-label="Login"
+                            aria-describedby="loginHelp"
                         />
+                        <small id="loginHelp" className={styles.helperText}>
+                            Insira seu e-mail ou nome de usuário.
+                        </small>
                     </div>
 
                     <div className={styles.inputField}>
-                        <label htmlFor="password" className={styles['visually-hidden']}>Password</label>
+                        <label htmlFor="password">Senha</label>
                         <input
                             type="password"
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="***********"
-                            aria-label="Password"
+                            aria-label="Senha"
+                            aria-describedby="passwordHelp"
                         />
+                        <small id="passwordHelp" className={styles.helperText}>
+                            Insira sua senha.
+                        </small>
                     </div>
 
                     {error && <p className={styles.errorText}>{error}</p>}
+
+                    {loading && <p className={styles.loadingText}>Carregando...</p>} {/* Indicador de carregamento */}
 
                     <a href="#" className={styles.forgotPassword}>
                         Esqueceu sua senha?
                     </a>
 
-                    <button type="submit" className={styles.loginButton}>
-                        Entrar
+                    <button type="submit" className={styles.loginButton} disabled={loading}>
+                        {loading ? 'Entrando...' : 'Entrar'}
                     </button>
                 </form>
 

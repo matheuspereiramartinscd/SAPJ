@@ -48,9 +48,7 @@
     padding: 10px 20px;
     margin: 0;
     width: 100%;
-    /* Garantir que o header ocupe 100% da largura */
     box-sizing: border-box;
-    /* Garantir que o padding não afete a largura */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -66,6 +64,57 @@
     margin-left: -10px;
     margin-right: -60px;
 }
+
+/* Estilo para o container de seleção */
+.selectionContainer {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Estilo para o rótulo da caixa de seleção */
+.selectionContainer label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Estilo para a caixa de seleção */
+.selectionContainer select {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+/* Estilo para quando a caixa de seleção é focada */
+.selectionContainer select:focus {
+    border-color: #0056b3;
+    /* Cor de borda ao focar */
+    outline: none;
+    /* Remove o contorno padrão */
+}
+
+/* Estilo para a opção da caixa de seleção */
+.selectionContainer select option {
+    padding: 10px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Estilo quando o select estiver desabilitado */
+.selectionContainer select:disabled {
+    background-color: #e9ecef;
+    color: #999;
+    cursor: not-allowed;
+}
+
 
 .logoText {
     margin-left: 10px;
@@ -89,14 +138,6 @@
     align-items: center;
     gap: 15px;
 }
-
-
-/* Botões */
-.buttonContainer {
-    display: flex;
-    gap: 20px;
-}
-
 
 .editButton,
 .logoutButton {
@@ -162,8 +203,6 @@
 .sidebar:hover .sidebarIcon span {
     display: inline;
 }
-
-/* Main Content */
 
 
 /* Cards Container */
