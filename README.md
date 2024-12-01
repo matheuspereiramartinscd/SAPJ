@@ -119,10 +119,11 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
      ```bash
      npm start
      ```
+![login](https://github.com/user-attachments/assets/768b4828-65ec-43a0-9d4c-9040c9290f89)
+![cadastro](https://github.com/user-attachments/assets/3a888870-a0b3-4a89-8036-42e58c7880d9)
+![home](https://github.com/user-attachments/assets/b53228a8-be12-4344-8673-817d43f36f46)
 ![pessoas](https://github.com/user-attachments/assets/fd505436-5447-4a91-bb34-15fee072daa4)
 ![pagamentos](https://github.com/user-attachments/assets/446a39e9-e13f-47c9-a4c1-e153fc1558d5)
-![login](https://github.com/user-attachments/assets/768b4828-65ec-43a0-9d4c-9040c9290f89)
-![home](https://github.com/user-attachments/assets/b53228a8-be12-4344-8673-817d43f36f46)
 ![editar tarefa](https://github.com/user-attachments/assets/2b8b7c27-d68e-45d1-b999-a6dfc2d432b2)
 ![documentos](https://github.com/user-attachments/assets/f268909a-0cab-4bc1-9ed1-2cd38076cdea)
 ![detalhesprocesso](https://github.com/user-attachments/assets/d9bae4a9-fdb1-46ce-a4af-5c8ea842e0dd)
@@ -130,7 +131,6 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
 ![detalhes pessoa](https://github.com/user-attachments/assets/cedfd7f7-7067-46f7-a804-c213fa9b7545)
 ![dashboard](https://github.com/user-attachments/assets/3b82b0f6-daf2-422d-abd6-79e7100a649b)
 ![consultas](https://github.com/user-attachments/assets/c70b7265-cc15-43bd-b2d3-995d47a0b295)
-![cadastro](https://github.com/user-attachments/assets/3a888870-a0b3-4a89-8036-42e58c7880d9)
 ![automaçao](https://github.com/user-attachments/assets/b5fb3277-eba0-42f2-b852-65c10a6b2cf0)
 ![tarefas](https://github.com/user-attachments/assets/3fdd8b09-fbcf-4750-a958-6685dad88c0e)
 ![processos](https://github.com/user-attachments/assets/757b8ee2-4b88-48d1-8b2e-9567e0faa8b3)
