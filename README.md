@@ -91,10 +91,11 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
 
   8. **Execute as migrações do banco de dados**:
      ```bash
+     python manage.py makemigrations
      python manage.py migrate
      ```
 
-  9. **Execute o servidor**:
+  9. **Execute o servidor na pasta backend**:
      ```bash
      python manage.py runserver
      ```
@@ -114,7 +115,7 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
      npm install
      ```
 
-  3. **Execute o servidor**:
+  3. **Execute o servidor na pasta frontend**:
      ```bash
      npm start
      ```
