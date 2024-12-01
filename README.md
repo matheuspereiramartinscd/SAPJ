@@ -132,6 +132,6 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
 ![dashboard](https://github.com/user-attachments/assets/3b82b0f6-daf2-422d-abd6-79e7100a649b)
 ![consultas](https://github.com/user-attachments/assets/c70b7265-cc15-43bd-b2d3-995d47a0b295)
 ![automaçao](https://github.com/user-attachments/assets/b5fb3277-eba0-42f2-b852-65c10a6b2cf0)
-![tarefas](https://github.com/user-attachments/assets/3fdd8b09-fbcf-4750-a958-6685dad88c0e)
 ![processos](https://github.com/user-attachments/assets/757b8ee2-4b88-48d1-8b2e-9567e0faa8b3)
+![tarefas](https://github.com/user-attachments/assets/3fdd8b09-fbcf-4750-a958-6685dad88c0e)
 
