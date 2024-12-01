@@ -52,7 +52,7 @@ function LoginPage() {
             {/* Faixa preta com o título da página */}
             <div className={styles.pageTitleContainer}>
                 <h1 className={styles.pageTitle}>
-                    Sistema de Automação de Processos Jurídicos
+                    Sistema de Automação de Processos Jurídicos - &copy; Criado por Matheus Pereira Martins - 2024
                 </h1>
             </div>
 
