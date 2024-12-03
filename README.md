@@ -1,6 +1,6 @@
 # Sistema de Automação de Processos Jurídicos
 
-Este projeto visa otimizar a gestão de processos jurídicos em escritórios de advocacia para automação de tarefas repetitivas, como a criação de documentos e análise de jurisprudência. O sistema permite que advogados e assistentes acompanhem casos, monitorem prazos processuais e integrem com sistemas de pagamento, garantindo maior eficiência e agilidade no ambiente jurídico..
+Este projeto visa otimizar a gestão de processos jurídicos em escritórios de advocacia para automação de tarefas repetitivas, como a criação de documentos e análise de jurisprudência. O sistema permite que advogados e assistentes acompanhem casos, monitorem prazos processuais e integrem com sistemas de pagamento, garantindo maior eficiência e agilidade no ambiente jurídico.
 
 ## Funcionalidades
 
