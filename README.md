@@ -8,7 +8,7 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
 - **Automação de Documentos**: Geração automática de documentos jurídicos (contratos, petições) com base nas informações dos casos.
 - **Gestão de Tarefas e Prazos**: Notificação e acompanhamento de prazos processuais com alertas automáticos para vencimento de prazos.
 - **Armazenamento de Documentos**: Armazenamento seguro e pesquisa eficiente de documentos jurídicos.
-- **Dashboard de Métricas e Relatórios**: Exibição de estatísticas e relatórios sobre a performance dos casos e da equipe jurídica.
+- **Dashboard de Métricas e Relatórios**: Exibição de estatísticas e relatórios sobre a performance dsos casos e da equipe jurídica.
 
 ## Tecnologias Utilizadas
 
