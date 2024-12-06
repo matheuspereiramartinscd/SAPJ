@@ -120,9 +120,9 @@ Este projeto visa otimizar a gestão de processos jurídicos em escritórios de 
      npm start
      ```
 ![login](https://github.com/user-attachments/assets/768b4828-65ec-43a0-9d4c-9040c9290f89)
-![Screensshot_1](https://github.com/user-attachments/assets/1b9c5fd3-6a7d-4508-b18d-69693fdbfb18)
 ![cadastro](https://github.com/user-attachments/assets/3a888870-a0b3-4a89-8036-42e58c7880d9)
 ![home](https://github.com/user-attachments/assets/b53228a8-be12-4344-8673-817d43f36f46)
+![Screensshot_1](https://github.com/user-attachments/assets/1b9c5fd3-6a7d-4508-b18d-69693fdbfb18)
 ![pessoas](https://github.com/user-attachments/assets/fd505436-5447-4a91-bb34-15fee072daa4)
 ![pagamentos](https://github.com/user-attachments/assets/446a39e9-e13f-47c9-a4c1-e153fc1558d5)
 ![editar tarefa](https://github.com/user-attachments/assets/2b8b7c27-d68e-45d1-b999-a6dfc2d432b2)
